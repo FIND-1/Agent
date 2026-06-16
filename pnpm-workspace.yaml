@@ -1,0 +1,7 @@
+packages:
+  - '01_tool-test'
+  - '02_react-todo'
+  - '06_rag-test'
+  - '09_milvus-test'
+  - '11_memory-test'
+  - '34_mem0-test'

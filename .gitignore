@@ -16,3 +16,18 @@ yarn-error.log*
 Thumbs.db
 **/.idea/
 **/.vscode/
+
+# Large binary files
+*.epub
+
+# 忽略所有子项目的包管理文件（根目录除外）
+**/package.json
+**/pnpm-lock.yaml
+**/package-lock.json
+**/yarn.lock
+
+# 保留根目录的包管理文件
+!/package.json
+!/pnpm-lock.yaml
+!/package-lock.json
+!/yarn.lock
