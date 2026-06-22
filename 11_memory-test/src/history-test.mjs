@@ -1,9 +1,14 @@
+/**
+ * 短期内存示例：使用 InMemoryChatMessageHistory 实现对话上下文管理（内存级 memory）
+ */
+
 import 'dotenv/config';
 import { ChatOpenAI } from '@langchain/openai';
 import { InMemoryChatMessageHistory } from "@langchain/core/chat_history";
 import { HumanMessage, SystemMessage } from "@langchain/core/messages";
 
-const model = new ChatOpenAI({
+const model = // 初始化大模型（ChatOpenAI）
+new ChatOpenAI({
     modelName: process.env.MODEL_NAME,
     apiKey: process.env.OPENAI_API_KEY,
     temperature: 0,
@@ -13,7 +18,7 @@ const model = new ChatOpenAI({
 });
 
 async function inMemoryDemo() {
-    const history = new InMemoryChatMessageHistory();
+    const history = new InMemoryChatMessageHistory() // 初始化短期对话记忆（内存）;
 
     const systemMessage = new SystemMessage(
         "你是一个友好、幽默的做菜助手，喜欢分享美食和烹饪技巧。"
@@ -24,10 +29,13 @@ async function inMemoryDemo() {
     const userMessage1 = new HumanMessage(
         "你今天吃的什么？"
     );
+    // 将消息写入 memory
     await history.addMessage(userMessage1);
 
-    const messages1 = [systemMessage, ...(await history.getMessages())];
+    const messages1 = [systemMessage, ...(// 读取全部历史 messages
+    await history.getMessages())];
     const response1 = await model.invoke(messages1);
+    // 将消息写入 memory
     await history.addMessage(response1);
 
     console.log(`用户: ${userMessage1.content}`);
@@ -38,10 +46,13 @@ async function inMemoryDemo() {
     const userMessage2 = new HumanMessage(
         "好吃吗？"
     );
+    // 将消息写入 memory
     await history.addMessage(userMessage2);
 
-    const messages2 = [systemMessage, ...(await history.getMessages())];
+    const messages2 = [systemMessage, ...(// 读取全部历史 messages
+    await history.getMessages())];
     const response2 = await model.invoke(messages2);
+    // 将消息写入 memory
     await history.addMessage(response2);
 
     console.log(`用户: ${userMessage2.content}`);
@@ -49,7 +60,8 @@ async function inMemoryDemo() {
 
     // 展示所有历史消息
     console.log("[历史消息记录]");
-    const allMessages = await history.getMessages();
+    const allMessages = // 读取全部历史 messages
+    await history.getMessages();
     console.log(`共保存了 ${allMessages.length} 条消息：`);
     allMessages.forEach((msg, index) => {
         const type = msg.type;

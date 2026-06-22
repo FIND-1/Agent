@@ -3,8 +3,11 @@
 		"@langchain/community": "^1.1.29",
 		"@langchain/core": "^1.1.48",
 		"@langchain/openai": "^1.4.7",
+		"chalk": "^5.6.2",
 		"dotenv": "^17.4.2",
 		"langchain": "^1.4.4",
-		"openai": "^6.42.0"
+		"mysql2": "^3.19.1",
+		"openai": "^6.42.0",
+		"zod": "^4.4.3"
 	}
 }
