@@ -324,6 +324,21 @@ importers:
         specifier: ^4.4.3
         version: 4.4.3
 
+  lessons/15_runnable-test:
+    dependencies:
+      '@langchain/core':
+        specifier: ^1.2.0
+        version: 1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0)
+      '@langchain/openai':
+        specifier: ^1.5.1
+        version: 1.5.1(@langchain/core@1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(ws@8.21.0)
+      '@lessons/shared':
+        specifier: workspace:*
+        version: link:../_shared
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+
   lessons/34_mem0-test:
     dependencies:
       '@langchain/core':
@@ -5478,7 +5493,7 @@ snapshots:
       '@ibm-cloud/watsonx-ai': 1.7.14
       '@langchain/classic': 1.0.34(@langchain/core@1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@5.2.5)(zod@4.4.3))(ws@5.2.5))(@opentelemetry/api@1.9.1)(cheerio@1.2.0)(openai@6.42.0(ws@5.2.5)(zod@4.4.3))(ws@5.2.5)
       '@langchain/core': 1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@5.2.5)(zod@4.4.3))(ws@5.2.5)
-      '@langchain/openai': 1.4.7(@langchain/core@1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@5.2.5)(zod@4.4.3))(ws@5.2.5))(ws@5.2.5)
+      '@langchain/openai': 1.5.1(@langchain/core@1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@5.2.5)(zod@4.4.3))(ws@5.2.5))(ws@5.2.5)
       binary-extensions: 2.3.0
       flat: 5.0.2
       ibm-cloud-sdk-core: 5.4.20
@@ -5523,7 +5538,7 @@ snapshots:
       '@ibm-cloud/watsonx-ai': 1.7.14
       '@langchain/classic': 1.0.34(@langchain/core@1.1.48(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@opentelemetry/api@1.9.1)(cheerio@1.2.0)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0)
       '@langchain/core': 1.1.48(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0)
-      '@langchain/openai': 1.4.7(@langchain/core@1.1.48(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(ws@8.21.0)
+      '@langchain/openai': 1.5.1(@langchain/core@1.1.48(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(ws@8.21.0)
       binary-extensions: 2.3.0
       flat: 5.0.2
       ibm-cloud-sdk-core: 5.4.20
@@ -5568,7 +5583,7 @@ snapshots:
       '@ibm-cloud/watsonx-ai': 1.7.14
       '@langchain/classic': 1.0.34(@langchain/core@1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@opentelemetry/api@1.9.1)(cheerio@1.2.0)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0)
       '@langchain/core': 1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0)
-      '@langchain/openai': 1.4.7(@langchain/core@1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(ws@8.21.0)
+      '@langchain/openai': 1.5.1(@langchain/core@1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(ws@8.21.0)
       binary-extensions: 2.3.0
       flat: 5.0.2
       ibm-cloud-sdk-core: 5.4.20
@@ -5757,6 +5772,15 @@ snapshots:
   '@langchain/openai@1.4.7(@langchain/core@1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(ws@8.21.0)':
     dependencies:
       '@langchain/core': 1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0)
+      js-tiktoken: 1.0.21
+      openai: 6.42.0(ws@8.21.0)(zod@4.4.3)
+      zod: 4.4.3
+    transitivePeerDependencies:
+      - ws
+
+  '@langchain/openai@1.5.1(@langchain/core@1.1.48(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(ws@8.21.0)':
+    dependencies:
+      '@langchain/core': 1.1.48(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0)
       js-tiktoken: 1.0.21
       openai: 6.42.0(ws@8.21.0)(zod@4.4.3)
       zod: 4.4.3
