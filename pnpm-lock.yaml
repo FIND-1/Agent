@@ -169,6 +169,30 @@ importers:
         specifier: ^1.4.4
         version: 1.4.4(@langchain/core@1.1.48(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(ws@8.21.0)(zod-to-json-schema@3.25.2(zod@4.4.3))
 
+  14_prompt-template-test:
+    dependencies:
+      '@langchain/community':
+        specifier: ^1.1.29
+        version: 1.1.29(@aws-crypto/sha256-js@5.2.0)(@aws-sdk/client-s3@3.1069.0)(@aws-sdk/credential-provider-node@3.972.56)(@azure/search-documents@12.2.0)(@browserbasehq/sdk@2.14.0)(@browserbasehq/stagehand@1.14.0(@playwright/test@1.60.0)(deepmerge@4.3.1)(dotenv@17.4.2)(openai@6.42.0(ws@5.2.5)(zod@4.4.3))(zod@4.4.3))(@ibm-cloud/watsonx-ai@1.7.14)(@langchain/core@1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@5.2.5)(zod@4.4.3))(ws@5.2.5))(@opentelemetry/api@1.9.1)(@smithy/signature-v4@5.5.0)(@supabase/supabase-js@2.108.2)(@zilliz/milvus2-sdk-node@2.6.17)(better-sqlite3@12.11.1)(cheerio@1.2.0)(epub2@3.0.2(ts-toolbelt@9.6.0))(fast-xml-parser@5.7.3)(google-auth-library@10.7.0)(html-to-text@9.0.5)(ibm-cloud-sdk-core@5.4.20)(ioredis@5.11.1)(jsonwebtoken@9.0.3)(lodash@4.18.1)(mysql2@3.22.5(@types/node@25.9.3))(openai@6.42.0(ws@5.2.5)(zod@4.4.3))(pg@8.21.0)(playwright@1.60.0)(ws@5.2.5)
+      '@langchain/core':
+        specifier: ^1.2.0
+        version: 1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@5.2.5)(zod@4.4.3))(ws@5.2.5)
+      '@langchain/openai':
+        specifier: ^1.5.1
+        version: 1.5.1(@langchain/core@1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@5.2.5)(zod@4.4.3))(ws@5.2.5))(ws@5.2.5)
+      '@zilliz/milvus2-sdk-node':
+        specifier: ^2.6.17
+        version: 2.6.17
+      chalk:
+        specifier: ^5.6.2
+        version: 5.6.2
+      dotenv:
+        specifier: ^17.4.2
+        version: 17.4.2
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+
   34_mem0-test:
     dependencies:
       '@langchain/core':
@@ -1143,6 +1167,12 @@ packages:
     engines: {node: '>=20'}
     peerDependencies:
       '@langchain/core': ^1.1.48
+
+  '@langchain/openai@1.5.1':
+    resolution: {integrity: sha512-7Ndik936Wta8+BLHjRZmkxEFLFKyNINc6ecKu4t//YQqTxboHAUotzae7Otqe3IRaE5NqsDiIvVqN6nYEe6ruw==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      '@langchain/core': ^1.2.0
 
   '@langchain/protocol@0.0.16':
     resolution: {integrity: sha512-ws+J7MaHyhO5dG7f0vdyHQiUn9hoCnki0f3crJPa4MCTGzcRC39jYSCghyrGtBPYQnZbUQiGyRVpW3z3M8IpJg==}
@@ -4718,7 +4748,7 @@ snapshots:
       '@ibm-cloud/watsonx-ai': 1.7.14
       '@langchain/classic': 1.0.34(@langchain/core@1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@5.2.5)(zod@4.4.3))(ws@5.2.5))(@opentelemetry/api@1.9.1)(cheerio@1.2.0)(openai@6.42.0(ws@5.2.5)(zod@4.4.3))(ws@5.2.5)
       '@langchain/core': 1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@5.2.5)(zod@4.4.3))(ws@5.2.5)
-      '@langchain/openai': 1.4.7(@langchain/core@1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@5.2.5)(zod@4.4.3))(ws@5.2.5))(ws@5.2.5)
+      '@langchain/openai': 1.5.1(@langchain/core@1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@5.2.5)(zod@4.4.3))(ws@5.2.5))(ws@5.2.5)
       binary-extensions: 2.3.0
       flat: 5.0.2
       ibm-cloud-sdk-core: 5.4.20
@@ -4948,6 +4978,15 @@ snapshots:
       - ws
 
   '@langchain/openai@1.4.7(@langchain/core@1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@5.2.5)(zod@4.4.3))(ws@5.2.5))(ws@5.2.5)':
+    dependencies:
+      '@langchain/core': 1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@5.2.5)(zod@4.4.3))(ws@5.2.5)
+      js-tiktoken: 1.0.21
+      openai: 6.42.0(ws@5.2.5)(zod@4.4.3)
+      zod: 4.4.3
+    transitivePeerDependencies:
+      - ws
+
+  '@langchain/openai@1.5.1(@langchain/core@1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@5.2.5)(zod@4.4.3))(ws@5.2.5))(ws@5.2.5)':
     dependencies:
       '@langchain/core': 1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@5.2.5)(zod@4.4.3))(ws@5.2.5)
       js-tiktoken: 1.0.21
