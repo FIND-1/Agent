@@ -1,7 +1,7 @@
-// 1. 导入依赖与环境配置
-import "dotenv/config"; 
+﻿// 1. 导入依赖与环境配置
+import "@lessons/shared/env-loader";
+import { createChatModel } from "@lessons/shared/model";
 import { MultiServerMCPClient } from "@langchain/mcp-adapters"; 
-import { ChatOpenAI } from "@langchain/openai"; 
 import chalk from "chalk";
 // SystemMessage 系统消息，用于设置 AI 的规则和行为 , 对于工具调用有很强的约束力--是 Agent 的“大脑说明书”。
 // HumanMessage 人类消息，用于输入用户的问题或需求--是 Agent 的“嘴巴”。
@@ -25,13 +25,7 @@ const __dirname = dirname(__filename);
  */
 
 // 2. 初始化大模型 (使用兼容 OpenAI 接口的通义千问)
-const model = new ChatOpenAI({
-  modelName: "qwen-plus",
-  apiKey: process.env.OPENAI_API_KEY,
-  configuration: {
-    baseURL: process.env.BASE_URL,
-  },
-});
+const model = createChatModel();
 
 // 3. 配置多 MCP 服务器列表
 const mcpClient = new MultiServerMCPClient({
@@ -151,3 +145,6 @@ await runAgentWithTools(
 
 // 任务完成后优雅关闭连接
 await mcpClient.close();
+
+
+

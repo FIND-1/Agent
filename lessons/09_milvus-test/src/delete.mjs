@@ -1,4 +1,4 @@
-import "dotenv/config";
+﻿import "@lessons/shared/env-loader";
 import { MilvusClient } from '@zilliz/milvus2-sdk-node';
 
 const COLLECTION_NAME = 'ai_diary';
@@ -53,3 +53,5 @@ async function main() {
 }
 
 main();
+
+

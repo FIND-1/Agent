@@ -1,22 +1,14 @@
-/**
+﻿/**
  * 长时记忆示例1：使用 FileSystemChatMessageHistory 将对话持久化到本地文件
  */
 
-import 'dotenv/config';
-import { ChatOpenAI } from '@langchain/openai';
+import "@lessons/shared/env-loader";
+import { createChatModel } from "@lessons/shared/model";
 import { FileSystemChatMessageHistory } from "@langchain/community/stores/message/file_system";
 import { HumanMessage, AIMessage, SystemMessage } from "@langchain/core/messages";
 import path from "node:path";
 
-const model = // 初始化大模型（ChatOpenAI）
-new ChatOpenAI({
-    modelName: process.env.MODEL_NAME,
-    apiKey: process.env.OPENAI_API_KEY,
-    temperature: 0,
-    configuration: {
-        baseURL: process.env.OPENAI_BASE_URL,
-    },
-});
+const model = createChatModel();
 
 async function fileHistoryDemo() {
     // 指定存储文件的路径
@@ -70,3 +62,5 @@ new FileSystemChatMessageHistory({
 }
 
 fileHistoryDemo().catch(console.error);
+
+

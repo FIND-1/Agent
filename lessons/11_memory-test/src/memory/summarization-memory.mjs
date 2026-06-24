@@ -1,21 +1,13 @@
-/**
+﻿/**
  * Memory策略2：总结策略（超出阈值后用LLM压缩历史对话）
  */
 
-import 'dotenv/config';
-import { ChatOpenAI } from "@langchain/openai";
+import "@lessons/shared/env-loader";
+import { createChatModel } from "@lessons/shared/model";
 import { InMemoryChatMessageHistory } from "@langchain/core/chat_history";
 import { HumanMessage, SystemMessage, AIMessage, getBufferString } from "@langchain/core/messages";
 
-const model = // 初始化大模型（ChatOpenAI）
-new ChatOpenAI({
-    modelName: process.env.MODEL_NAME,
-    apiKey: process.env.OPENAI_API_KEY,
-    temperature: 0,
-    configuration: {
-        baseURL: process.env.OPENAI_BASE_URL,
-    },
-});
+const model = createChatModel();
 
 // ========== 总结策略演示 ==========
 async function summarizationMemoryDemo() {
@@ -102,3 +94,5 @@ ${conversationText}
     const summaryResponse = await model.invoke([new SystemMessage(summaryPrompt)]);
     return summaryResponse.content;
 }
+
+

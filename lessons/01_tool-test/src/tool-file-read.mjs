@@ -1,5 +1,5 @@
-import "dotenv/config";
-import { ChatOpenAI } from "@langchain/openai";
+﻿import "@lessons/shared/env-loader";
+import { createChatModel } from "@lessons/shared/model";
 import { tool } from "@langchain/core/tools";
 import {
   HumanMessage, // 人类消息
@@ -15,13 +15,8 @@ import fs from "node:fs/promises"; // 导入 fs 模块
 import { z } from "zod"; // 这里需要用到 langchain 的核心包，所以需要安装
 
 
-const model = new ChatOpenAI({ // 创建一个 OpenAI 模型
+const model = createChatModel({
   modelName: process.env.MODEL_NAME || "qwen-coder-turbo",
-  apiKey: process.env.OPENAI_API_KEY,
-  temperature: 0, // 0: ai 的创造性，设置为 0，让它严格按照指令来做事情
-  configuration: {
-    baseURL: process.env.BASE_URL,
-  },
 });
 
 // 创建一个读取文件的工具
@@ -128,3 +123,6 @@ while (true) {
   }
   break;
 }
+
+
+

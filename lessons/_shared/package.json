@@ -1,0 +1,14 @@
+{
+  "name": "@lessons/shared",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./env-loader": "./env-loader.mjs",
+    "./model": "./model.mjs"
+  },
+  "dependencies": {
+    "@langchain/openai": "^1.4.7",
+    "dotenv": "^17.4.2"
+  }
+}

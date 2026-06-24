@@ -1,6 +1,6 @@
-import "dotenv/config";
+﻿import "@lessons/shared/env-loader";
+import { createChatModel } from "@lessons/shared/model";
 import chalk from "chalk"; // 给控制台输入添加背景色
-import { ChatOpenAI } from "@langchain/openai";
 import {
   HumanMessage,
   SystemMessage,
@@ -13,16 +13,7 @@ import {
   writeFileTool,
 } from "./all-tools.mjs";
 
-const model = new ChatOpenAI({
-  modelName: process.env.MODEL_NAME,
-  apiKey: process.env.OPENAI_API_KEY,
-  temperature: 0,
-  configuration: {
-    baseURL: process.env.BASE_URL,
-  },
-  // 尝试添加这个配置，强制非流式，有时能触发正确的工具调用
-  //   streaming: false,
-});
+const model = createChatModel();
 
 const tools = [
   readFileTool,
@@ -198,3 +189,6 @@ try {
 } catch (error) {
   console.error(`\n❌ 错误: ${error.message}\n`);
 }
+
+
+

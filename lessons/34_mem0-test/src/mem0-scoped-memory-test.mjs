@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mem0 三种记忆作用域示例
  *
  * 这个文件用于验证三类记忆如何隔离存取：
@@ -19,7 +19,7 @@
  * - search 是语义检索，不是精确字符串匹配。
  * - filters 用于限制检索范围，防止不同用户、会话或 Agent 的记忆混在一起。
  */
-import "dotenv/config";
+import "@lessons/shared/env-loader";
 import { MemoryClient } from "mem0ai";
 
 // userId：用户层作用域，适合姓名、城市、长期偏好、习惯等信息。
@@ -164,3 +164,5 @@ main().catch((error) => {
     if (error.suggestion) console.error("建议:", error.suggestion);
     process.exit(1);
 });
+
+

@@ -1,7 +1,7 @@
-import "dotenv/config";
+﻿import "@lessons/shared/env-loader";
+import { createChatModel, createEmbeddings } from "@lessons/shared/model";
 import "cheerio";
 // ChatOpenAI 负责思考，OpenAIEmbeddings 负责将文字转为数学向量
-import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
 // Splitter 负责将长文档切分为短块，避免超出 AI 的上下文限制
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 // 向量存储库，用于存放切分后的文档向量
@@ -24,24 +24,10 @@ import { CheerioWebBaseLoader } from "@langchain/community/document_loaders/web/
  */
 
 // 1. 初始化 Chat 模型（deepai 代理）
-const model = new ChatOpenAI({
-  temperature: 0,
-  model: process.env.MODEL_NAME,
-  apiKey: process.env.OPENAI_API_KEY,
-  configuration: {
-    baseURL: process.env.OPENAI_BASE_URL,
-  },
-});
+const model = createChatModel();
 
 // 2. 初始化 Embedding 模型（DashScope，与 Chat 分开配置）
-const embeddings = new OpenAIEmbeddings({
-  apiKey: process.env.EMBEDDINGS_API_KEY,
-  model: process.env.EMBEDDINGS_MODEL_NAME,
-  dimensions: Number(process.env.EMBEDDINGS_DIMENSIONS) || undefined,
-  configuration: {
-    baseURL: process.env.EMBEDDINGS_BASE_URL,
-  },
-});
+const embeddings = createEmbeddings();
 
 // 3. 【加载阶段 - Load】
 // 使用 Cheerio 加载指定的网页 URL，并通过 selector 过滤出主要内容区域的段落
@@ -136,3 +122,5 @@ ${context}
 
   答案是：retriever.invoke(question) 返回了 pageContent 和评分，而 vectorStore.similaritySearchWithScore 也是一样的作用，二者选其一即可。
  */
+
+

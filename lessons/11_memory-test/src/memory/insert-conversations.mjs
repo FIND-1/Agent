@@ -1,21 +1,16 @@
-/**
+﻿/**
  * Memory策略3前置：将对话写入Milvus向量数据库（构建检索记忆）
  */
 
-import "dotenv/config";
+import "@lessons/shared/env-loader";
+import { createEmbeddings } from "@lessons/shared/model";
 import { MilvusClient, DataType, MetricType, IndexType } from '@zilliz/milvus2-sdk-node';
-import { OpenAIEmbeddings } from "@langchain/openai";
 //TODO: 这边需要结合检索向量数据库的思路，启动 milvus 
 const COLLECTION_NAME = 'conversations';
 const VECTOR_DIM = 1024;
 
-const embeddings = new OpenAIEmbeddings({
-  apiKey: process.env.OPENAI_API_KEY,
-  model: 'text-embedding-v3',
-  configuration: {
-    baseURL: process.env.OPENAI_BASE_URL
-  },
-  dimensions: VECTOR_DIM
+const embeddings = createEmbeddings({
+  dimensions: VECTOR_DIM,
 });
 
 const client = new MilvusClient({
@@ -125,3 +120,5 @@ async function main() {
 }
 
 main();
+
+

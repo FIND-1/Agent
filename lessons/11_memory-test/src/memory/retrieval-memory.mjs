@@ -1,9 +1,9 @@
-/**
+﻿/**
  * Memory策略3：RAG检索记忆（通过向量数据库召回历史对话）
  */
 
-import 'dotenv/config';
-import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
+import "@lessons/shared/env-loader";
+import { createChatModel, createEmbeddings } from "@lessons/shared/model";
 import { InMemoryChatMessageHistory } from "@langchain/core/chat_history";
 import { MilvusClient, MetricType } from '@zilliz/milvus2-sdk-node';
 import { HumanMessage, SystemMessage } from "@langchain/core/messages";
@@ -12,24 +12,11 @@ const COLLECTION_NAME = 'conversations';
 const VECTOR_DIM = 1024;
 
 // 初始化 OpenAI Chat 模型
-const model = // 初始化大模型（ChatOpenAI）
-new ChatOpenAI({ 
-  modelName: process.env.MODEL_NAME,
-  apiKey: process.env.OPENAI_API_KEY,
-  temperature: 0,
-  configuration: {
-    baseURL: process.env.OPENAI_BASE_URL,
-  },
-});
+const model = createChatModel();
 
 // 初始化 Embeddings 模型
-const embeddings = new OpenAIEmbeddings({
-  apiKey: process.env.OPENAI_API_KEY,
-  model: 'text-embedding-v3',
-  configuration: {
-    baseURL: process.env.OPENAI_BASE_URL,
-  },
-  dimensions: VECTOR_DIM
+const embeddings = createEmbeddings({
+  dimensions: VECTOR_DIM,
 });
 
 // 初始化 Milvus 客户端
@@ -170,3 +157,6 @@ ${conv.content}`;
 }
 
 retrievalMemoryDemo().catch(console.error);
+
+
+

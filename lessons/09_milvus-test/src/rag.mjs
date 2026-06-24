@@ -1,28 +1,17 @@
-import "dotenv/config";
+﻿import "@lessons/shared/env-loader";
+import { createChatModel, createEmbeddings } from "@lessons/shared/model";
 import { MilvusClient, MetricType } from '@zilliz/milvus2-sdk-node';
-import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
-
 const COLLECTION_NAME = 'ai_diary';
 const VECTOR_DIM = 1024;
 
 // 初始化 OpenAI Chat 模型
-const model = new ChatOpenAI({
+const model = createChatModel({
   temperature: 0.7,
-  model: process.env.MODEL_NAME,
-  apiKey: process.env.OPENAI_API_KEY,
-  configuration: {
-    baseURL: process.env.OPENAI_BASE_URL,
-  },
 });
 
 // 初始化 Embeddings 模型
-const embeddings = new OpenAIEmbeddings({
-  apiKey: process.env.OPENAI_API_KEY,
-  model: process.env.EMBEDDINGS_MODEL_NAME,
-  configuration: {
-    baseURL: process.env.OPENAI_BASE_URL
-  },
-  dimensions: VECTOR_DIM
+const embeddings = createEmbeddings({
+  dimensions: VECTOR_DIM,
 });
 
 // 初始化 Milvus 客户端
@@ -143,3 +132,6 @@ async function main() {
 }
 
 main();
+
+
+

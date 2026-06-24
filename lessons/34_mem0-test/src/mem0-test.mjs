@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mem0 基础 CRUD 示例
  *
  * 学习重点：
@@ -14,7 +14,7 @@
  * - add 的处理可能是异步的，刚写入后立即 search 不一定能马上查到结果。
  * - search 是语义召回，不要求问题与记忆原文完全一致。
  */
-import 'dotenv/config';
+import "@lessons/shared/env-loader";
 import { MemoryClient } from 'mem0ai';
 
 // 用于隔离不同用户的长期记忆。
@@ -105,3 +105,5 @@ main().catch((error) => {
     }
     process.exit(1);
 });
+
+

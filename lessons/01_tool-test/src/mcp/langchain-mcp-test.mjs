@@ -1,7 +1,7 @@
-// 1. 导入库
-import "dotenv/config"; // 自动读取 .env 文件中的环境变量（API Key 等）
+﻿// 1. 导入库
+import "@lessons/shared/env-loader";
+import { createChatModel } from "@lessons/shared/model";
 import { MultiServerMCPClient } from "@langchain/mcp-adapters"; // MCP 适配器，让 LangChain 能连接 MCP 服务器
-import { ChatOpenAI } from "@langchain/openai"; // LangChain 的 OpenAI 模型接口
 import chalk from "chalk";
 import { HumanMessage, ToolMessage, SystemMessage } from "@langchain/core/messages"; // 定义对话消息类型的类
 import { fileURLToPath } from "url";
@@ -49,13 +49,7 @@ const __dirname = dirname(__filename);
  */
 
 // 2. 初始化大模型
-const model = new ChatOpenAI({
-  modelName: "qwen-plus", // 使用通义千问模型
-  apiKey: process.env.OPENAI_API_KEY,
-  configuration: {
-    baseURL: process.env.BASE_URL, // 适配转发地址
-  },
-});
+const model = createChatModel();
 
 // 3. 定义并连接 MCP 服务器 ("my-mcp-server.mjs" 是 MCP 服务器文件)
 
@@ -147,3 +141,6 @@ await runAgentWithTools("MCP Server 的使用指南是什么");
 
 // 7. 关闭 MCP 客户端
 await mcpClient.close();
+
+
+

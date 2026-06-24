@@ -1,21 +1,13 @@
-/**
+﻿/**
  * 短期内存示例：使用 InMemoryChatMessageHistory 实现对话上下文管理（内存级 memory）
  */
 
-import 'dotenv/config';
-import { ChatOpenAI } from '@langchain/openai';
+import "@lessons/shared/env-loader";
+import { createChatModel } from "@lessons/shared/model";
 import { InMemoryChatMessageHistory } from "@langchain/core/chat_history";
 import { HumanMessage, SystemMessage } from "@langchain/core/messages";
 
-const model = // 初始化大模型（ChatOpenAI）
-new ChatOpenAI({
-    modelName: process.env.MODEL_NAME,
-    apiKey: process.env.OPENAI_API_KEY,
-    temperature: 0,
-    configuration: {
-        baseURL: process.env.OPENAI_BASE_URL,
-    },
-});
+const model = createChatModel();
 
 async function inMemoryDemo() {
     const history = new InMemoryChatMessageHistory() // 初始化短期对话记忆（内存）;
@@ -71,3 +63,5 @@ async function inMemoryDemo() {
 }
 
 inMemoryDemo().catch(console.error);
+
+

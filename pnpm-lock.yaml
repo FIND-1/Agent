@@ -17,6 +17,9 @@ importers:
       '@langchain/openai':
         specifier: ^1.4.7
         version: 1.4.7(@langchain/core@1.1.48(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(ws@8.21.0)
+      '@lessons/shared':
+        specifier: workspace:*
+        version: link:lessons/_shared
       chalk:
         specifier: ^5.6.2
         version: 5.6.2
@@ -344,6 +347,15 @@ importers:
       zod:
         specifier: ^4.4.3
         version: 4.4.3
+
+  lessons/_shared:
+    dependencies:
+      '@langchain/openai':
+        specifier: ^1.4.7
+        version: 1.5.1(@langchain/core@1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(ws@8.21.0)
+      dotenv:
+        specifier: ^17.4.2
+        version: 17.4.2
 
 packages:
 
@@ -5372,7 +5384,7 @@ snapshots:
       '@jest/schemas': 29.6.3
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 25.9.3
+      '@types/node': 24.13.2
       '@types/yargs': 17.0.35
       chalk: 4.1.2
 
@@ -6207,12 +6219,12 @@ snapshots:
 
   '@types/node-fetch@2.6.13':
     dependencies:
-      '@types/node': 25.9.3
+      '@types/node': 24.13.2
       form-data: 4.0.5
 
   '@types/node-int64@0.4.32':
     dependencies:
-      '@types/node': 25.9.3
+      '@types/node': 24.13.2
 
   '@types/node@18.19.130':
     dependencies:
@@ -6232,7 +6244,7 @@ snapshots:
 
   '@types/pg@8.11.0':
     dependencies:
-      '@types/node': 25.9.3
+      '@types/node': 24.13.2
       pg-protocol: 1.14.0
       pg-types: 4.1.0
 
@@ -6263,7 +6275,7 @@ snapshots:
 
   '@types/thrift@0.10.17':
     dependencies:
-      '@types/node': 25.9.3
+      '@types/node': 24.13.2
       '@types/node-int64': 0.4.32
       '@types/q': 1.5.8
 
@@ -7733,7 +7745,7 @@ snapshots:
   jest-util@29.7.0:
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 25.9.3
+      '@types/node': 24.13.2
       chalk: 4.1.2
       ci-info: 3.9.0
       graceful-fs: 4.2.11
@@ -8456,7 +8468,7 @@ snapshots:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.1
-      '@types/node': 25.9.3
+      '@types/node': 24.13.2
       long: 5.3.2
 
   proxy-addr@2.0.7:
@@ -8873,7 +8885,7 @@ snapshots:
 
   ts-type@3.0.13(ts-toolbelt@9.6.0):
     dependencies:
-      '@types/node': 25.9.3
+      '@types/node': 24.13.2
       ts-toolbelt: 9.6.0
       tslib: 2.8.1
       typedarray-dts: 1.0.0

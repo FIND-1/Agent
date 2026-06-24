@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 🤖 智能录入核心实现
  *
  * 流程：
@@ -14,22 +14,15 @@
  * - API ingestion
  */
 
-import 'dotenv/config';
-import { ChatOpenAI } from '@langchain/openai';
+import "@lessons/shared/env-loader";
+import { createChatModel } from "@lessons/shared/model";
 import { z } from 'zod';
 import mysql from 'mysql2/promise';
 
 // ----------------------
 // LLM 初始化
 // ----------------------
-const model = new ChatOpenAI({
-  modelName: process.env.MODEL_NAME,
-  apiKey: process.env.OPENAI_API_KEY,
-  temperature: 0,
-  configuration: {
-    baseURL: process.env.OPENAI_BASE_URL,
-  },
-});
+const model = createChatModel();
 
 // ----------------------
 // Schema 定义（核心）
@@ -105,3 +98,6 @@ export async function extractAndInsert(text) {
     await conn.end();
   }
 }
+
+
+

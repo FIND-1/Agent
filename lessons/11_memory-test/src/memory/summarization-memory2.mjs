@@ -1,22 +1,14 @@
-/**
+﻿/**
  * Memory策略2增强：基于token的总结策略（更贴近生产环境如Cursor/Claude）
  */
 
-import 'dotenv/config';
-import { ChatOpenAI } from "@langchain/openai";
+import "@lessons/shared/env-loader";
+import { createChatModel } from "@lessons/shared/model";
 import { InMemoryChatMessageHistory } from "@langchain/core/chat_history";
 import { HumanMessage, SystemMessage, AIMessage, getBufferString } from "@langchain/core/messages";
 import { getEncoding } from "js-tiktoken";
 
-const model = // 初始化大模型（ChatOpenAI）
-new ChatOpenAI({
-    modelName: process.env.MODEL_NAME,
-    apiKey: process.env.OPENAI_API_KEY,
-    temperature: 0,
-    configuration: {
-        baseURL: process.env.OPENAI_BASE_URL,
-    },
-});
+const model = createChatModel();
 
 // 计算消息数组的总 token 数量
 function countTokens(messages, encoder) {
@@ -133,3 +125,5 @@ ${conversationText}
     const summaryResponse = await model.invoke([new SystemMessage(summaryPrompt)]);
     return summaryResponse.content;
 }
+
+

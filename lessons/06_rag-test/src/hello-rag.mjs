@@ -1,6 +1,6 @@
-import "dotenv/config";
+﻿import "@lessons/shared/env-loader";
+import { createChatModel, createEmbeddings } from "@lessons/shared/model";
 // ChatOpenAI 负责思考，OpenAIEmbeddings 负责将文字转为数学向量
-import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
 import { Document } from "@langchain/core/documents";
 import { MemoryVectorStore } from "@langchain/classic/vectorstores/memory";
 
@@ -28,20 +28,10 @@ import { MemoryVectorStore } from "@langchain/classic/vectorstores/memory";
  */
 
 // 1. 初始化 Chat 模型（deepai 代理）
-const model = new ChatOpenAI({
-  temperature: 0, // 设为 0 保证回答的严谨性，减少胡言乱语
-  model: process.env.MODEL_NAME,
-  apiKey: process.env.OPENAI_API_KEY,
-  configuration: { baseURL: process.env.OPENAI_BASE_URL },
-});
+const model = createChatModel();
 
 // 2. 初始化 Embedding 模型（DashScope，与 Chat 分开配置）
-const embeddings = new OpenAIEmbeddings({
-  apiKey: process.env.EMBEDDINGS_API_KEY,
-  model: process.env.EMBEDDINGS_MODEL_NAME,
-  dimensions: Number(process.env.EMBEDDINGS_DIMENSIONS) || undefined,
-  configuration: { baseURL: process.env.EMBEDDINGS_BASE_URL },
-});
+const embeddings = createEmbeddings();
 
 // 3. 准备私有数据：Document 对象包含内容 (pageContent) 和 属性 (metadata)
 
@@ -177,3 +167,5 @@ console.log("\n");
     3. 使用 similaritySearchWithScore 相似度评分。
     4. 使用 retriever.invoke 来查询文档。
  */
+
+

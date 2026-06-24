@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 流式版 mini cursor。
  *
  * 本文件对应文章后半段：普通 tool calling 要等完整 AIMessage 返回后
@@ -12,8 +12,8 @@
  * 4. 流式预览只负责展示，真正执行工具仍然使用 fullAIMessage.tool_calls。
  */
 
-import "dotenv/config";
-import { ChatOpenAI } from "@langchain/openai";
+import "@lessons/shared/env-loader";
+import { createChatModel } from "@lessons/shared/model";
 import { HumanMessage, SystemMessage, ToolMessage } from "@langchain/core/messages";
 import { InMemoryChatMessageHistory } from "@langchain/core/chat_history";
 import { JsonOutputToolsParser } from "@langchain/core/output_parsers/openai_tools";
@@ -26,14 +26,7 @@ import {
   writeFileTool,
 } from "./03-all-tools.mjs";
 
-const model = new ChatOpenAI({
-  modelName: process.env.MODEL_NAME,
-  apiKey: process.env.OPENAI_API_KEY,
-  temperature: 0,
-  configuration: {
-    baseURL: process.env.OPENAI_BASE_URL,
-  },
-});
+const model = createChatModel();
 
 const tools = [readFileTool, writeFileTool, executeCommandTool, listDirectoryTool];
 const modelWithTools = model.bindTools(tools);
@@ -224,3 +217,6 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     console.error(`\n错误: ${error.message}\n`);
   }
 }
+
+
+

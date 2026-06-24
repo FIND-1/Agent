@@ -1,7 +1,7 @@
-import "dotenv/config";
+﻿import "@lessons/shared/env-loader";
+import { createEmbeddings } from "@lessons/shared/model";
 import { parse } from 'path';
 import { MilvusClient, DataType, MetricType, IndexType } from '@zilliz/milvus2-sdk-node';
-import { OpenAIEmbeddings } from "@langchain/openai";
 import { EPubLoader } from "@langchain/community/document_loaders/fs/epub";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 
@@ -14,13 +14,8 @@ const EPUB_FILE = './天龙八部.epub';
 const BOOK_NAME = parse(EPUB_FILE).name;
 
 // 初始化 Embeddings 模型
-const embeddings = new OpenAIEmbeddings({
-  apiKey: process.env.OPENAI_API_KEY,
-  model: process.env.EMBEDDINGS_MODEL_NAME,
-  configuration: {
-    baseURL: process.env.OPENAI_BASE_URL
-  },
-  dimensions: VECTOR_DIM
+const embeddings = createEmbeddings({
+  dimensions: VECTOR_DIM,
 });
 
 // 初始化 Milvus 客户端
@@ -223,3 +218,6 @@ async function main() {
 }
 
 main();
+
+
+
