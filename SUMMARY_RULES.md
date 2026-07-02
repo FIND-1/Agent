@@ -61,7 +61,7 @@
 * 是否有运行方式不清晰的问题
 * 是否有文章中提到但代码中缺失的关键示例
 * 是否有 README 写了安装命令但缺少 `package.json`
-* 是否有代码读取环境变量但缺少 `.env.example`
+* 是否有代码读取环境变量但 README 未说明这些变量来自根目录 `.env`
 * 是否有外部服务依赖但没有 fallback 示例或 fallback 说明
 
 ---
@@ -188,7 +188,6 @@ import { examples } from './_shared/examples.mjs'
 README.md
 REVIEW_NOTES.md
 package.json
-.env.example
 src/
 ```
 
@@ -196,10 +195,10 @@ src/
 
 * 如果项目原本已有 `package.json`，可以更新而不是重建
 * 如果缺少 `package.json`，必须补充最小依赖和基础脚本
-* 如果代码依赖模型 API、数据库、Milvus、Docker、远程向量库或外部服务，必须补充 `.env.example`
-* `.env.example` 必须包含当前代码实际读取的环境变量
+* 如果代码依赖模型 API、数据库、Milvus、Docker、远程向量库或外部服务，必须在 README 中补充环境变量说明，并明确这些变量来自项目根目录 `.env`
+* 不要为单个 lesson 额外生成环境变量示例文件；当前项目统一维护根目录 `.env`
 * 禁止 README 中写了 `pnpm install`、`npm install` 或运行命令，但项目缺少 `package.json`
-* 如果判断不需要 `package.json` 或 `.env.example`，必须在最终输出中说明原因
+* 如果判断不需要 `package.json` 或 README 环境变量说明，必须在最终输出中说明原因
 
 ---
 
@@ -359,7 +358,7 @@ README 或 REVIEW_NOTES 中需要保留文章的核心判断，例如：
 * 抽离重复 prompt block
 * 增加 README
 * 增加 REVIEW_NOTES
-* 增加 `.env.example`
+* 增加 README 环境变量说明，指向项目根目录 `.env`
 * 增加最小 `package.json`
 * 增加 fallback 示例
 
@@ -387,7 +386,7 @@ README 或 REVIEW_NOTES 中需要保留文章的核心判断，例如：
 * 是否存在重复环境变量读取
 * 是否存在重复 schema / examples / prompt block
 * 是否存在 README 写了安装命令但缺少 `package.json`
-* 是否存在代码读取环境变量但缺少 `.env.example`
+* 是否存在代码读取环境变量但 README 未说明这些变量来自根目录 `.env`
 * 是否存在外部服务依赖但缺少 fallback 示例或 fallback 说明
 
 ### 2. 运行检查
@@ -454,7 +453,7 @@ README 必须明确列出：
 * 编号示例 import 检查结果
 * `node --check` 检查结果
 * README 依赖分类结果
-* `package.json` / `.env.example` 是否补齐
+* `package.json` / README 环境变量说明是否补齐
 * fallback 是否补齐
 * 如果某项未完成，必须明确说明原因
 
@@ -472,7 +471,7 @@ README 必须明确列出：
 6. 编号示例 import 检查结果
 7. 运行检查结果，例如 `node --check`
 8. README 中的依赖分类结果
-9. `package.json` / `.env.example` 是否补齐
+9. `package.json` / README 环境变量说明是否补齐
 10. fallback 是否补齐
 11. 如果有压缩包，说明压缩包内包含哪些内容
 12. 如果发现文章或代码存在不一致，需要明确指出
