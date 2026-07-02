@@ -1,5 +1,5 @@
 import { JsonOutputToolsParser } from '@langchain/core/output_parsers/openai_tools'
-import { createChatModel } from './_shared/model.mjs'
+import { createChatModel } from '@lessons/shared/model'
 import { toolScientistSchema } from './_shared/schemas.mjs'
 
 /**

@@ -17,10 +17,10 @@ LangChain 的 Prompt Template API 主要解决这些管理问题：变量填充�
 
 建议按下面顺序阅读和运行源码：
 
-0. `src/_shared/model.mjs`
-   - 抽离 `ChatOpenAI` 和 `OpenAIEmbeddings` 的初始化。
-   - 这部分不是 Prompt Template 主线，抽出来是为了让每个示例更聚焦。
-   - 如果模型服务地址、模型名或 embeddings 参数变化，优先改这里。
+0. `@lessons/shared/model`
+   - 统一复用项目级 `ChatOpenAI` 和 `OpenAIEmbeddings` 初始化。
+   - 这部分不是 Prompt Template 主线，直接使用共享包是为了让每个示例更聚焦。
+   - 如果模型服务地址、模型名或 embeddings 参数变化，优先改项目级共享模型入口。
 
 0.1. `src/_shared/weeklyPromptBlocks.mjs`
    - 抽离周报场景可复用的 `personaPrompt`、`contextPrompt` 和 `pipelinePrompt`。
@@ -229,7 +229,7 @@ fallback 是本项目必须保留的复习示例：当 Milvus、Docker 或远程
 ## 8. 当前项目注意事项
 
 - 当前示例统一围绕“技术周报 / OKR 回顾”展开，便于观察不同模板 API 的差异。
-- `src/_shared/model.mjs` 只抽离模型和 embeddings 初始化，不抽 prompt 逻辑，避免学习示例被过度封装。
+- 模型和 embeddings 初始化统一从 `@lessons/shared/model` 导入；不要再创建 lesson 内只做转发的 `_shared/model.mjs`，避免浪费阅读路径。
 - `src/_shared/weeklyPromptBlocks.mjs` 只放跨示例复用的周报 prompt blocks，编号示例之间禁止互相 import。
 - `09-length-based-example-selector.mjs` 是长度选择示例，不依赖向量数据库。
 - `11-semantic-example-selector-milvus.mjs` 是语义相似度选择示例，依赖 Milvus 和 embeddings。

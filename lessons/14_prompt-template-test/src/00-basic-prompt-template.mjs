@@ -1,5 +1,5 @@
 import { PromptTemplate } from'@langchain/core/prompts';
-import { createChatModel } from './_shared/model.mjs';
+import { createChatModel } from '@lessons/shared/model';
 
 // 复习重点：
 // 这是 Prompt Template 的起点：把硬编码字符串改成带占位符的模板。

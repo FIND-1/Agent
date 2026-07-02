@@ -1,10 +1,10 @@
-﻿import {
+import {
   FewShotPromptTemplate,
   PromptTemplate,
 } from'@langchain/core/prompts';
 import { SemanticSimilarityExampleSelector } from'@langchain/core/example_selectors';
 import { Milvus } from'@langchain/community/vectorstores/milvus';
-import { createChatModel, createEmbeddings } from './_shared/model.mjs';
+import { createChatModel, createEmbeddings } from '@lessons/shared/model';
 
 // 复习重点：
 // SemanticSimilarityExampleSelector 根据当前场景的语义，从向量库里挑最相近的 few-shot 示例。

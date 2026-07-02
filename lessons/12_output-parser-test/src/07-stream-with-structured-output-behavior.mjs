@@ -1,4 +1,4 @@
-import { createChatModel } from './_shared/model.mjs'
+import { createChatModel } from '@lessons/shared/model'
 import { musicianSchema } from './_shared/schemas.mjs'
 
 /**

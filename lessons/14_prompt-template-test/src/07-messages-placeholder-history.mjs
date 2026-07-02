@@ -2,7 +2,7 @@ import {
   ChatPromptTemplate,
   MessagesPlaceholder,
 } from'@langchain/core/prompts';
-import { createChatModel } from './_shared/model.mjs';
+import { createChatModel } from '@lessons/shared/model';
 
 // 复习重点：
 // MessagesPlaceholder 用来把历史对话插入模板中。

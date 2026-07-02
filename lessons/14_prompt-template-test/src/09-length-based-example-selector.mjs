@@ -3,7 +3,7 @@ import {
   PromptTemplate,
 } from'@langchain/core/prompts';
 import { LengthBasedExampleSelector } from'@langchain/core/example_selectors';
-import { createChatModel } from './_shared/model.mjs';
+import { createChatModel } from '@lessons/shared/model';
 
 // 复习重点：
 // few-shot 示例不能无限塞进 prompt，需要考虑上下文长度预算。

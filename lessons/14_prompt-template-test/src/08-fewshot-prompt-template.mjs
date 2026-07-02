@@ -2,7 +2,7 @@ import {
     FewShotPromptTemplate,
     PromptTemplate,
 } from '@langchain/core/prompts';
-import { createChatModel } from './_shared/model.mjs';
+import { createChatModel } from '@lessons/shared/model';
 
 // 复习重点：
 // Few-shot 示例的作用是稳定模型输出的结构、语气和信息粒度。

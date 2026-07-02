@@ -1,5 +1,5 @@
 import { StructuredOutputParser } from '@langchain/core/output_parsers'
-import { createChatModel } from './_shared/model.mjs'
+import { createChatModel } from '@lessons/shared/model'
 import { complexScientistSchema } from './_shared/schemas.mjs'
 
 /**

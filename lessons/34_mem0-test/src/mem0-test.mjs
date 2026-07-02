@@ -39,8 +39,8 @@ async function main() {
     const conversation = [
         { role: 'user', content: '我是素食主义者，而且对坚果过敏。' },
         { role: 'assistant', content: '好的，我会记住你的饮食偏好。' },
-        { role: 'user', content: '我住在北京，平时喜欢跑步。' },
-        { role: 'assistant', content: '已记录：北京、爱好跑步。' },
+        { role: 'user', content: '我住在上海，平时喜欢跑步。' },
+        { role: 'assistant', content: '已记录：上海、爱好跑步。' },
     ];
 
     // 写入示例默认保持注释，避免每次运行都重复添加测试记忆。

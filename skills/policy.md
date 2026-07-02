@@ -10,6 +10,7 @@
 - 所有代码修改必须先经过 `code-explainer.md`。
 - 所有运行必须符合 `node-runtime.md`。
 - 所有执行必须记录 `execution-trace.md`。
+- 所有 `lessons/*` 学习代码包整理必须遵循 `lesson-summary-standard.md`。
 - 不允许跳过 Skills 流程。
 
 ## 任务类型约束
@@ -31,6 +32,18 @@
 2. 再确定最小修改范围。
 3. 修改后根据 `node-runtime.md` 判断是否需要运行测试、构建或脚本。
 4. 使用 `execution-trace.md` 记录修改、验证和风险。
+
+### Lesson 学习代码包整理
+
+当任务涉及整理、重排、总结或修复 `lessons/*` 目录下的学习代码包时：
+
+1. 先读取 `lesson-summary-standard.md`。
+2. 以 `lessons/14_prompt-template-test` 的 README、REVIEW_NOTES、编号文件和 `_shared` 结构为默认标准。
+3. 确保示例文件使用 `00-`、`01-`、`02-` 这类编号前缀。
+4. README 必须包含核心学习路径、API 速查、运行示例、常见报错、项目注意事项和复习重点。
+5. 每个编号示例文件顶部必须保留“复习重点”注释。
+6. 模型初始化必须直接从 `@lessons/shared/model` 导入，不要创建只做转发的 lesson 内 `_shared/model.mjs`。
+7. 未经用户明确允许不得删除文件；用户允许重新排序清理时，旧的未编号重复文件可以删除，但必须确认编号文件、README 和 package.json 已同步。
 
 ### 运行命令
 

@@ -1,6 +1,6 @@
 import { ChatPromptTemplate } from '@langchain/core/prompts'
 import { StructuredOutputParser } from '@langchain/core/output_parsers'
-import { createChatModel } from './_shared/model.mjs'
+import { createChatModel } from '@lessons/shared/model'
 import { simpleScientistSchema } from './_shared/schemas.mjs'
 
 /**

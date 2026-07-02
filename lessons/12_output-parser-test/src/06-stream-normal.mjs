@@ -1,4 +1,4 @@
-import { createChatModel, getChunkText } from './_shared/model.mjs'
+import { createChatModel, getChunkText } from '@lessons/shared/model'
 
 /**
  * 06. 普通流式输出

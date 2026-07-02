@@ -6,7 +6,7 @@ import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
 // - Embeddings 示例优先使用 EMBEDDINGS_*，缺省时回退到 OPENAI_*。
 // - 各 lesson 如需特殊 temperature / modelName，可通过 options 覆盖。
 
-export function createChatModel(options = {}) {
+export function createChatModel(options = {}, temperature = 0) {
   return new ChatOpenAI({
     modelName: process.env.MODEL_NAME,
     apiKey: process.env.OPENAI_API_KEY,

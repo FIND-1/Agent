@@ -3,7 +3,7 @@ import {
   SystemMessagePromptTemplate,
   HumanMessagePromptTemplate,
 } from'@langchain/core/prompts';
-import { createChatModel } from './_shared/model.mjs';
+import { createChatModel } from '@lessons/shared/model';
 
 // 复习重点：
 // 这个文件和 04 的目标相同，都是生成 Chat messages。

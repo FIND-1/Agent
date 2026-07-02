@@ -2,7 +2,7 @@ import {
   ChatPromptTemplate,
   FewShotChatMessagePromptTemplate,
 } from'@langchain/core/prompts';
-import { createChatModel } from './_shared/model.mjs';
+import { createChatModel } from '@lessons/shared/model';
 
 // 复习重点：
 // FewShotPromptTemplate 面向普通字符串 prompt；FewShotChatMessagePromptTemplate 面向 messages。

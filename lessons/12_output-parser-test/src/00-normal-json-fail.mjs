@@ -1,4 +1,4 @@
-import { createChatModel } from './_shared/model.mjs'
+import { createChatModel } from '@lessons/shared/model'
 
 /**
  * 00. 反例：只在 prompt 里要求模型返回 JSON

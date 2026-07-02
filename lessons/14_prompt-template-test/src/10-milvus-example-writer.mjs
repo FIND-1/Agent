@@ -1,5 +1,5 @@
 import { MilvusClient, DataType, MetricType, IndexType } from'@zilliz/milvus2-sdk-node';
-import { createEmbeddings } from './_shared/model.mjs';
+import { createEmbeddings } from '@lessons/shared/model';
 
 // 复习重点：
 // 语义选择示例需要先有可检索的示例库。

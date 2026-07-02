@@ -1,5 +1,5 @@
 import { ChatPromptTemplate } from'@langchain/core/prompts';
-import { createChatModel } from './_shared/model.mjs';
+import { createChatModel } from '@lessons/shared/model';
 
 // 复习重点：
 // PromptTemplate 产出普通字符串，而 ChatPromptTemplate 产出 system/human 等 messages。

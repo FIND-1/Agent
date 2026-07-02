@@ -1,5 +1,5 @@
 import { StructuredOutputParser } from '@langchain/core/output_parsers'
-import { createChatModel, getChunkText } from './_shared/model.mjs'
+import { createChatModel, getChunkText } from '@lessons/shared/model'
 import { musicianSchema } from './_shared/schemas.mjs'
 
 /**

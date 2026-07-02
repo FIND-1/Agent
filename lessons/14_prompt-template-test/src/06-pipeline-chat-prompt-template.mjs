@@ -7,7 +7,7 @@ import {
   personaPrompt,
   contextPrompt,
 } from './_shared/weeklyPromptBlocks.mjs';
-import { createChatModel } from './_shared/model.mjs';
+import { createChatModel } from '@lessons/shared/model';
 
 // 复习重点：
 // 这里把 PipelinePromptTemplate 和 ChatPromptTemplate 结合起来。

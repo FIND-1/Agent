@@ -1,5 +1,5 @@
 import { XMLOutputParser } from '@langchain/core/output_parsers'
-import { createChatModel } from './_shared/model.mjs'
+import { createChatModel } from '@lessons/shared/model'
 
 /**
  * 11. XMLOutputParser

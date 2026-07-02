@@ -21,9 +21,8 @@
 
 ## 结构调整
 
-- 新增 `src/_shared/model.mjs`。
-- 将重复的 `ChatOpenAI` 初始化抽成 `createChatModel()`。
-- 将重复的 `OpenAIEmbeddings` 初始化抽成 `createEmbeddings()`。
+- 示例统一从 `@lessons/shared/model` 导入 `createChatModel()` 和 `createEmbeddings()`。
+- 删除 lesson 内只做转发的 `src/_shared/model.mjs`；后续不再新增这类转发文件。
 - 新增 `src/_shared/weeklyPromptBlocks.mjs`，集中保存跨示例复用的周报 prompt blocks。
 - `02`、`03`、`06` 不再 import `01`，避免编号示例之间产生隐式运行依赖。
 - 没有抽离所有 prompt 文本和示例数据，因为这些内容正是本章要复习的主线。
@@ -63,5 +62,5 @@ Milvus 相关示例依赖本地或远程 Milvus 服务，复习时很容易被�
 ## 后续注意
 
 - 如果后续要真实运行 `10` / `11`，需要先准备 Milvus 服务和可用 embeddings 配置。
-- 如果模型 SDK 参数变化，优先检查 `src/_shared/model.mjs`。
+- 如果模型 SDK 参数变化，优先检查项目级 `@lessons/shared/model`。
 - 不建议继续把示例数据、prompt 文本大规模抽离，否则会降低打开单个文件复习时的可读性。
