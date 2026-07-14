@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nest + LangChain SSE 测试</title>
+    <style>
+      body { box-sizing: border-box; font-family: system-ui, sans-serif; margin: 2rem auto; max-width: 640px; padding: 0 1rem; }
+      label { display: block; font-weight: 600; margin: 1rem 0 0.4rem; }
+      input, button { border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font: inherit; padding: 0.7rem; width: 100%; }
+      button { background: #2563eb; color: #fff; cursor: pointer; margin-top: 1rem; }
+      button:disabled { cursor: not-allowed; opacity: 0.6; }
+      #output { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; min-height: 120px; padding: 1rem; white-space: pre-wrap; word-break: break-word; }
+      #status { color: #475569; min-height: 1.5rem; }
+    </style>
+  </head>
+  <body>
+    <h1>SSE 流式 AI 测试</h1>
+    <label for="apiUrl">API 地址</label>
+    <input id="apiUrl" type="text" value="http://localhost:3000" />
+    <label for="query">问题</label>
+    <input id="query" type="text" value="什么是 LangChain？" />
+    <button id="submit" type="button">开始流式请求</button>
+    <p id="status"></p>
+    <div id="output"></div>
+    <script>
+      const apiUrl = document.getElementById('apiUrl');
+      const query = document.getElementById('query');
+      const submit = document.getElementById('submit');
+      const status = document.getElementById('status');
+      const output = document.getElementById('output');
+
+      submit.addEventListener('click', () => {
+        const question = query.value.trim();
+        if (!question) {
+          status.textContent = '请输入问题。';
+          return;
+        }
+
+        const baseUrl = apiUrl.value.trim().replace(/\/$/, '');
+        const url = `${baseUrl}/ai/chat/stream?query=${encodeURIComponent(question)}`;
+        const source = new EventSource(url);
+
+        output.textContent = '';
+        submit.disabled = true;
+        status.textContent = '正在连接…';
+
+        source.onmessage = ({ data }) => {
+          output.textContent += data;
+          status.textContent = '正在生成…';
+        };
+
+        source.addEventListener('done', () => {
+          source.close();
+          submit.disabled = false;
+          status.textContent = '完成';
+        });
+
+        source.onerror = () => {
+          source.close();
+          submit.disabled = false;
+          status.textContent = '请求已结束或发生错误，请检查 .env 配置。';
+        };
+      });
+    </script>
+  </body>
+</html>
