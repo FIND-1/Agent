@@ -1,0 +1,474 @@
+﻿[
+    {
+        "id":  "image-001",
+        "rid":  "rId4",
+        "target":  "media/image1.png",
+        "paragraph":  "",
+        "previousText":  "你如果用 LangChain，就是这样：",
+        "nextText":  "所有大模型的 api 都实现 BaseChatModel"
+    },
+    {
+        "id":  "image-002",
+        "rid":  "rId5",
+        "target":  "media/image2.png",
+        "paragraph":  "",
+        "previousText":  "https://www.npmjs.com/package/@langchain/google-genai",
+        "nextText":  "https://www.npmjs.com/package/@langchain/deepseek"
+    },
+    {
+        "id":  "image-003",
+        "rid":  "rId6",
+        "target":  "media/image3.png",
+        "paragraph":  "",
+        "previousText":  "https://www.npmjs.com/package/@langchain/deepseek",
+        "nextText":  "https://www.npmjs.com/package/@langchain/anthropic"
+    },
+    {
+        "id":  "image-004",
+        "rid":  "rId7",
+        "target":  "media/image4.png",
+        "paragraph":  "",
+        "previousText":  "https://www.npmjs.com/package/@langchain/anthropic",
+        "nextText":  "也可能是在 @langchain/community 包："
+    },
+    {
+        "id":  "image-005",
+        "rid":  "rId8",
+        "target":  "media/image5.png",
+        "paragraph":  "",
+        "previousText":  "比如我司项目里就用到了各种大模型：",
+        "nextText":  "基于 LangChain 可以做到切换各种大模型，代码不变。"
+    },
+    {
+        "id":  "image-006",
+        "rid":  "rId9",
+        "target":  "media/image6.png",
+        "paragraph":  "",
+        "previousText":  "通过 BaseChatModel 屏蔽了大模型底层差异后，再就是对输入、输出做控制：",
+        "nextText":  "这就用到了 PromptTemplate 和 OutputParser 的 api"
+    },
+    {
+        "id":  "image-007",
+        "rid":  "rId10",
+        "target":  "media/image7.png",
+        "paragraph":  "",
+        "previousText":  "通过 ChatPromptTemplate 创建 prompt 模板：",
+        "nextText":  "其中的占位符用的时候传入。"
+    },
+    {
+        "id":  "image-008",
+        "rid":  "rId11",
+        "target":  "media/image8.png",
+        "paragraph":  "",
+        "previousText":  "如果是对话记录，是通过 MessagePlaceHolder 传入：",
+        "nextText":  "多个 PromptTemplate 可以用 PipelinePromptTemplate 组合："
+    },
+    {
+        "id":  "image-009",
+        "rid":  "rId12",
+        "target":  "media/image9.png",
+        "paragraph":  "",
+        "previousText":  "如果是对话记录，是通过 MessagePlaceHolder 传入：",
+        "nextText":  "多个 PromptTemplate 可以用 PipelinePromptTemplate 组合："
+    },
+    {
+        "id":  "image-010",
+        "rid":  "rId13",
+        "target":  "media/image10.png",
+        "paragraph":  "",
+        "previousText":  "多个 PromptTemplate 可以用 PipelinePromptTemplate 组合：",
+        "nextText":  "比如指定多个 pipelinePrompts，然后指定最终的 finalPrompt"
+    },
+    {
+        "id":  "image-011",
+        "rid":  "rId14",
+        "target":  "media/image11.png",
+        "paragraph":  "",
+        "previousText":  "比如指定多个 pipelinePrompts，然后指定最终的 finalPrompt",
+        "nextText":  "这样就是多个 PromptTemplate 合成一个。"
+    },
+    {
+        "id":  "image-012",
+        "rid":  "rId15",
+        "target":  "media/image12.png",
+        "paragraph":  "",
+        "previousText":  "有时还需要加入一些示例，用 FewShotPromptTemplate",
+        "nextText":  "指定模板和填入的值就可以了："
+    },
+    {
+        "id":  "image-013",
+        "rid":  "rId16",
+        "target":  "media/image13.png",
+        "paragraph":  "",
+        "previousText":  "指定模板和填入的值就可以了：",
+        "nextText":  "生成的就是这种带少量示例（Few Shot）的 prompt："
+    },
+    {
+        "id":  "image-014",
+        "rid":  "rId17",
+        "target":  "media/image14.png",
+        "paragraph":  "",
+        "previousText":  "生成的就是这种带少量示例（Few Shot）的 prompt：",
+        "nextText":  "而且还可以根据长度、语义来做示例选择"
+    },
+    {
+        "id":  "image-015",
+        "rid":  "rId18",
+        "target":  "media/image15.png",
+        "paragraph":  "",
+        "previousText":  "而且还可以根据长度、语义来做示例选择",
+        "nextText":  "这些就是 Prompt Template 的核心 api 了"
+    },
+    {
+        "id":  "image-016",
+        "rid":  "rId19",
+        "target":  "media/image16.png",
+        "paragraph":  "",
+        "previousText":  "而且还可以根据长度、语义来做示例选择",
+        "nextText":  "这些就是 Prompt Template 的核心 api 了"
+    },
+    {
+        "id":  "image-017",
+        "rid":  "rId20",
+        "target":  "media/image17.png",
+        "paragraph":  "",
+        "previousText":  "这些就是 Prompt Template 的核心 api 了",
+        "nextText":  "然后是输出部分，也就是 OutputParsr："
+    },
+    {
+        "id":  "image-018",
+        "rid":  "rId21",
+        "target":  "media/image18.png",
+        "paragraph":  "",
+        "previousText":  "这依赖两种机制：tool_call、json schema",
+        "nextText":  "大模型训练的时候就强制 tool_call、json schema 只能输出符合格式的 json。"
+    },
+    {
+        "id":  "image-019",
+        "rid":  "rId22",
+        "target":  "media/image19.png",
+        "paragraph":  "",
+        "previousText":  "这依赖两种机制：tool_call、json schema",
+        "nextText":  "大模型训练的时候就强制 tool_call、json schema 只能输出符合格式的 json。"
+    },
+    {
+        "id":  "image-020",
+        "rid":  "rId23",
+        "target":  "media/image20.png",
+        "paragraph":  "",
+        "previousText":  "如果都不支持，也可以用 OutputParser，也就是在 prompt 里带上格式要求，然后按照这个格式解析：",
+        "nextText":  "但不用自己区分用哪种方式，直接调用 model.withStructuredOutput 就可以了，LangChain 会根据调用的模型来选择用哪种（优先 tool call）。"
+    },
+    {
+        "id":  "image-021",
+        "rid":  "rId24",
+        "target":  "media/image21.png",
+        "paragraph":  "",
+        "previousText":  "但不用自己区分用哪种方式，直接调用 model.withStructuredOutput 就可以了，LangChain 会根据调用的模型来选择用哪种（优先 tool call）。",
+        "nextText":  "我们做了一个智能录入数据的例子："
+    },
+    {
+        "id":  "image-022",
+        "rid":  "rId25",
+        "target":  "media/image22.png",
+        "paragraph":  "",
+        "previousText":  "我们做了一个智能录入数据的例子：",
+        "nextText":  "AI 应用里这个功能很常见。"
+    },
+    {
+        "id":  "image-023",
+        "rid":  "rId26",
+        "target":  "media/image23.png",
+        "paragraph":  "",
+        "previousText":  "我们做了一个智能录入数据的例子：",
+        "nextText":  "AI 应用里这个功能很常见。"
+    },
+    {
+        "id":  "image-024",
+        "rid":  "rId27",
+        "target":  "media/image24.png",
+        "paragraph":  "",
+        "previousText":  "就是用的 JsonOutputToolsParser 解析了流式的内容：",
+        "nextText":  "之前流式返回的内容是这样："
+    },
+    {
+        "id":  "image-025",
+        "rid":  "rId28",
+        "target":  "media/image25.png",
+        "paragraph":  "",
+        "previousText":  "之前流式返回的内容是这样：",
+        "nextText":  "参数片段在 tool_call_chunks 里"
+    },
+    {
+        "id":  "image-026",
+        "rid":  "rId29",
+        "target":  "media/image26.png",
+        "paragraph":  "",
+        "previousText":  "用了 JsonOutputToolsParser 是这样的：",
+        "nextText":  "会解析成 json 格式。"
+    },
+    {
+        "id":  "image-027",
+        "rid":  "rId30",
+        "target":  "media/image27.png",
+        "paragraph":  "",
+        "previousText":  "输出格式控制用到了 tool_call，这是我们最先学的特性",
+        "nextText":  "定义 tool，加一下 name、description、参数 schema"
+    },
+    {
+        "id":  "image-028",
+        "rid":  "rId31",
+        "target":  "media/image28.png",
+        "paragraph":  "",
+        "previousText":  "只要描述写的清楚，那大模型就会在需要调用 tool 的时候返回 tool_calls 信息：",
+        "nextText":  "并且按照你指定的 schema 来填充参数。"
+    },
+    {
+        "id":  "image-029",
+        "rid":  "rId32",
+        "target":  "media/image29.png",
+        "paragraph":  "",
+        "previousText":  "并且按照你指定的 schema 来填充参数。",
+        "nextText":  "这样我们根据 tool_calls 去调用工具，然后把结果封装成 ToolMessage 也放入 messages 数组。"
+    },
+    {
+        "id":  "image-030",
+        "rid":  "rId33",
+        "target":  "media/image30.png",
+        "paragraph":  "",
+        "previousText":  "之后继续循环调用：",
+        "nextText":  "直到没有新的 tool_call，循环结束。"
+    },
+    {
+        "id":  "image-031",
+        "rid":  "rId34",
+        "target":  "media/image31.png",
+        "paragraph":  "",
+        "previousText":  "直到没有新的 tool_call，循环结束。",
+        "nextText":  "当然，不是所有的 tool 都要自己写，有很多 MCP，也就是可跨进程调用的 tool 可以直接复用"
+    },
+    {
+        "id":  "image-032",
+        "rid":  "rId35",
+        "target":  "media/image32.png",
+        "paragraph":  "",
+        "previousText":  "当然，不是所有的 tool 都要自己写，有很多 MCP，也就是可跨进程调用的 tool 可以直接复用",
+        "nextText":  "如果 MCP Server 跑在本地进程，就是用 stdio 进程通信，否则就是 http 通信"
+    },
+    {
+        "id":  "image-033",
+        "rid":  "rId36",
+        "target":  "media/image33.png",
+        "paragraph":  "",
+        "previousText":  "如果 MCP Server 跑在本地进程，就是用 stdio 进程通信，否则就是 http 通信",
+        "nextText":  "比如上面高德 MCP 是用了 http 通信，而 Chrome Devtools 的 MCP 用了 stdio 本地进程通信"
+    },
+    {
+        "id":  "image-034",
+        "rid":  "rId37",
+        "target":  "media/image34.png",
+        "paragraph":  "",
+        "previousText":  "在 cursor 等编辑器里配置好 MCP Server 后就可以看到 MCP 提供的所有的 tools",
+        "nextText":  "代码里是用 @langchain/mcp-adapters 这个包来和 MCP Server 通信"
+    },
+    {
+        "id":  "image-035",
+        "rid":  "rId38",
+        "target":  "media/image35.png",
+        "paragraph":  "",
+        "previousText":  "代码里是用 @langchain/mcp-adapters 这个包来和 MCP Server 通信",
+        "nextText":  "client.getTools 拿到所有 tool，然后绑定到大模型就好了，其余的和自己定义的 tool 没区别。"
+    },
+    {
+        "id":  "image-036",
+        "rid":  "rId34",
+        "target":  "media/image31.png",
+        "paragraph":  "",
+        "previousText":  "依然是这个循环：",
+        "nextText":  "这个循环如果调用次数少，没啥问题，把所有对话放到 messages 数组"
+    },
+    {
+        "id":  "image-037",
+        "rid":  "rId39",
+        "target":  "media/image36.png",
+        "paragraph":  "",
+        "previousText":  "cursor：",
+        "nextText":  "claude code："
+    },
+    {
+        "id":  "image-038",
+        "rid":  "rId40",
+        "target":  "media/image37.png",
+        "paragraph":  "",
+        "previousText":  "cursor：",
+        "nextText":  "claude code："
+    },
+    {
+        "id":  "image-039",
+        "rid":  "rId41",
+        "target":  "media/image38.jpeg",
+        "paragraph":  "",
+        "previousText":  "claude code：",
+        "nextText":  "当然，messages 数组的写法太原始，一般用 ChatMessageHistory 的 api："
+    },
+    {
+        "id":  "image-040",
+        "rid":  "rId42",
+        "target":  "media/image39.png",
+        "paragraph":  "",
+        "previousText":  "claude code：",
+        "nextText":  "当然，messages 数组的写法太原始，一般用 ChatMessageHistory 的 api："
+    },
+    {
+        "id":  "image-041",
+        "rid":  "rId43",
+        "target":  "media/image40.png",
+        "paragraph":  "",
+        "previousText":  "当然，messages 数组的写法太原始，一般用 ChatMessageHistory 的 api：",
+        "nextText":  "它可以把 messages 存到内存、redis、文件、数据库等。"
+    },
+    {
+        "id":  "image-042",
+        "rid":  "rId44",
+        "target":  "media/image41.png",
+        "paragraph":  "",
+        "previousText":  "把一段内容向量化，在坐标空间内就可以通过夹角来判断相似度：",
+        "nextText":  "也就是余弦相似度。"
+    },
+    {
+        "id":  "image-043",
+        "rid":  "rId45",
+        "target":  "media/image42.png",
+        "paragraph":  "",
+        "previousText":  "当然实际上向量的维度很大，比如 1024",
+        "nextText":  "基于 Milvus 之类的向量数据库，可以快速根据向量的余弦相似度，检索出相关文档。"
+    },
+    {
+        "id":  "image-044",
+        "rid":  "rId46",
+        "target":  "media/image43.png",
+        "paragraph":  "",
+        "previousText":  "当然实际上向量的维度很大，比如 1024",
+        "nextText":  "基于 Milvus 之类的向量数据库，可以快速根据向量的余弦相似度，检索出相关文档。"
+    },
+    {
+        "id":  "image-045",
+        "rid":  "rId47",
+        "target":  "media/image44.png",
+        "paragraph":  "",
+        "previousText":  "首先内容存入向量数据库：",
+        "nextText":  "各种来源的内容，通过 loader 加载，用 Splitter 分割后再用嵌入模型向量化，存到 Milvus 之类的向量数据库。"
+    },
+    {
+        "id":  "image-046",
+        "rid":  "rId48",
+        "target":  "media/image45.png",
+        "paragraph":  "",
+        "previousText":  "各种来源的内容，通过 loader 加载，用 Splitter 分割后再用嵌入模型向量化，存到 Milvus 之类的向量数据库。",
+        "nextText":  "之后根据 query 向量化之后去做余弦相似度匹配，就可以检索出相关文档，让大模型生成回答："
+    },
+    {
+        "id":  "image-047",
+        "rid":  "rId49",
+        "target":  "media/image46.png",
+        "paragraph":  "",
+        "previousText":  "之后根据 query 向量化之后去做余弦相似度匹配，就可以检索出相关文档，让大模型生成回答：",
+        "nextText":  "比如我们做的电子书阅读助手："
+    },
+    {
+        "id":  "image-048",
+        "rid":  "rId50",
+        "target":  "media/image47.png",
+        "paragraph":  "",
+        "previousText":  "比如我们做的电子书阅读助手：",
+        "nextText":  "就是检索了 5 个片段，然后给大模型基于这些语义相关的片段来生成回答："
+    },
+    {
+        "id":  "image-049",
+        "rid":  "rId51",
+        "target":  "media/image48.png",
+        "paragraph":  "",
+        "previousText":  "就是检索了 5 个片段，然后给大模型基于这些语义相关的片段来生成回答：",
+        "nextText":  "这就是 RAG 的流程。"
+    },
+    {
+        "id":  "image-050",
+        "rid":  "rId52",
+        "target":  "media/image49.png",
+        "paragraph":  "",
+        "previousText":  "实际上 LangChain 有一层封装，在 @langchin/comunity 包下：",
+        "nextText":  "用这层封装是更好的，就像前面讲 ChatModel 一样，它也是屏蔽了底层差异。"
+    },
+    {
+        "id":  "image-051",
+        "rid":  "rId53",
+        "target":  "media/image50.png",
+        "paragraph":  "",
+        "previousText":  "实际上 LangChain 有一层封装，在 @langchin/comunity 包下：",
+        "nextText":  "用这层封装是更好的，就像前面讲 ChatModel 一样，它也是屏蔽了底层差异。"
+    },
+    {
+        "id":  "image-052",
+        "rid":  "rId54",
+        "target":  "media/image51.png",
+        "paragraph":  "",
+        "previousText":  "用这层封装是更好的，就像前面讲 ChatModel 一样，它也是屏蔽了底层差异。",
+        "nextText":  "调用 similaritySearchVectorWithScore 做相似度检索。"
+    },
+    {
+        "id":  "image-053",
+        "rid":  "rId55",
+        "target":  "media/image52.png",
+        "paragraph":  "",
+        "previousText":  "并且提供了一系列 Runnable 的 api 可以连接不同的组件：",
+        "nextText":  "这样组装出一条 chain 之后，统一执行。"
+    },
+    {
+        "id":  "image-054",
+        "rid":  "rId56",
+        "target":  "media/image53.png",
+        "paragraph":  "",
+        "previousText":  "而且调用方式有 invoke（同步调用）、stream（流式）、batch（批量调用） 三种：",
+        "nextText":  "再回到刚才那个问题，有了声明式的 chain 之后，再加耗时、token 消耗、 输入输出的日志等，怎么做呢？"
+    },
+    {
+        "id":  "image-055",
+        "rid":  "rId57",
+        "target":  "media/image54.png",
+        "paragraph":  "",
+        "previousText":  "这样：",
+        "nextText":  "只要加一个 callbacks 回调就可以了，所以的节点就动态加上了这段逻辑。"
+    },
+    {
+        "id":  "image-056",
+        "rid":  "rId58",
+        "target":  "media/image55.png",
+        "paragraph":  "",
+        "previousText":  "而且每个节点自带了重试、备选方案、配置等功能，开箱即用：",
+        "nextText":  "当然，这种写法要学一些 api："
+    },
+    {
+        "id":  "image-057",
+        "rid":  "rId59",
+        "target":  "media/image56.png",
+        "paragraph":  "",
+        "previousText":  "而且每个节点自带了重试、备选方案、配置等功能，开箱即用：",
+        "nextText":  "当然，这种写法要学一些 api："
+    },
+    {
+        "id":  "image-058",
+        "rid":  "rId60",
+        "target":  "media/image57.png",
+        "paragraph":  "",
+        "previousText":  "而且每个节点自带了重试、备选方案、配置等功能，开箱即用：",
+        "nextText":  "当然，这种写法要学一些 api："
+    },
+    {
+        "id":  "image-059",
+        "rid":  "rId61",
+        "target":  "media/image58.png",
+        "paragraph":  "",
+        "previousText":  "刚开始可能不大习惯，但是多练习写几个 chain  就会了。",
+        "nextText":  "（写法上可以简化，函数会自动转成 RunnableLambda、对象会自动转成 RunnableMap）"
+    }
+]

@@ -7,7 +7,7 @@ import { RunnableLambda, RunnableSequence } from "@langchain/core/runnables";
  *
  * 原文示例用 userId、role、locale 演示：
  * - 第一个节点根据 userId 查用户
- * - 第二个节点根据 role 做权限判断
+ * - 第二个节点根据 role 做权限判断（当前已按需求注释掉）
  * - 第三个节点根据 locale 生成不同语言的通知文案
  */
 
@@ -41,33 +41,34 @@ const fetchUserFromConfig = RunnableLambda.from(async (input, config) => {
   };
 });
 
-// 节点2：根据 config.configurable.role 做权限判断。
-const checkPermissionByRole = RunnableLambda.from(async (state, config) => {
-  const role = config?.configurable?.role ?? "普通用户";
-
-  console.log("【节点2】当前角色:", role);
-
-  const canSend = role === "管理员" || role === "运营" || role === "系统";
-  if (!canSend) {
-    throw new Error(`角色「${role}」无权限发送系统通知`);
-  }
-
-  return {
-    ...state,
-    role,
-  };
-});
+// 审批/权限判断逻辑暂时关闭，保留原代码方便后续恢复。
+// const checkPermissionByRole = RunnableLambda.from(async (state, config) => {
+//   const role = config?.configurable?.role ?? "普通用户";
+//
+//   console.log("【节点2】当前角色:", role);
+//
+//   const canSend = role === "管理员" || role === "运营" || role === "系统";
+//   if (!canSend) {
+//     throw new Error(`角色「${role}」无权限发送系统通知`);
+//   }
+//
+//   return {
+//     ...state,
+//     role,
+//   };
+// });
 
 // 节点3：根据 locale 生成最终通知文案。
 const formatNotificationByLocale = RunnableLambda.from(async (state, config) => {
   const locale = config?.configurable?.locale ?? "zh-CN";
+  const role = state.role ?? config?.configurable?.role ?? "未校验角色";
 
   console.log("【节点3】locale:", locale);
 
   const finalContent =
     locale === "en-US"
-      ? `Dear ${state.user.name},\n\n${state.notification}\n\n(from role: ${state.role})`
-      : `亲爱的 ${state.user.name}，\n\n${state.notification}\n\n（发送人角色：${state.role}）`;
+      ? `Dear ${state.user.name},\n\n${state.notification}\n\n(from role: ${role})`
+      : `亲爱的 ${state.user.name}，\n\n${state.notification}\n\n（发送人角色：${role}）`;
 
   return {
     ...state,
@@ -76,10 +77,10 @@ const formatNotificationByLocale = RunnableLambda.from(async (state, config) => 
   };
 });
 
-// 把三个节点串起来。
+// 把当前启用的节点串起来。
 const chain = RunnableSequence.from([
   fetchUserFromConfig,
-  checkPermissionByRole,
+  // checkPermissionByRole,
   formatNotificationByLocale,
 ]);
 
