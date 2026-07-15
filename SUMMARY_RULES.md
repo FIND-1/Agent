@@ -223,6 +223,24 @@ REVIEW_NOTES.md
 * 如果某个 lesson 的真实课程根位于子目录，例如 `lessons/17_nest+langchain/hello-nest-langchain/`，则以真实课程根为准。
 * 如果本轮只要求检查，不要求整理其他课程，只报告不合规目录，不自动删除或合并。
 
+#### 4.5 lessons 子课程依赖安装限制
+
+`lessons/` 下的子课程禁止单独下载和维护 `node_modules`。依赖安装和升级必须优先在项目根目录执行，复用根目录 `node_modules`。
+
+规则：
+
+* 不要在 `lessons/*` 或 `lessons/*/*` 内执行 `pnpm install`、`npm install`、`yarn install` 或类似会生成子目录 `node_modules` 的命令。
+* 如果子课程需要新增依赖，优先在项目根目录 `D:\1project\agent` 更新根 `package.json` 和根锁文件。
+* 子课程代码应优先依赖项目根目录已有依赖；不要为了单个 lesson 在子课程目录重复下载同一依赖。
+* 如果脚手架、CLI 或生成器自动在子课程目录安装依赖，完成后必须删除该子课程下的 `node_modules`，并把实际需要的依赖补到根目录。
+* 如果确实存在必须独立安装的例外，必须先在最终输出中说明原因、影响范围和清理方式，不能默认执行。
+
+交付前必须检查：
+
+* 本轮涉及的子课程目录下是否产生了 `node_modules`。
+* 新增依赖是否写入根 `package.json`，而不是只写入子课程 `package.json`。
+* 根锁文件是否同步更新。
+
 ---
 
 ### 5. 调整注释风格
@@ -333,6 +351,17 @@ fallback 要求：
 * fallback 路径是什么
 * 哪些坑点后续要注意
 
+如果当前 lesson 不是多个编号示例文件，而是一个单独 Nest 应用、单独入口文件或单项目式代码包，也必须在 `REVIEW_NOTES.md` 中写清楚推荐复习顺序，不能因为文件没有编号就省略。
+
+这类项目的复习顺序应按模块和调用链组织，例如：
+
+1. 先看入口和根模块：`main.ts`、`app.module.ts`，理解应用如何启动、全局模块如何注册。
+2. 再看核心业务模块：按 `module -> controller -> service` 顺序理解请求入口、依赖注入和业务流。
+3. 再看共享能力或工具模块：例如模型 provider、工具 provider、配置读取、数据库实体、定时任务模块。
+4. 最后看运行和验证路径：环境变量、外部服务依赖、fallback、常见报错和最小可运行命令。
+
+`REVIEW_NOTES.md` 中应明确说明：该 lesson 没有编号示例文件，因此复习顺序以 Nest 模块依赖关系、请求调用链和运行依赖为主线。
+
 ---
 
 ### 8. 保留原文知识结论
@@ -405,6 +434,8 @@ README 或 REVIEW_NOTES 中需要保留文章的核心判断，例如：
 
 * `_shared/` 是否为空
 * lessons 子课程根目录是否只保留 `README.md` 和 `REVIEW_NOTES.md`
+* 本轮涉及的 lessons 子课程目录是否不存在独立 `node_modules`
+* 如果 lesson 是单独 Nest 应用、单独入口文件或单项目式代码包，`REVIEW_NOTES.md` 是否已经写明推荐复习顺序
 * 是否存在编号示例文件 import 另一个编号示例文件
 * 是否存在重复模型初始化
 * 是否存在重复环境变量读取
@@ -475,6 +506,7 @@ README 必须明确列出：
 
 * `_shared/` 抽离结果
 * lessons 子课程根目录 Markdown 文件检查结果
+* lessons 子课程依赖是否安装在根目录、是否残留子目录 `node_modules`
 * 编号示例 import 检查结果
 * `node --check` 检查结果
 * README 依赖分类结果
@@ -494,14 +526,15 @@ README 必须明确列出：
 4. 新增或修改的 README / REVIEW_NOTES
 5. `_shared/` 抽离结果
 6. lessons 子课程根目录 Markdown 文件检查结果
-7. 编号示例 import 检查结果
-8. 运行检查结果，例如 `node --check`
-9. README 中的依赖分类结果
-10. `package.json` / README 环境变量说明是否补齐
-11. fallback 是否补齐
-12. 如果有压缩包，说明压缩包内包含哪些内容
-13. 如果发现文章或代码存在不一致，需要明确指出
-14. 如果某项无法完成，必须说明原因，不能假装完成
+7. lessons 子课程依赖是否安装在根目录、是否残留子目录 `node_modules`
+8. 编号示例 import 检查结果
+9. 运行检查结果，例如 `node --check`
+10. README 中的依赖分类结果
+11. `package.json` / README 环境变量说明是否补齐
+12. fallback 是否补齐
+13. 如果有压缩包，说明压缩包内包含哪些内容
+14. 如果发现文章或代码存在不一致，需要明确指出
+15. 如果某项无法完成，必须说明原因，不能假装完成
 
 ---
 

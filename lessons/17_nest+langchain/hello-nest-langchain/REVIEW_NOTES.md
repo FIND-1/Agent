@@ -178,7 +178,11 @@ hello-nest-langchain/
 
 `dist/` 是构建产物，不作为复习和维护的主要阅读对象。
 
-## 核心学习路径
+## 推荐复习顺序
+
+本 lesson 不是 `00-xxx.mjs`、`01-xxx.mjs` 这种编号示例文件结构，而是一个单独 Nest 子项目。复习时不要按文件名排序猜顺序，应按 Nest 模块依赖关系、HTTP 请求调用链和运行依赖逐层阅读。
+
+推荐顺序如下：
 
 1. `src/app.module.ts`：根模块，集中组装 `ConfigModule`、`ServeStaticModule`、`BookModule` 和 `AiModule`。
 2. `src/book/book.module.ts`：用 `useFactory` 注册内存仓库 Provider，演示 token 注入。
@@ -263,6 +267,7 @@ git diff --check -- SUMMARY_RULES.md lessons/17_nest+langchain/hello-nest-langch
 ## 交付自检
 
 - 目录结构：当前子课程最终只保留 `README.md` 和 `REVIEW_NOTES.md` 两份 Markdown。
+- 单独 Nest 子项目复习顺序：已在“推荐复习顺序”中说明，本 lesson 没有编号示例文件，按模块依赖关系和请求调用链复习。
 - `_shared/` 抽离：已检查重复项，当前不新增 lesson 内 `_shared/`，并说明原因。
 - 编号示例 import：当前不是编号示例结构，未发现编号示例互相 import。
 - README 依赖分类：已补充无需 API Key、需要模型 API、fallback 复习路径。
