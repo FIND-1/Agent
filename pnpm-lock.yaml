@@ -409,7 +409,7 @@ importers:
         specifier: ^4.4.3
         version: 4.4.3
 
-  lessons/17_nest+langchain/hello-nest-langchain:
+  lessons/18_nest+langchain/hello-nest-langchain:
     dependencies:
       '@langchain/core':
         specifier: ^1.2.0
@@ -512,7 +512,7 @@ importers:
         specifier: ^8.20.0
         version: 8.62.0(eslint@9.39.4)(typescript@5.9.3)
 
-  lessons/18_nest+openclew/new-openclew:
+  lessons/20_nest+openclew/new-openclew:
     dependencies:
       '@nestjs-modules/mailer':
         specifier: ^2.3.7

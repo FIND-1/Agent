@@ -4,6 +4,18 @@
 
 当用户要求“总结”“整理”“结合文章整理代码”“方便后续复习”，且已通过 `AGENT.md` 的触发判断时，不要只输出普通摘要，而是按照下面流程执行。
 
+## 基础设施边界：数据库与 Docker
+
+当前 `agent/` 项目不包含 Docker 编排、MySQL 服务或可直接使用的 SQL 数据库环境。
+
+整理公众号文章时，如果文章涉及 Docker、MySQL、SQL、TypeORM、ORM 建表、数据库 CRUD、定时任务持久化等内容，必须先标记为外部前置条件或 TODO：
+
+- 不要默认本地可以启动数据库。
+- 不要把数据库相关 curl、CRUD、建表、定时任务持久化写成已验证结果。
+- README、REVIEW_NOTES、源码复习注释开头或靠前位置必须说明数据库验证边界。
+- 像 `lessons/20_nest+openclew/new-openclew` 这种依赖 MySQL 的课程，当前只能进行静态整理、源码导读和 TypeScript 解析检查，不能宣称完整运行验证。
+- 只有用户明确提供可用数据库或 Docker 环境后，才允许把数据库链路纳入运行验证。
+
 ---
 
 ## 目标
@@ -220,7 +232,7 @@ REVIEW_NOTES.md
 
 * 本限制只约束可复习课程包根目录。
 * 排除 `lessons/_shared/`、生成目录、vendor 目录、嵌套 demo app、临时实验目录和未被本轮指定为课程根的辅助资料目录。
-* 如果某个 lesson 的真实课程根位于子目录，例如 `lessons/17_nest+langchain/hello-nest-langchain/`，则以真实课程根为准。
+* 如果某个 lesson 的真实课程根位于子目录，例如 `lessons/18_nest+langchain/hello-nest-langchain/`，则以真实课程根为准。
 * 如果本轮只要求检查，不要求整理其他课程，只报告不合规目录，不自动删除或合并。
 
 #### 4.5 lessons 子课程依赖安装限制
