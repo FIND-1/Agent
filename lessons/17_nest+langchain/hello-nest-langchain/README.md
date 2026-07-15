@@ -1,98 +1,90 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# hello-nest-langchain
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+一个用于学习 Nest + LangChain 的最小示例，包含：
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+- Nest Module、Controller、Service 与依赖注入。
+- 基于 `useFactory` 的内存仓库和 ChatModel Provider。
+- LangChain 普通问答接口。
+- 基于 SSE 的流式问答接口。
+- 使用浏览器原生 `EventSource` 的测试页。
 
-## Description
+完整原理、代码导读和整理自检见 [REVIEW_NOTES.md](./REVIEW_NOTES.md)。
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 学习路径
 
-## Project setup
+建议按下面顺序复习：
 
-```bash
-$ pnpm install
+1. `src/app.module.ts`：理解根模块如何组装配置、静态资源和业务模块。
+2. `src/book/book.module.ts`：理解 `useFactory` Provider 和 token 注入。
+3. `src/book/book.service.ts`：理解属性注入和内存 mock 仓库。
+4. `src/ai/ai.module.ts`：理解模型 Provider 为什么放在模块工厂里创建。
+5. `src/ai/ai.service.ts`：理解 `PromptTemplate -> ChatModel -> StringOutputParser` 的 Chain。
+6. `src/ai/ai.controller.ts`：理解普通 JSON 接口和 SSE 接口的边界。
+7. `public/sse-test.html`：理解浏览器如何用 `EventSource` 消费 SSE。
+
+## 环境配置
+
+项目读取工作区根目录 `D:\1project\agent\.env`：
+
+```env
+OPENAI_API_KEY=你的密钥
+OPENAI_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
+MODEL_NAME=qwen-plus
 ```
 
-## Compile and run the project
+不要在本子项目下新增 `.env` 或 `.env.example`。所有 lesson 共用工作区根目录 `.env`。
 
-```bash
-# development
-$ pnpm run start
+## 运行方式
 
-# watch mode
-$ pnpm run start:dev
+### 无需 API Key
 
-# production mode
-$ pnpm run start:prod
+`/book` 和 `/` 可以先用于确认 Nest 服务本身能启动：
+
+```powershell
+pnpm install
+pnpm start:dev
 ```
 
-## Run tests
+默认监听 `http://localhost:3000`。
 
-```bash
-# unit tests
-$ pnpm run test
+可访问：
 
-# e2e tests
-$ pnpm run test:e2e
+- `GET /`
+- `GET /book`
 
-# test coverage
-$ pnpm run test:cov
+### 需要模型 API
+
+下面接口需要根目录 `.env` 中存在有效的 `OPENAI_API_KEY`：
+
+- `GET /ai/chat?query=你好`
+- `GET /ai/chat/stream?query=你好`
+- `GET /sse-test.html`
+
+### fallback 复习路径
+
+如果暂时没有模型 API Key，先按下面路径复习，不需要发起模型请求：
+
+1. 先读 `src/book/*`，掌握 Nest Module、Controller、Service 和 Provider。
+2. 再读 `src/ai/ai.module.ts`，理解模型实例如何通过 Provider 注入。
+3. 最后读 `src/ai/ai.controller.ts` 和 `public/sse-test.html`，理解 `AsyncGenerator -> Observable<MessageEvent> -> EventSource` 的流式链路。
+
+这条路径不能验证真实模型输出，但保留了本节的核心结构。
+
+## 接口
+
+| 地址 | 说明 |
+| --- | --- |
+| `GET /book` | 返回内存 mock 图书列表 |
+| `GET /ai/chat?query=你好` | 返回完整 AI 回答 |
+| `GET /ai/chat/stream?query=你好` | 通过 SSE 流式返回 AI 回答 |
+| `GET /sse-test.html` | 打开 SSE 浏览器测试页 |
+
+## 检查命令
+
+```powershell
+pnpm build
+pnpm test
+pnpm lint
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+如果本地还没有安装依赖，需要先在 `hello-nest-langchain` 目录执行 `pnpm install`。AI 相关接口缺少 `OPENAI_API_KEY` 时会返回 503；`query` 为空时会返回 400。

@@ -23,6 +23,20 @@
     <button id="submit" type="button">开始流式请求</button>
     <p id="status"></p>
     <div id="output"></div>
+    <!--
+      复习重点：
+      EventSource 是浏览器原生的 SSE 客户端，用于持续接收服务端推送的文本事件。
+
+      原文分析结论：
+      - EventSource 使用 GET，请求参数需要拼进 URL 并通过 encodeURIComponent 编码
+      - 默认的 data 事件由 onmessage 接收
+      - done 是后端自定义事件，用来明确表示模型流已经结束
+      - 完成或出错后都要 close，避免浏览器自动重连
+
+      依赖条件：
+      - Nest 服务默认运行在 http://localhost:3000
+      - /ai/chat/stream 接口需要有效的模型 API 配置
+    -->
     <script>
       const apiUrl = document.getElementById('apiUrl');
       const query = document.getElementById('query');
@@ -39,6 +53,8 @@
 
         const baseUrl = apiUrl.value.trim().replace(/\/$/, '');
         const url = `${baseUrl}/ai/chat/stream?query=${encodeURIComponent(question)}`;
+
+        // 建立后，服务端每推送一个 MessageEvent，浏览器就会触发对应回调。
         const source = new EventSource(url);
 
         output.textContent = '';
@@ -46,10 +62,12 @@
         status.textContent = '正在连接…';
 
         source.onmessage = ({ data }) => {
+          // chunk 按到达顺序追加，逐步形成完整回答。
           output.textContent += data;
           status.textContent = '正在生成…';
         };
 
+        // 监听后端主动追加的自定义 done 事件。
         source.addEventListener('done', () => {
           source.close();
           submit.disabled = false;

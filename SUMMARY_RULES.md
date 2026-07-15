@@ -200,6 +200,29 @@ src/
 * 禁止 README 中写了 `pnpm install`、`npm install` 或运行命令，但项目缺少 `package.json`
 * 如果判断不需要 `package.json` 或 README 环境变量说明，必须在最终输出中说明原因
 
+#### 4.4 lessons 子课程 Markdown 文件限制
+
+`lessons/` 下的子课程包整理完成后，课程根目录只应保留两份 Markdown：
+
+```txt
+README.md
+REVIEW_NOTES.md
+```
+
+规则：
+
+* `README.md` 是快速入口，负责学习目标、运行方式、依赖分类和复习路径。
+* `REVIEW_NOTES.md` 是完整复习记录，负责文章主线、代码对应关系、整理原因、自检结果和后续注意。
+* `LESSON.md`、`NOTES.md`、`SUMMARY.md` 等讲义或总结文件的有效内容必须合并进 `REVIEW_NOTES.md` 后再删除。
+* 不允许课程根目录长期同时保留 `README.md`、`REVIEW_NOTES.md` 和 `LESSON.md` 三份复习文档。
+
+范围：
+
+* 本限制只约束可复习课程包根目录。
+* 排除 `lessons/_shared/`、生成目录、vendor 目录、嵌套 demo app、临时实验目录和未被本轮指定为课程根的辅助资料目录。
+* 如果某个 lesson 的真实课程根位于子目录，例如 `lessons/17_nest+langchain/hello-nest-langchain/`，则以真实课程根为准。
+* 如果本轮只要求检查，不要求整理其他课程，只报告不合规目录，不自动删除或合并。
+
 ---
 
 ### 5. 调整注释风格
@@ -381,6 +404,7 @@ README 或 REVIEW_NOTES 中需要保留文章的核心判断，例如：
 必须检查：
 
 * `_shared/` 是否为空
+* lessons 子课程根目录是否只保留 `README.md` 和 `REVIEW_NOTES.md`
 * 是否存在编号示例文件 import 另一个编号示例文件
 * 是否存在重复模型初始化
 * 是否存在重复环境变量读取
@@ -450,6 +474,7 @@ README 必须明确列出：
 最终输出除了目录结构和修改说明，还必须包含：
 
 * `_shared/` 抽离结果
+* lessons 子课程根目录 Markdown 文件检查结果
 * 编号示例 import 检查结果
 * `node --check` 检查结果
 * README 依赖分类结果
@@ -468,14 +493,15 @@ README 必须明确列出：
 3. 每个示例文件的学习目的
 4. 新增或修改的 README / REVIEW_NOTES
 5. `_shared/` 抽离结果
-6. 编号示例 import 检查结果
-7. 运行检查结果，例如 `node --check`
-8. README 中的依赖分类结果
-9. `package.json` / README 环境变量说明是否补齐
-10. fallback 是否补齐
-11. 如果有压缩包，说明压缩包内包含哪些内容
-12. 如果发现文章或代码存在不一致，需要明确指出
-13. 如果某项无法完成，必须说明原因，不能假装完成
+6. lessons 子课程根目录 Markdown 文件检查结果
+7. 编号示例 import 检查结果
+8. 运行检查结果，例如 `node --check`
+9. README 中的依赖分类结果
+10. `package.json` / README 环境变量说明是否补齐
+11. fallback 是否补齐
+12. 如果有压缩包，说明压缩包内包含哪些内容
+13. 如果发现文章或代码存在不一致，需要明确指出
+14. 如果某项无法完成，必须说明原因，不能假装完成
 
 ---
 
