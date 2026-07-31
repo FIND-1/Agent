@@ -1,0 +1,18 @@
+{
+  "name": "21_tts-stt-test",
+  "version": "1.0.0",
+  "description": "ASR、普通 TTS、流式 TTS 与语音 Agent 全链路学习示例",
+  "type": "module",
+  "main": "src/00-tts-to-file.mjs",
+  "scripts": {
+    "check": "node --check ./src/_shared/env.mjs && node --check ./src/00-tts-to-file.mjs && node --check ./src/01-streaming-tts-to-file.mjs && node --check ./src/02-asr-from-file.mjs",
+    "tts": "node ./src/00-tts-to-file.mjs",
+    "tts:stream": "node ./src/01-streaming-tts-to-file.mjs",
+    "asr": "node ./src/02-asr-from-file.mjs",
+    "server:build": "tsc -p ./asr-and-tts-nest-service/tsconfig.build.json",
+    "server:start": "npm run server:build && node ./asr-and-tts-nest-service/dist/main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>语音 AI 助手</title>
+    <style>
+      :root {
+        color: #1f2937;
+        background: #f3f4f6;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+          "Microsoft YaHei", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      main {
+        width: min(920px, calc(100% - 28px));
+        margin: 28px auto;
+        overflow: hidden;
+        border: 1px solid #e5e7eb;
+        border-radius: 20px;
+        background: #fff;
+        box-shadow: 0 14px 40px rgba(15, 23, 42, 0.08);
+      }
+
+      header,
+      footer {
+        padding: 18px;
+      }
+
+      header {
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      h1 {
+        margin: 0 0 6px;
+        font-size: 21px;
+      }
+
+      .description,
+      .hint {
+        color: #6b7280;
+        font-size: 13px;
+      }
+
+      #status {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 5px 10px;
+        border-radius: 999px;
+        background: #eff6ff;
+        color: #1d4ed8;
+        font-size: 12px;
+      }
+
+      #messages {
+        min-height: 420px;
+        max-height: 62vh;
+        overflow-y: auto;
+        padding: 20px;
+        background: #fafbfc;
+      }
+
+      .message {
+        display: flex;
+        margin-bottom: 14px;
+      }
+
+      .message.user {
+        justify-content: flex-end;
+      }
+
+      .bubble {
+        max-width: 82%;
+        padding: 11px 13px;
+        border: 1px solid #e5e7eb;
+        border-radius: 15px;
+        background: #fff;
+        white-space: pre-wrap;
+        line-height: 1.6;
+      }
+
+      .user .bubble {
+        border-color: #bfdbfe;
+        background: #eff6ff;
+      }
+
+      .meta {
+        margin-top: 5px;
+        color: #9ca3af;
+        font-size: 11px;
+      }
+
+      footer {
+        border-top: 1px solid #e5e7eb;
+      }
+
+      .composer {
+        display: flex;
+        gap: 10px;
+        align-items: flex-end;
+      }
+
+      textarea {
+        flex: 1;
+        min-height: 48px;
+        max-height: 130px;
+        resize: vertical;
+        padding: 11px;
+        border: 1px solid #d1d5db;
+        border-radius: 12px;
+        font: inherit;
+      }
+
+      button {
+        padding: 11px 14px;
+        border: 1px solid #d1d5db;
+        border-radius: 11px;
+        background: #fff;
+        cursor: pointer;
+      }
+
+      button.primary {
+        border-color: #2563eb;
+        background: #2563eb;
+        color: #fff;
+      }
+
+      button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      audio {
+        width: 100%;
+        margin-top: 12px;
+      }
+
+      .hint {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <header>
+        <h1>语音 AI 助手</h1>
+        <div class="description">
+          MediaRecorder 录音 → ASR → SSE 文本 → WebSocket 流式语音
+        </div>
+        <div id="status">状态：未开始</div>
+      </header>
+
+      <section id="messages">
+        <div class="description" id="emptyTip">
+          可以输入文字，也可以录音后自动发起提问。
+        </div>
+      </section>
+
+      <footer>
+        <div class="composer">
+          <textarea
+            id="promptInput"
+            placeholder="输入问题，Enter 发送，Shift+Enter 换行"
+          ></textarea>
+          <button id="recordBtn">语音输入</button>
+          <button class="primary" id="sendBtn">发送</button>
+        </div>
+        <audio id="audioPlayer" controls></audio>
+        <div class="hint">
+          如果浏览器不支持 MP3 MediaSource，页面会在音频接收完成后整段播放。
+        </div>
+      </footer>
+    </main>
+
+    <script>
+      const promptInput = document.getElementById("promptInput");
+      const sendBtn = document.getElementById("sendBtn");
+      const recordBtn = document.getElementById("recordBtn");
+      const statusEl = document.getElementById("status");
+      const messagesEl = document.getElementById("messages");
+      const emptyTipEl = document.getElementById("emptyTip");
+      const audioPlayer = document.getElementById("audioPlayer");
+
+      let mediaRecorder;
+      let recordStream;
+      let recordChunks = [];
+      let eventSource;
+      let ttsSocket;
+      let mediaSource;
+      let sourceBuffer;
+      let audioQueue = [];
+      let receivedAudio = [];
+      let ttsFinished = false;
+
+      function setStatus(text) {
+        statusEl.textContent = `状态：${text}`;
+      }
+
+      function nowTime() {
+        return new Date().toLocaleTimeString("zh-CN", { hour12: false });
+      }
+
+      function appendMessage(role, text, metaText) {
+        emptyTipEl.hidden = true;
+        const row = document.createElement("div");
+        row.className = `message ${role}`;
+        const bubble = document.createElement("div");
+        bubble.className = "bubble";
+        const content = document.createElement("div");
+        content.textContent = text;
+        const meta = document.createElement("div");
+        meta.className = "meta";
+        meta.textContent = metaText || nowTime();
+        bubble.append(content, meta);
+        row.appendChild(bubble);
+        messagesEl.appendChild(row);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+        return { content, meta };
+      }
+
+      function closeCurrentAnswer() {
+        eventSource?.close();
+        eventSource = undefined;
+        if (ttsSocket?.readyState === WebSocket.OPEN) {
+          ttsSocket.close();
+        }
+        ttsSocket = undefined;
+      }
+
+      function finishAudioStream() {
+        if (
+          sourceBuffer &&
+          !sourceBuffer.updating &&
+          audioQueue.length === 0 &&
+          mediaSource?.readyState === "open"
+        ) {
+          mediaSource.endOfStream();
+          return;
+        }
+        if (!sourceBuffer && receivedAudio.length > 0) {
+          audioPlayer.src = URL.createObjectURL(
+            new Blob(receivedAudio, { type: "audio/mpeg" }),
+          );
+          void audioPlayer.play().catch(() => {});
+        }
+      }
+
+      function pumpAudioQueue() {
+        if (!sourceBuffer || sourceBuffer.updating || audioQueue.length === 0) {
+          if (ttsFinished) finishAudioStream();
+          return;
+        }
+        sourceBuffer.appendBuffer(audioQueue.shift());
+      }
+
+      function prepareAudioPlayer() {
+        audioQueue = [];
+        receivedAudio = [];
+        sourceBuffer = undefined;
+        ttsFinished = false;
+
+        if (
+          "MediaSource" in window &&
+          MediaSource.isTypeSupported("audio/mpeg")
+        ) {
+          mediaSource = new MediaSource();
+          audioPlayer.src = URL.createObjectURL(mediaSource);
+          mediaSource.addEventListener(
+            "sourceopen",
+            () => {
+              sourceBuffer = mediaSource.addSourceBuffer("audio/mpeg");
+              sourceBuffer.mode = "sequence";
+              sourceBuffer.addEventListener("updateend", pumpAudioQueue);
+              pumpAudioQueue();
+            },
+            { once: true },
+          );
+        } else {
+          mediaSource = undefined;
+          audioPlayer.removeAttribute("src");
+        }
+      }
+
+      function createTtsSession() {
+        prepareAudioPlayer();
+        const protocol = location.protocol === "https:" ? "wss:" : "ws:";
+        const socket = new WebSocket(`${protocol}//${location.host}/tts`);
+        socket.binaryType = "arraybuffer";
+        ttsSocket = socket;
+
+        return new Promise((resolve, reject) => {
+          let settled = false;
+          socket.addEventListener("message", (event) => {
+            if (typeof event.data === "string") {
+              const message = JSON.parse(event.data);
+              if (message.type === "session" && !settled) {
+                settled = true;
+                resolve(message.sessionId);
+              } else if (message.type === "tts_final") {
+                ttsFinished = true;
+                finishAudioStream();
+                setStatus("文字和语音均已生成");
+              } else if (message.type === "tts_error") {
+                setStatus(`语音生成失败：${message.message}`);
+              }
+              return;
+            }
+
+            const buffer = event.data;
+            receivedAudio.push(buffer);
+            audioQueue.push(buffer);
+            pumpAudioQueue();
+            void audioPlayer.play().catch(() => {});
+          });
+          socket.addEventListener("error", () => {
+            if (!settled) reject(new Error("本地 TTS WebSocket 连接失败"));
+          });
+          socket.addEventListener("close", () => {
+            if (!settled) reject(new Error("本地 TTS WebSocket 提前关闭"));
+          });
+        });
+      }
+
+      async function uploadAndRecognize(blob) {
+        const formData = new FormData();
+        formData.append("audio", blob, "record.ogg");
+        const response = await fetch("/speech/asr", {
+          method: "POST",
+          body: formData,
+        });
+        if (!response.ok) {
+          throw new Error((await response.text()) || "ASR 请求失败");
+        }
+        const data = await response.json();
+        return data.text || "";
+      }
+
+      async function streamAiReply(query) {
+        closeCurrentAnswer();
+        let sessionId;
+        try {
+          sessionId = await createTtsSession();
+        } catch (error) {
+          setStatus(`${error.message}，已降级为纯文字`);
+        }
+
+        const aiMessage = appendMessage("assistant", "", "AI 正在回答");
+        const params = new URLSearchParams({ query });
+        if (sessionId) params.set("sessionId", sessionId);
+        const stream = new EventSource(`/ai/chat/stream?${params}`);
+        eventSource = stream;
+
+        return new Promise((resolve) => {
+          let answer = "";
+          stream.onmessage = (event) => {
+            answer += event.data || "";
+            aiMessage.content.textContent = answer || "（空结果）";
+            messagesEl.scrollTop = messagesEl.scrollHeight;
+          };
+          stream.onerror = () => {
+            stream.close();
+            if (eventSource === stream) eventSource = undefined;
+            aiMessage.meta.textContent = `AI 回复完成 ${nowTime()}`;
+            resolve(answer);
+          };
+        });
+      }
+
+      async function ask(query, source) {
+        const normalizedQuery = query.trim();
+        if (!normalizedQuery) {
+          setStatus("请输入问题");
+          return;
+        }
+        appendMessage("user", normalizedQuery, `${source} ${nowTime()}`);
+        promptInput.value = "";
+        sendBtn.disabled = true;
+        setStatus("AI 正在流式回答");
+        try {
+          await streamAiReply(normalizedQuery);
+          if (!ttsSocket) setStatus("文字回答完成");
+        } catch (error) {
+          appendMessage("assistant", `处理失败：${error.message}`, "异常");
+          setStatus("处理失败");
+        } finally {
+          sendBtn.disabled = false;
+        }
+      }
+
+      sendBtn.addEventListener("click", () => ask(promptInput.value, "文字提问"));
+      promptInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" && !event.shiftKey) {
+          event.preventDefault();
+          void ask(promptInput.value, "文字提问");
+        }
+      });
+
+      recordBtn.addEventListener("click", async () => {
+        if (mediaRecorder?.state === "recording") {
+          mediaRecorder.stop();
+          recordBtn.disabled = true;
+          setStatus("录音结束，正在识别");
+          return;
+        }
+
+        try {
+          recordStream = await navigator.mediaDevices.getUserMedia({
+            audio: true,
+          });
+          recordChunks = [];
+          const mimeType = "audio/ogg;codecs=opus";
+          mediaRecorder = MediaRecorder.isTypeSupported(mimeType)
+            ? new MediaRecorder(recordStream, { mimeType })
+            : new MediaRecorder(recordStream);
+          mediaRecorder.ondataavailable = (event) => {
+            if (event.data.size > 0) recordChunks.push(event.data);
+          };
+          mediaRecorder.onstop = async () => {
+            try {
+              const blob = new Blob(recordChunks, {
+                type: mediaRecorder.mimeType || "audio/webm",
+              });
+              if (!blob.size) throw new Error("录音内容为空");
+              const text = (await uploadAndRecognize(blob)).trim();
+              promptInput.value = text;
+              if (!text) throw new Error("识别结果为空");
+              await ask(text, "语音提问");
+            } catch (error) {
+              setStatus(`语音处理失败：${error.message}`);
+            } finally {
+              recordStream?.getTracks().forEach((track) => track.stop());
+              recordStream = undefined;
+              recordBtn.disabled = false;
+              recordBtn.textContent = "语音输入";
+            }
+          };
+          mediaRecorder.start(250);
+          recordBtn.textContent = "停止录音";
+          setStatus("录音中");
+        } catch (error) {
+          setStatus(`无法开始录音：${error.message}`);
+        }
+      });
+    </script>
+  </body>
+</html>

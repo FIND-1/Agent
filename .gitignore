@@ -27,6 +27,8 @@ Thumbs.db
 !/package-lock.json
 !/yarn.lock
 !lessons/_shared/package.json
+!lessons/21_tts-stt-test/package.json
+!lessons/21_tts-stt-test/asr-and-tts-nest-service/package.json
 
 .pnpm-store/
 
