@@ -1,0 +1,15 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": ".",
+  "testEnvironment": "node",
+  "testRegex": ".e2e-spec.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "moduleNameMapper": {
+    "^langchain$": "<rootDir>/mocks/langchain.cjs",
+    "^@ai-sdk/langchain$": "<rootDir>/mocks/ai-sdk.cjs",
+    "^ai$": "<rootDir>/mocks/ai-sdk.cjs",
+    "^@lessons/shared/model$": "<rootDir>/mocks/shared-model.cjs"
+  }
+}
