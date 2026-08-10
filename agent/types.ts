@@ -25,4 +25,3 @@ export interface ExecutionTrace {
   finalPrompt: AgentPrompt;
   executionResult: ExecutionResult;
 }
-

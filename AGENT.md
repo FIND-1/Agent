@@ -1,6 +1,6 @@
 # Agent Project Rules
 
-本项目是 AI Agent / LangChain / LLM 应用开发学习项目。
+本项目是一个用于学习、实验和验证现代 AI Agent 工程模式的 TypeScript / JavaScript 开源项目。它包含可运行示例和早期 runtime 实验，但不是生产级 Agent Framework。
 
 ## 当前项目基础设施边界
 

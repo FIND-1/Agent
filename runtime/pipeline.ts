@@ -1,8 +1,9 @@
+export function runPipeline(input: unknown) {
+  void input;
 
-export function runPipeline(input){
   return {
     mode: "STRICT",
-    plan: ["analyze","execute"],
-    execution: "generated"
-  }
+    plan: ["analyze", "execute"],
+    execution: "generated",
+  };
 }

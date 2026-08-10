@@ -1,9 +1,20 @@
-import { appendFile, mkdir, readdir, readFile, writeFile } from "node:fs/promises";
+import {
+  appendFile,
+  mkdir,
+  readdir,
+  readFile,
+  writeFile,
+} from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { createPrompt } from "./prompt.ts";
-import type { AgentPrompt, ExecutionResult, ExecutionTrace, SkillDocument } from "./types.ts";
+import type {
+  AgentPrompt,
+  ExecutionResult,
+  ExecutionTrace,
+  SkillDocument,
+} from "./types.ts";
 
 type SkillsGlobal = typeof globalThis & {
   __LIGHTWEIGHT_AGENT_SKILLS_CONTEXT__?: string;
@@ -13,7 +24,9 @@ const currentFile = fileURLToPath(import.meta.url);
 const currentDir = dirname(currentFile);
 const projectRoot = resolve(currentDir, "..");
 const skillsDir = join(projectRoot, "skills");
-const outputDir = join(projectRoot, "output");
+const outputDir = process.env.AGENT_OUTPUT_DIR
+  ? resolve(process.env.AGENT_OUTPUT_DIR)
+  : join(projectRoot, "output");
 const tracePath = join(outputDir, "trace.json");
 const logsPath = join(outputDir, "logs.md");
 
@@ -44,7 +57,9 @@ function mergeSkillsContext(skills: SkillDocument[]): string {
     .join("\n\n---\n\n");
 }
 
-async function executeWithNodeRuntime(prompt: AgentPrompt): Promise<ExecutionResult> {
+async function executeWithNodeRuntime(
+  prompt: AgentPrompt,
+): Promise<ExecutionResult> {
   const result = {
     purpose: "lightweight-agent-learning-run",
     task: prompt.task,
@@ -82,7 +97,8 @@ export async function run(task: string): Promise<ExecutionTrace> {
   const skills = await loadSkills();
   const skillsContext = mergeSkillsContext(skills);
 
-  (globalThis as SkillsGlobal).__LIGHTWEIGHT_AGENT_SKILLS_CONTEXT__ = skillsContext;
+  (globalThis as SkillsGlobal).__LIGHTWEIGHT_AGENT_SKILLS_CONTEXT__ =
+    skillsContext;
 
   const finalPrompt = createPrompt(task);
   const executionResult = await executeWithNodeRuntime(finalPrompt);
