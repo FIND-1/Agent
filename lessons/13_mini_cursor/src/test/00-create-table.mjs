@@ -6,15 +6,22 @@
  * 仅用于验证 LLM → structured output → DB 流程
  */
 
+import "@lessons/shared/env-loader";
 import mysql from "mysql2/promise";
 
 async function main() {
+  const mysqlPassword = process.env.MYSQL_PASSWORD;
+
+  if (!mysqlPassword) {
+    throw new Error("Missing required environment variable: MYSQL_PASSWORD");
+  }
+
   // 建立数据库连接（本地开发）
   const conn = await mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "admin",
+    password: mysqlPassword,
     multipleStatements: true,
   });
 
