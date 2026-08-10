@@ -33,7 +33,7 @@ React useChat
 
 ## 环境配置
 
-所有配置来自仓库根目录 `D:\1project\agent\.env`，不要在 lesson 内创建 `.env` 或 `.env.example`。
+所有配置来自仓库根目录的 `.env`，不要在 lesson 内创建 `.env` 或 `.env.example`。
 
 ```dotenv
 OPENAI_API_KEY=你的模型密钥
@@ -58,7 +58,7 @@ MAIL_FROM=TODO_SENDER_ADDRESS
 依赖只在仓库根目录安装：
 
 ```powershell
-cd D:\1project\agent
+# From the repository root:
 pnpm install
 ```
 

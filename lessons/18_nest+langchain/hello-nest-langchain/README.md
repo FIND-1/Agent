@@ -26,7 +26,7 @@
 
 ## 环境配置
 
-项目读取工作区根目录 `D:\1project\agent\.env`：
+项目读取工作区根目录的 `.env`：
 
 ```env
 OPENAI_API_KEY=你的密钥

@@ -1,0 +1,19 @@
+{
+  "name": "15_runnable-test",
+  "version": "1.0.0",
+  "description": "掌握：LangChain Runnable、LCEL 与常用 Runnable 组合方式",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@lessons/shared": "workspace:*",
+    "@langchain/core": "^1.2.0",
+    "@langchain/openai": "^1.5.1",
+    "dotenv": "^17.4.2",
+    "zod": "^4.4.3"
+  }
+}

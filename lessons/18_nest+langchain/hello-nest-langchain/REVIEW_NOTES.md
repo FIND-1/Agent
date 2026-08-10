@@ -198,7 +198,7 @@ hello-nest-langchain/
 
 ## 环境约束
 
-- 所有 lesson 共用工作区根目录 `D:\1project\agent\.env`。
+- 所有 lesson 共用工作区根目录的 `.env`。
 - 不在 `hello-nest-langchain` 下新增 `.env` 或 `.env.example`。
 - 从 `hello-nest-langchain` 目录启动时，`ConfigModule` 才能按当前相对路径读取到工作区根目录 `.env`。
 - AI 接口需要 `OPENAI_API_KEY`，可选读取 `OPENAI_BASE_URL` 和 `MODEL_NAME`。

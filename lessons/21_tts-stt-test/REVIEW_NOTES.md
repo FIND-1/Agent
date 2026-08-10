@@ -54,7 +54,7 @@
 
 ## 依赖与环境边界
 
-- 所有 Node 依赖只安装在 `D:\1project\agent` 根目录。
+- 所有 Node 依赖只安装在仓库根目录。
 - lesson 内不得保留独立 `node_modules`。
 - 所有环境变量来自根 `.env`，lesson 内不创建 `.env` 或 `.env.example`。
 - 真实运行依赖腾讯云语音 API；完整页面还依赖兼容 OpenAI API 的模型服务和浏览器麦克风权限。

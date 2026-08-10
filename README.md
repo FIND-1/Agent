@@ -16,7 +16,7 @@ The repository has two layers:
 | Capability                             | Status       | Where                                                                                     | Notes                                                                                                                               |
 | -------------------------------------- | ------------ | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | Skill loading and prompt assembly      | Implemented  | `agent/` and `skills/`                                                                    | The root runner loads every top-level Markdown skill before execution.                                                              |
-| Local agent runner and execution trace | Implemented  | `agent/runner.ts`                                                                         | Runs without an API key; writes `output/trace.json` and `output/logs.md`. The runtime response is deterministic, not LLM-generated. |
+| Local agent runner and execution trace | Implemented  | `agent/runner.ts`                                                                         | Runs without an API key; writes ignored runtime artifacts to `output/trace.json` and `output/logs.md`. The runtime response is deterministic, not LLM-generated. |
 | Prompt templates and LCEL/Runnables    | Experimental | `lessons/14_prompt-template-test`, `15_runnable-test`, `16_LCEL-chain`                    | Runnable learning examples; model-backed cases require credentials.                                                                 |
 | Tool calling and tool loops            | Experimental | `lessons/01_tool-test`, `13_mini_cursor`, `20_nest+openclew`, `23_langgraph-test`         | Includes local tools and explicit model-tool loops.                                                                                 |
 | Structured output with Zod             | Experimental | `lessons/12_output-parser-test`, `13_mini_cursor`                                         | Covers parsers, tool-call arguments, fallback behavior, and streaming.                                                              |
@@ -67,7 +67,7 @@ flowchart LR
 - `skills/` — Markdown instructions loaded by the root runner and project-specific execution guidance.
 - `lessons/` — independent, numbered experiments. Many are runnable scripts; requirements vary by lesson.
 - `policies/` — repository-level experimental policy material.
-- `output/` — example trace and log artifacts produced by the root runner.
+- `output/` — ignored runtime trace and log artifacts produced by the root runner.
 - `AGENT.md` — instructions and operational boundaries for coding agents working in this repository.
 
 There is currently no root `src/`, `examples/`, or root `tests/` directory.
@@ -93,7 +93,7 @@ The root demo does not call an LLM and does not need environment variables:
 pnpm agent:demo -- "Explain how skills are loaded"
 ```
 
-It prints a JSON result and updates `output/trace.json` and `output/logs.md`.
+It prints a JSON result and updates the Git-ignored runtime files `output/trace.json` and `output/logs.md`.
 Set `AGENT_OUTPUT_DIR` to redirect those generated files when embedding or testing the runner.
 
 ### Run a LangGraph demo without an API key

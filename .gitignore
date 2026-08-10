@@ -17,22 +17,19 @@ yarn-error.log*
 .DS_Store
 Thumbs.db
 
-# 子项目包管理文件默认不纳入根仓库维护。
-# 例外：根包清单和 lessons/_shared/package.json 需要保留。
-**/package.json
+# Workspace package manifests are source files and must remain visible to Git.
 **/pnpm-lock.yaml
 **/package-lock.json
 **/yarn.lock
 
-!/package.json
 !/pnpm-lock.yaml
 !/package-lock.json
 !/yarn.lock
-!lessons/_shared/package.json
-!lessons/22_vercel-test/package.json
-!lessons/22_vercel-test/agui-backend/package.json
-!lessons/22_vercel-test/agui-frontend/package.json
-!lessons/23_langgraph-test/package.json
+
+# Runtime-generated agent traces and lesson audio.
+/output/
+/lessons/21_tts-stt-test/output.mp3
+/lessons/21_tts-stt-test/output3.mp3
 
 .pnpm-store/
 

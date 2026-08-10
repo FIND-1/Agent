@@ -25,7 +25,7 @@
 
 ## 根目录配置
 
-所有脚本和 Nest 服务都读取项目根目录 `D:\1project\agent\.env`，子课程不维护自己的 `.env`。
+所有脚本和 Nest 服务都读取项目根目录的 `.env`，子课程不维护自己的 `.env`。
 
 ```dotenv
 SECRET_ID=腾讯云 SecretId
@@ -41,7 +41,7 @@ MODEL_NAME=模型名称
 
 ## 运行方式
 
-请在项目根目录 `D:\1project\agent` 执行。依赖统一由根 `package.json` 和根 `node_modules` 管理。
+请在仓库根目录执行。依赖统一由根 `package.json` 和根 `node_modules` 管理。
 
 ### 1. 语法和编译检查
 

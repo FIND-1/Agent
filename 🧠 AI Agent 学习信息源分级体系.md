@@ -208,4 +208,4 @@ Level 3（查问题） 5%
 Level 4（尽量避免）
 ```
 
-![ChatGPT Image 2026年6月22日 14_54_58](F:\ChromeDownLoad\ChatGPT Image 2026年6月22日 14_54_58.png)
+> 原文截图未纳入仓库；已移除维护者机器上的本地绝对路径引用。

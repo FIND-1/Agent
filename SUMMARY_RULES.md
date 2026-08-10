@@ -242,7 +242,7 @@ REVIEW_NOTES.md
 规则：
 
 * 不要在 `lessons/*` 或 `lessons/*/*` 内执行 `pnpm install`、`npm install`、`yarn install` 或类似会生成子目录 `node_modules` 的命令。
-* 如果子课程需要新增依赖，优先在项目根目录 `D:\1project\agent` 更新根 `package.json` 和根锁文件。
+* 如果子课程需要新增依赖，优先在仓库根目录更新根 `package.json` 和根锁文件。
 * 子课程代码应优先依赖项目根目录已有依赖；不要为了单个 lesson 在子课程目录重复下载同一依赖。
 * 如果脚手架、CLI 或生成器自动在子课程目录安装依赖，完成后必须删除该子课程下的 `node_modules`，并把实际需要的依赖补到根目录。
 * 如果确实存在必须独立安装的例外，必须先在最终输出中说明原因、影响范围和清理方式，不能默认执行。

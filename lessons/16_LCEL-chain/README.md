@@ -93,7 +93,7 @@ Runnable 是 LCEL 的基本单元
 当前项目是 pnpm workspace，lesson 默认复用根目录 Node 包。新增通用依赖优先安装到 workspace root：
 
 ```powershell
-cd D:\1project\agent
+# From the repository root:
 pnpm add -w <package-name>
 ```
 

@@ -36,7 +36,7 @@
 项目从工作区根目录读取环境变量：
 
 ```text
-D:\1project\agent\.env
+<repository-root>/.env
 ```
 
 常用变量：

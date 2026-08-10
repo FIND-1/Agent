@@ -23,7 +23,7 @@
 依赖统一安装在项目根目录，不要在本 lesson 内创建 `node_modules`：
 
 ```powershell
-cd D:\1project\agent
+# From the repository root:
 pnpm install
 ```
 
@@ -48,7 +48,7 @@ npm --prefix lessons/23_langgraph-test run demo:interrupt
 
 ### 3. 需要模型 API
 
-06–08 通过项目共享的 `createChatModel()` 读取项目根目录 `D:\1project\agent\.env`：
+06–08 通过项目共享的 `createChatModel()` 读取项目根目录的 `.env`：
 
 ```dotenv
 OPENAI_API_KEY=你的密钥

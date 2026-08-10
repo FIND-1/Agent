@@ -1,0 +1,21 @@
+{
+  "name": "14_prompt-template-test",
+  "version": "1.0.0",
+  "description": "掌握：LangChain Prompt Template、ChatPromptTemplate、Few-Shot 与 ExampleSelector 的组件化管理方式",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@langchain/community": "^1.1.29",
+    "@langchain/core": "^1.2.0",
+    "@langchain/openai": "^1.5.1",
+    "@zilliz/milvus2-sdk-node": "^2.6.17",
+    "chalk": "^5.6.2",
+    "dotenv": "^17.4.2",
+    "zod": "^4.4.3"
+  }
+}

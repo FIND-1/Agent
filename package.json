@@ -1,6 +1,7 @@
 {
   "name": "agent-engineering-lab",
   "version": "0.1.0",
+  "license": "MIT",
   "private": true,
   "description": "Practical TypeScript and JavaScript examples for learning modern AI agent engineering.",
   "type": "module",
