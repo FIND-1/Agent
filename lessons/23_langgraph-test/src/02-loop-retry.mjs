@@ -1,0 +1,48 @@
+import { Annotation, END, START, StateGraph } from "@langchain/langgraph";
+
+/**
+ * 复习重点：条件边不仅能分叉，还能回到先前节点形成循环。
+ * 相比 01，本例新增 retry 回边；适合重试、反思和迭代优化。
+ * 局限：真实重试还应设置最大次数、错误分类和退避策略。
+ */
+
+const StateAnnotation = Annotation.Root({
+  tries: Annotation({
+    reducer: (_prev, next) => next,
+    default: () => 0,
+  }),
+  ok: Annotation({
+    reducer: (_prev, next) => next,
+    default: () => false,
+  }),
+  message: Annotation({
+    reducer: (_prev, next) => next,
+    default: () => "",
+  }),
+});
+
+const attempt = (state) => {
+  const tries = state.tries + 1;
+  const ok = tries >= 3;
+  return {
+    tries,
+    ok,
+    message: ok ? `第 ${tries} 次成功` : `第 ${tries} 次失败，继续重试`,
+  };
+};
+
+const graph = new StateGraph(StateAnnotation)
+  .addNode("attempt", attempt)
+  .addEdge(START, "attempt")
+  .addConditionalEdges("attempt", (state) => (state.ok ? "done" : "retry"), {
+    retry: "attempt",
+    done: END,
+  })
+  .compile();
+
+const drawable = await graph.getGraphAsync();
+const mermaid = drawable.drawMermaid({ withStyles: true });
+console.log(mermaid);
+
+const result = await graph.invoke({ tries: 0 });
+console.log("result:", result);

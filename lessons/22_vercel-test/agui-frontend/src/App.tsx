@@ -4,12 +4,8 @@ import { useMemo, useState } from "react";
 import { MessagePart } from "./components/ToolPanels";
 import "./App.css";
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:3000";
+const API_BASE = "http://localhost:3000";
 
-/**
- * 复习重点：useChat + DefaultChatTransport 负责发送 UIMessage 并解析 Data Stream。
- * 相比手写 EventSource，本组件直接消费 messages/parts；后端不可用时只能复习静态 UI。
- */
 export default function App() {
   const chatUrl = `${API_BASE}/ai/chat`;
 
@@ -36,18 +32,18 @@ export default function App() {
       <header className="chat-header">
         <div>
           <h1>agui</h1>
-          <p className="chat-sub">后端: {chatUrl}</p>
+          <p className="chat-sub">Backend: {chatUrl}</p>
         </div>
         {busy && (
           <button type="button" className="btn-stop" onClick={() => stop()}>
-            停止
+            Stop
           </button>
         )}
       </header>
 
       <div className="chat-messages" role="log" aria-live="polite">
         {messages.length === 0 && (
-          <p className="chat-empty">输入问题开始对话</p>
+          <p className="chat-empty">Type a message to start the chat.</p>
         )}
         {messages.map((message) => {
           const textPartIndices = message.parts
@@ -61,7 +57,7 @@ export default function App() {
               className={`chat-bubble chat-bubble--${message.role}`}
             >
               <span className="chat-role">
-                {message.role === "user" ? "你" : "助手"}
+                {message.role === "user" ? "You" : "Assistant"}
               </span>
               <div className="chat-body">
                 {message.parts.map((part, index) => (
@@ -87,7 +83,7 @@ export default function App() {
         <div className="chat-error" role="alert">
           <span>{error.message}</span>
           <button type="button" onClick={() => clearError()}>
-            关闭
+            Close
           </button>
         </div>
       )}
@@ -114,20 +110,20 @@ export default function App() {
               }
             }
           }}
-          placeholder="输入问题开始对话，Enter 发送，Shift+Enter 换行"
+          placeholder="Type a message. Enter to send, Shift+Enter for a new line."
           rows={3}
           disabled={status !== "ready"}
           aria-label="Message input"
         />
         <div className="chat-actions">
           <span className="chat-status">
-            {status === "ready" && "就绪"}
-            {status === "submitted" && "发送中"}
-            {status === "streaming" && "接收中"}
-            {status === "error" && "错误"}
+            {status === "ready" && "Ready"}
+            {status === "submitted" && "Submitting"}
+            {status === "streaming" && "Streaming"}
+            {status === "error" && "Error"}
           </span>
           <button type="submit" disabled={!canSend}>
-            发送
+            Send
           </button>
         </div>
       </form>

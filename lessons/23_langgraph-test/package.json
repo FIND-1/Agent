@@ -1,0 +1,27 @@
+{
+  "name": "lesson-23-langgraph-test",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node --check src/00-basic-graph.mjs && node --check src/01-conditional-routing.mjs && node --check src/02-loop-retry.mjs && node --check src/03-checkpointer-memory.mjs && node --check src/04-checkpointer-sqlite.mjs && node --check src/05-graph-interrupt.mjs && node --check src/06-prebuilt-tool-node.mjs && node --check src/07-prebuilt-agent.mjs && node --check src/08-multi-agent-supervisor.mjs && node --check src/_shared/inventory.mjs && node --check src/_shared/city-data.mjs",
+    "demo:basic": "node src/00-basic-graph.mjs",
+    "demo:routing": "node src/01-conditional-routing.mjs",
+    "demo:loop": "node src/02-loop-retry.mjs",
+    "demo:memory": "node src/03-checkpointer-memory.mjs",
+    "demo:sqlite": "node src/04-checkpointer-sqlite.mjs",
+    "demo:interrupt": "node src/05-graph-interrupt.mjs",
+    "demo:tool-node": "node src/06-prebuilt-tool-node.mjs",
+    "demo:agent": "node src/07-prebuilt-agent.mjs",
+    "demo:supervisor": "node src/08-multi-agent-supervisor.mjs"
+  },
+  "dependencies": {
+    "@langchain/core": "^1.1.48",
+    "@langchain/langgraph": "^1.4.9",
+    "@langchain/langgraph-checkpoint-sqlite": "^1.0.3",
+    "@langchain/langgraph-supervisor": "^1.1.1",
+    "@lessons/shared": "workspace:*",
+    "langchain": "^1.4.4",
+    "zod": "^4.4.3"
+  }
+}

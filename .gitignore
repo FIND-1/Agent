@@ -28,6 +28,10 @@ Thumbs.db
 !/package-lock.json
 !/yarn.lock
 !lessons/_shared/package.json
+!lessons/22_vercel-test/package.json
+!lessons/22_vercel-test/agui-backend/package.json
+!lessons/22_vercel-test/agui-frontend/package.json
+!lessons/23_langgraph-test/package.json
 
 .pnpm-store/
 
