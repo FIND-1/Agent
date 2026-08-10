@@ -16,7 +16,7 @@ const chain = RunnableSequence.from([
   }),
 ]);
 
-const input = "神说要有光";
+const input = "测试一下";
 const result = await chain.invoke(input);
 
 console.log(result);
