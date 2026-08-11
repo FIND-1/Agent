@@ -1,0 +1,18 @@
+# 文章中的第一版 Dockerfile：把源码、开发依赖和运行环境放进同一个镜像。
+# 它适合用来理解 FROM / WORKDIR / COPY / RUN / EXPOSE / CMD，缺点是最终镜像偏大。
+FROM node:24.15-alpine
+
+WORKDIR /app
+
+# 先复制依赖清单，让源码变化时仍可复用依赖安装层。
+COPY package*.json ./
+RUN npm config set registry https://registry.npmmirror.com/
+RUN npm install
+RUN npm install -g @nestjs/cli
+
+COPY . .
+RUN npm run build
+
+# EXPOSE 只声明容器端口；真正映射端口仍要使用 docker run -p 或 Compose ports。
+EXPOSE 3000
+CMD ["node", "dist/main.js"]

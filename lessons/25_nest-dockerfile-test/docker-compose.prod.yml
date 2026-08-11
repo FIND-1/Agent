@@ -1,0 +1,28 @@
+# 教学用生产编排：同时构建 Nest 镜像并启动 MySQL。
+# Compose 默认网络允许 Nest 通过服务名 mysql-prod 访问数据库；depends_on 不等于健康就绪检查。
+services:
+  mysql-prod:
+    image: mysql:latest
+    container_name: mysql-prod
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: book
+    ports:
+      - "3306:3306"
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    volumes:
+      - ${DOCKER_VOLUME_DIRECTORY:-.}/volumes/mysql-prod:/var/lib/mysql
+    restart: always
+
+  nest-app:
+    container_name: nest-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+    depends_on:
+      - mysql-prod
+    restart: always
