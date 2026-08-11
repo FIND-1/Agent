@@ -31,23 +31,23 @@
 
 核心规则：
 
-1. `AGENT.md` 是当前项目的入口规则文件。
-2. `SUMMARY_RULES.docx`或者是 `SUMMARY_RULES.txt` 是公众号文章学习整理流程的权威规则来源。
+1. `AGENTS.md` 是当前项目的入口规则文件。
+2. `SUMMARY_RULES.md`、`SUMMARY_RULES.docx` 或 `SUMMARY_RULES.txt` 是公众号文章学习整理流程的权威规则来源。
 3. 历史对话或长期记忆只能作为辅助背景，不能覆盖、改写、绕过当前项目规则。
 4. 用户说“总结”“整理”“结合文章整理代码”“方便后续复习”时，不能直接触发公众号文章整理流程。
 5. 必须先完成触发条件检查。
-6. 只有同时满足以下条件，才允许读取并执行 `SUMMARY_RULES.docx`或者是 `SUMMARY_RULES.txt` ：
+6. 只有同时满足以下条件，才允许读取并执行 `SUMMARY_RULES.md`、`SUMMARY_RULES.docx` 或 `SUMMARY_RULES.txt`：
    - 当前任务位于 `agent/` 项目或其子目录；
    - 用户本次提供了公众号文章 `.txt` 原文，或明确指定当前目录中存在要处理的公众号 `.txt` 文件；
    - 当前项目中存在与该公众号文章知识点对应的代码文件；
    - 用户目标是后续复习、学习代码包整理、文章与代码对齐。
 7. 任一条件不满足时，按普通总结、代码分析、报错排查或其他常规任务处理。
 
-## Word 规则文档读取要求
+## 规则文档读取要求
 
-`SUMMARY_RULES.docx`或者是 `SUMMARY_RULES.txt` 是 Word 文档，不是 Markdown 文件。
+`SUMMARY_RULES.md` 和 `SUMMARY_RULES.txt` 可直接按文本读取；`SUMMARY_RULES.docx` 是 Word 文档，需要先提取正文。
 
-执行公众号文章整理流程前，Agent 必须先读取并提取 `SUMMARY_RULES.docx`或者是 `SUMMARY_RULES.txt` 正文内容。
+执行公众号文章整理流程前，Agent 必须先读取对应 `SUMMARY_RULES` 文件的正文内容。
 
 允许的读取方式包括：
 
@@ -68,24 +68,24 @@
 在执行 `SUMMARY_RULES.docx`或者是 `SUMMARY_RULES.txt` 前，必须逐项确认：
 
 - [ ] 当前任务是否位于 `agent/` 项目或其子目录？
-- [ ] 当前项目根目录是否存在 `SUMMARY_RULES.docx`或者是 `SUMMARY_RULES.txt`？
-- [ ] 是否已经成功读取 `SUMMARY_RULES.docx`或者是 `SUMMARY_RULES.txt` 正文内容？
+- [ ] 当前项目根目录是否存在 `SUMMARY_RULES.md`、`SUMMARY_RULES.docx` 或 `SUMMARY_RULES.txt`？
+- [ ] 是否已经成功读取对应 `SUMMARY_RULES` 文件的正文内容？
 - [ ] 用户本次是否提供公众号 `.txt` 原文，或明确指定当前目录中存在要处理的公众号 `.txt` 文件？
 - [ ] 当前项目中是否存在与该公众号文章知识点对应的代码文件？
 - [ ] 用户意图是否是为了后续复习、学习代码包整理、文章与代码对齐？
 - [ ] 当前任务是否不是普通摘要、普通报错分析、一般代码解释？
 
-只有全部确认后，才允许执行 `SUMMARY_RULES.docx`或者是 `SUMMARY_RULES.txt` 中定义的公众号文章整理流程。
+只有全部确认后，才允许执行对应 `SUMMARY_RULES` 文件中定义的公众号文章整理流程。
 
 ## 禁止行为
 
 禁止仅凭历史记忆触发公众号文章整理流程。
 
-禁止在以下情况下执行 `SUMMARY_RULES.docx`或者是 `SUMMARY_RULES.txt`：
+禁止在以下情况下执行 `SUMMARY_RULES.md`、`SUMMARY_RULES.docx` 或 `SUMMARY_RULES.txt`：
 
 - 当前目录不在 `agent/` 项目内；
-- 当前项目中没有 `SUMMARY_RULES.docx`或者是 `SUMMARY_RULES.txt`；
-- 无法读取 `SUMMARY_RULES.docx`或者是 `SUMMARY_RULES.txt` 正文；
+- 当前项目中没有任何可用的 `SUMMARY_RULES` 规则文件；
+- 无法读取对应 `SUMMARY_RULES` 文件的正文；
 - 用户没有提供或指定公众号 `.txt` 原文；
 - 没有对应代码文件；
 - 用户只是要求普通总结；
@@ -103,4 +103,4 @@
 - 报错排查：只分析报错原因和修复方式；
 - 代码解释：只解释当前代码；
 - 项目重构：只基于当前项目文件和用户要求执行；
-- 公众号文章学习整理：必须满足触发条件后，才读取并执行 `SUMMARY_RULES.docx`或者是 `SUMMARY_RULES.txt`。
+- 公众号文章学习整理：必须满足触发条件后，才读取并执行对应的 `SUMMARY_RULES` 规则文件。

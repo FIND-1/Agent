@@ -3,6 +3,7 @@ import { createChatModel, createEmbeddings } from "@lessons/shared/model";
 import { MilvusClient, MetricType } from '@zilliz/milvus2-sdk-node';
 const COLLECTION_NAME = 'ebook_collection';
 const VECTOR_DIM = 1024;
+const BOOK_ID = 'harry_potter_and_philosophers_stone';
 
 // 初始化 OpenAI Chat 模型
 const model = createChatModel({
@@ -40,8 +41,9 @@ async function retrieveRelevantContent(question, k = 3) {
       collection_name: COLLECTION_NAME,
       vector: queryVector,
       limit: k,
+      filter: `book_id == "${BOOK_ID}"`,
       metric_type: MetricType.COSINE,
-      output_fields: ['id', 'book_id', 'chapter_num', 'index', 'content']
+      output_fields: ['id', 'book_id', 'book_name', 'chapter_num', 'index', 'content']
     });
 
     return searchResult.results;
@@ -52,7 +54,7 @@ async function retrieveRelevantContent(question, k = 3) {
 }
 
 /**
- * 使用 RAG 回答关于《天龙八部》的问题
+ * 使用 RAG 回答关于《哈利波特与魔法石》的问题
  */
 async function answerEbookQuestion(question, k = 3) {
   try {
@@ -66,13 +68,13 @@ async function answerEbookQuestion(question, k = 3) {
 
     if (retrievedContent.length === 0) {
       console.log('未找到相关内容');
-      return '抱歉，我没有找到相关的《天龙八部》内容。';
+      return '抱歉，我没有找到相关的《哈利波特与魔法石》内容。';
     }
 
     // 2. 打印检索到的内容及相似度
     retrievedContent.forEach((item, i) => {
       console.log(`\n[片段 ${i + 1}] 相似度: ${item.score.toFixed(4)}`);
-      console.log(`书籍: ${item.book_id}`);
+      console.log(`书籍: ${item.book_name}`);
       console.log(`章节: 第 ${item.chapter_num} 章`);
       console.log(`片段索引: ${item.index}`);
       console.log(`内容: ${item.content.substring(0, 200)}${item.content.length > 200 ? '...' : ''}`);
@@ -88,9 +90,9 @@ async function answerEbookQuestion(question, k = 3) {
       .join('\n\n━━━━━\n\n');
 
     // 4. 构建 prompt
-    const prompt = `你是一个专业的《天龙八部》小说助手。基于小说内容回答问题，用准确、详细的语言。
+    const prompt = `你是一个专业的《哈利波特与魔法石》小说助手。基于小说内容回答问题，用准确、详细的语言。
 
-请根据以下《天龙八部》小说片段内容回答问题：
+请根据以下《哈利波特与魔法石》小说片段内容回答问题：
 ${context}
 
 用户问题: ${question}
@@ -135,8 +137,8 @@ async function main() {
       console.log('✓ 集合已处于加载状态\n');
     }
 
-    // 问一个关于《天龙八部》的问题
-    await answerEbookQuestion("鸠摩智会什么武功？",5);
+    // 问一个关于《哈利波特与魔法石》的问题
+    await answerEbookQuestion("哈利是怎样得到魔法石的？", 5);
   } catch (error) {
     console.error('错误:', error.message);
   }
