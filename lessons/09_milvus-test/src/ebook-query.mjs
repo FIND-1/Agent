@@ -4,6 +4,7 @@ import { MilvusClient, MetricType } from '@zilliz/milvus2-sdk-node';
 
 const COLLECTION_NAME = 'ebook_collection';
 const VECTOR_DIM = 1024;
+const BOOK_ID = 'harry_potter_and_philosophers_stone';
 
 const embeddings = createEmbeddings({
   dimensions: VECTOR_DIM,
@@ -38,7 +39,7 @@ async function main() {
 
     // 向量搜索
     console.log('Searching for similar ebook content...');
-    const query = '鸠摩智会什么武功？';
+    const query = '哈利是怎样得到魔法石的？';
     console.log(`Query: "${query}"\n`);
 
     const queryVector = await getEmbedding(query);
@@ -46,8 +47,9 @@ async function main() {
       collection_name: COLLECTION_NAME,
       vector: queryVector,
       limit: 5,
+      filter: `book_id == "${BOOK_ID}"`,
       metric_type: MetricType.COSINE,
-      output_fields: ['id', 'book_id', 'chapter_num', 'index', 'content']
+      output_fields: ['id', 'book_id', 'book_name', 'chapter_num', 'index', 'content']
     });
 
     console.log(`Found ${searchResult.results.length} results:\n`);
@@ -55,6 +57,7 @@ async function main() {
       console.log(`${index + 1}. [Score: ${item.score.toFixed(4)}]`);
       console.log(`   ID: ${item.id}`);
       console.log(`   Book ID: ${item.book_id}`);
+      console.log(`   Book Name: ${item.book_name}`);
       console.log(`   Chapter: 第 ${item.chapter_num} 章`);
       console.log(`   Index: ${item.index}`);
       console.log(`   Content: ${item.content}\n`);

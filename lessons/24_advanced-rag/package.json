@@ -1,0 +1,21 @@
+{
+  "name": "lesson-24-advanced-rag",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "用 LangGraph 递进学习传统 RAG、问题路由、多跳检索与联网回退",
+  "scripts": {
+    "check": "node --check src/_shared/runtime.mjs && node --check src/_shared/schemas.mjs && node --check src/_shared/prompts.mjs && node --check src/00-naive-rag.mjs && node --check src/01-query-router-rag.mjs && node --check src/02-multihop-rag.mjs && node --check src/03-web-fallback-rag.mjs && node --check src/04-local-fallback-rag.mjs",
+    "demo:naive": "node src/00-naive-rag.mjs",
+    "demo:router": "node src/01-query-router-rag.mjs",
+    "demo:multihop": "node src/02-multihop-rag.mjs",
+    "demo:web": "node src/03-web-fallback-rag.mjs",
+    "demo:fallback": "node src/04-local-fallback-rag.mjs"
+  },
+  "dependencies": {
+    "@langchain/community": "^1.1.29",
+    "@langchain/langgraph": "^1.4.9",
+    "@lessons/shared": "workspace:*",
+    "zod": "^4.4.3"
+  }
+}

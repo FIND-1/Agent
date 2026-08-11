@@ -68,7 +68,7 @@ flowchart LR
 - `lessons/` — independent, numbered experiments. Many are runnable scripts; requirements vary by lesson.
 - `policies/` — repository-level experimental policy material.
 - `output/` — ignored runtime trace and log artifacts produced by the root runner.
-- `AGENT.md` — instructions and operational boundaries for coding agents working in this repository.
+- `AGENTS.md` — instructions and operational boundaries for coding agents working in this repository.
 
 There is currently no root `src/`, `examples/`, or root `tests/` directory.
 
