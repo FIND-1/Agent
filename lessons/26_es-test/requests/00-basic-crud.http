@@ -1,0 +1,78 @@
+### 外部前置条件：需要 Elasticsearch 8.17.0 已在 http://localhost:9200 运行。
+### 本文件按“索引 -> 文档 -> 查询 -> 更新 -> 删除”的顺序复习，未在当前仓库运行验证。
+
+### 1. 创建索引：text 会分词，keyword 只做精确匹配
+PUT http://localhost:9200/article
+Content-Type: application/json
+
+{
+  "mappings": {
+    "properties": {
+      "title": { "type": "text" },
+      "content": { "type": "text" },
+      "author": { "type": "keyword" },
+      "createTime": { "type": "date" },
+      "viewCount": { "type": "integer" }
+    }
+  }
+}
+
+### 2. 新增指定 ID 的文档
+PUT http://localhost:9200/article/_doc/1001
+Content-Type: application/json
+
+{
+  "title": "RAG 混合检索实战",
+  "content": "ES 负责关键词检索，Milvus 负责向量语义检索",
+  "author": "AI开发",
+  "createTime": "2026-04-26",
+  "viewCount": 256
+}
+
+### 3. match：对 text 字段执行全文分词检索
+GET http://localhost:9200/article/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "match": { "content": "RAG 向量 检索" }
+  }
+}
+
+### 4. term：对 keyword 字段执行精确匹配
+GET http://localhost:9200/article/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "term": { "author": "AI开发" }
+  }
+}
+
+### 5. 分页并按浏览量降序
+GET http://localhost:9200/article/_search
+Content-Type: application/json
+
+{
+  "from": 0,
+  "size": 10,
+  "sort": [{ "viewCount": "desc" }],
+  "query": { "match_all": {} }
+}
+
+### 6. 局部更新（不会覆盖未列出的字段）
+POST http://localhost:9200/article/_update/1001
+Content-Type: application/json
+
+{
+  "doc": {
+    "title": "RAG 混合检索高级实战",
+    "viewCount": 999
+  }
+}
+
+### 7. 按 ID 删除文档
+DELETE http://localhost:9200/article/_doc/1001
+
+### 8. 删除索引（破坏性操作，仅在确认无需保留练习数据后手动执行）
+DELETE http://localhost:9200/article

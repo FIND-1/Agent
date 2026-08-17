@@ -1,0 +1,35 @@
+services:
+  # 外部前置条件：本文件需要本机已安装并启动 Docker，未在本仓库中验证运行。
+  es:
+    build: ./elasticsearch
+    image: elasticsearch:8.17.0
+    container_name: es-dev
+    ports:
+      - "9200:9200"
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - xpack.security.http.ssl.enabled=false
+      - xpack.security.transport.ssl.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    volumes:
+      - ${DOCKER_VOLUME_DIRECTORY:-.}/volumes/es/data:/usr/share/elasticsearch/data
+    restart: always
+
+  # Kibana 版本必须与 Elasticsearch 完全一致。
+  kibana:
+    image: kibana:8.17.0
+    container_name: kibana-dev
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://es:9200
+    volumes:
+      - ${DOCKER_VOLUME_DIRECTORY:-.}/volumes/kibana:/usr/share/kibana/data
+    restart: always
+    depends_on:
+      - es
+
+networks:
+  default:
+    name: common-network

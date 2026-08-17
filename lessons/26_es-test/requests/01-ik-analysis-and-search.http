@@ -1,0 +1,78 @@
+### 外部前置条件：需要 Elasticsearch 8.17.0 且已安装同版本 IK 插件。
+### 入库使用 ik_max_word 建立更细粒度词条，查询使用 ik_smart 减少无效组合。
+
+### 1. 确认 IK 插件已安装
+GET http://localhost:9200/_cat/plugins?v
+
+### 2. 对照：standard 对中文支持有限
+POST http://localhost:9200/_analyze
+Content-Type: application/json
+
+{
+  "analyzer": "standard",
+  "text": "Elasticsearch RAG 混合检索知识库"
+}
+
+### 3. 索引阶段的细粒度分词
+POST http://localhost:9200/_analyze
+Content-Type: application/json
+
+{
+  "analyzer": "ik_max_word",
+  "text": "Elasticsearch RAG 混合检索知识库"
+}
+
+### 4. 查询阶段的智能分词
+POST http://localhost:9200/_analyze
+Content-Type: application/json
+
+{
+  "analyzer": "ik_smart",
+  "text": "Elasticsearch RAG 混合检索知识库"
+}
+
+### 5. 创建使用 IK 双分词策略的索引
+PUT http://localhost:9200/life_note
+Content-Type: application/json
+
+{
+  "mappings": {
+    "properties": {
+      "title": {
+        "type": "text",
+        "analyzer": "ik_max_word",
+        "search_analyzer": "ik_smart"
+      },
+      "content": {
+        "type": "text",
+        "analyzer": "ik_max_word",
+        "search_analyzer": "ik_smart"
+      },
+      "type": { "type": "keyword" },
+      "author": { "type": "keyword" },
+      "record_time": { "type": "date" }
+    }
+  }
+}
+
+### 6. 写入中文生活笔记
+PUT http://localhost:9200/life_note/_doc/3001
+Content-Type: application/json
+
+{
+  "title": "健康饮食与居家养生",
+  "content": "规律作息、清淡饮食，多吃蔬菜水果，合理运动",
+  "type": "健康生活",
+  "author": "生活达人",
+  "record_time": "2026-04-27"
+}
+
+### 7. IK 分词检索；结果默认由 BM25 计算相关性分数
+GET http://localhost:9200/life_note/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "match": { "content": "健康 作息 旅行" }
+  }
+}
