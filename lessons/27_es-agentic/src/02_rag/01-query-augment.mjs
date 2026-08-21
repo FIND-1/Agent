@@ -2,7 +2,7 @@
  * 原文 `src/rag/query-augment.mjs` 的编号观察入口：单独运行 LLM 查询改写。
  * 与完整 RAG 示例相比，本例只验证“原始问题 -> 3 条检索问句”，需要根目录 .env 和 Chat API。
  */
-import { ChatOpenAI } from "@langchain/openai";
+import { createChatModel } from "@lessons/shared/model";
 import { readEsAgentEnv } from "../_shared/env.mjs";
 import {
   augmentQuery,
@@ -16,8 +16,9 @@ async function main() {
     "modelName",
   ]);
 
-  const chatModel = new ChatOpenAI({
+  const chatModel = createChatModel({
     model: modelName,
+    modelName,
     apiKey,
     temperature: 0.2,
     configuration: {

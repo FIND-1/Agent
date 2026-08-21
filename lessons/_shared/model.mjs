@@ -8,9 +8,10 @@ import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
 
 export function createChatModel(options = {}, temperature = 0) {
   return new ChatOpenAI({
+    model: process.env.MODEL_NAME,
     modelName: process.env.MODEL_NAME,
     apiKey: process.env.OPENAI_API_KEY,
-    temperature: 0,
+    temperature,
     configuration: {
       baseURL: process.env.OPENAI_BASE_URL,
     },
@@ -21,7 +22,7 @@ export function createChatModel(options = {}, temperature = 0) {
 export function createEmbeddings(options = {}) {
   return new OpenAIEmbeddings({
     apiKey: process.env.EMBEDDINGS_API_KEY || process.env.OPENAI_API_KEY,
-    model: process.env.EMBEDDINGS_MODEL_NAME,
+    model: process.env.EMBEDDINGS_MODEL_NAME || process.env.EMBEDDING_MODEL,
     dimensions: Number(process.env.EMBEDDINGS_DIMENSIONS) || undefined,
     configuration: {
       baseURL: process.env.EMBEDDINGS_BASE_URL || process.env.OPENAI_BASE_URL,

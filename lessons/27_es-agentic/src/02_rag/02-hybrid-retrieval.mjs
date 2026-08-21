@@ -6,7 +6,7 @@ import { Client } from "@elastic/elasticsearch";
 import { Document } from "@langchain/core/documents";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { Milvus } from "@langchain/community/vectorstores/milvus";
-import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
+import { createChatModel, createEmbeddings } from "@lessons/shared/model";
 import { Annotation, END, START, StateGraph } from "@langchain/langgraph";
 import {
   ES_NODE,
@@ -232,7 +232,7 @@ const { apiKey, baseUrl, rerankUrl, modelName, rerankModel } = readEsAgentEnv([
 ]);
 
 const esClient = new Client({ node: ES_NODE });
-const embeddings = new OpenAIEmbeddings({
+const embeddings = createEmbeddings({
   model: "text-embedding-v3",
   apiKey,
   configuration: {
@@ -252,8 +252,9 @@ const reranker = new DashScopeRerank({
   baseUrl: rerankUrl,
 });
 
-const chatModel = new ChatOpenAI({
+const chatModel = createChatModel({
   model: modelName,
+  modelName,
   apiKey,
   temperature: 0.2,
   configuration: {

@@ -50,6 +50,7 @@
 
 - 抽出 `_shared/env.mjs`：统一从项目根 `.env` 读取 `ESAGENT_*` 变量，避免不同工作目录造成配置丢失。
 - 抽出 `_shared/constants.mjs`：统一 `life_notes`、ES/Milvus 地址和向量字段名，保证 seed 与 retrieval 一致。
+- RAG 阶段的 Chat / Embeddings 初始化已接入仓库级 `@lessons/shared/model`，并通过 options 保留本课程的 `ESAGENT_API_KEY`、`ESAGENT_BASE_URL`、`ESAGENT_MODEL_NAME` 配置。
 - 补齐文章后半段缺失的 Query 改写独立入口与 LangGraph 混合检索代码。
 - 补齐 `docker-compose.yml` 中的 Milvus、etcd、MinIO，并补上其 `build` 配置所需的 ES + IK Dockerfile；它是原文 compose 编排的配套文件，不作为单独复习入口。
 - 更新最小 `package.json`，提供静态检查、Rerank、seed 和完整混合检索脚本。
@@ -72,7 +73,7 @@
 - 环境变量读取在 Rerank、seed、hybrid 三处重复，已抽到 `_shared/env.mjs`。
 - `life_notes`、服务地址和 Milvus 字段在 seed、hybrid 两处重复，已抽到 `_shared/constants.mjs`。
 - `src/00_create.mjs`、`src/01_operate.mjs` 保留 ES Client 与 `travel_journal` 常量的局部初始化，这是为了优先对齐原文点名入口；编号版和后续 RAG 链路不再继续扩大这类重复。
-- Chat/Embeddings/Rerank 初始化只在最终示例集中出现一次；独立 Rerank 示例刻意保留最小初始化以展示 API，因此未继续封装。
+- Chat/Embeddings 初始化已改为复用仓库级 `@lessons/shared/model`；独立 Rerank 示例刻意保留最小初始化以展示 Rerank API，因此未继续封装。
 - Query schema 与 Prompt 只服务 Query Augmentation 模块，没有重复，不额外拆散。
 - `_shared/` 当前包含四个实际使用的文件，没有空目录或无意义封装。
 

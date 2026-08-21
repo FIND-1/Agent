@@ -32,7 +32,7 @@
 
 `src/00_create.mjs`、`src/01_operate.mjs` 是文章原文 `src/create.mjs`、`src/operate.mjs` 的排序版，方便对照原文阅读，也避免根目录里出现未编号入口。`src/00_elasticsearch/` 下是同一知识点的阶段化复习入口，用来和后续 Rerank、RAG 阶段保持统一学习顺序。
 
-`src/_shared/` 放跨阶段复用的根 `.env` 读取、索引常量、Rerank 封装和 Query Augmentation 实现。它们是公共模块，不参与示例编号。
+`src/_shared/` 放跨阶段复用的根 `.env` 读取、索引常量、Rerank 封装和 Query Augmentation 实现。Chat / Embeddings 模型初始化复用仓库级 `@lessons/shared/model`，通过 options 继续传入本课程的 `ESAGENT_*` 配置。它们是公共模块，不参与示例编号。
 
 `docker-compose.yml` 中的 `build` 配置隐含依赖一个本地 ES + IK 构建目录，因此课程里保留了 `src/04_infrastructure/elasticsearch/Dockerfile` 作为配套文件；它不是原文点名的主学习入口，不单独列入复习顺序。
 

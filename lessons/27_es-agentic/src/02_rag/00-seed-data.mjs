@@ -4,7 +4,7 @@
  * 需要根目录 .env、Elasticsearch + IK、Milvus 和远程 Embeddings API。
  */
 import { Client } from "@elastic/elasticsearch";
-import { OpenAIEmbeddings } from "@langchain/openai";
+import { createEmbeddings } from "@lessons/shared/model";
 import {
   DataType,
   IndexType,
@@ -115,7 +115,7 @@ const ROWS = [
 
 const { apiKey, baseUrl } = readEsAgentEnv(["apiKey", "baseUrl"]);
 
-const embeddings = new OpenAIEmbeddings({
+const embeddings = createEmbeddings({
   apiKey,
   model: "text-embedding-v3",
   configuration: {

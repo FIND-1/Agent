@@ -1,0 +1,17 @@
+{
+  "name": "28_neo4j-graphrag",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lesson 28 Neo4j GraphRAG learning package",
+  "scripts": {
+    "check": "node --check src/_shared/env.mjs && node --check src/02-neo4j-test.mjs && node --check src/03-graphrag.mjs",
+    "demo:neo4j": "node src/02-neo4j-test.mjs",
+    "demo:graphrag": "node src/03-graphrag.mjs"
+  },
+  "keywords": [
+    "neo4j",
+    "graphrag",
+    "langgraph"
+  ],
+  "license": "MIT"
+}

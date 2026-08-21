@@ -1,0 +1,26 @@
+{
+  "name": "langsmith-test",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "LangGraph RAG with Milvus and LangSmith evaluation",
+  "scripts": {
+    "check": "node --check src/00_trace/trigger-error.mjs && node --check src/01_ingest/milvus_insert.mjs && node --check src/02_rag/rag_agent.mjs && node --check src/02_rag/cli.mjs && node --check src/03_eval/build_dataset.mjs && node --check src/03_eval/evaluators.mjs && node --check src/03_eval/run_eval.mjs && node --check src/_shared/rag-config.mjs",
+    "trace:error": "node src/00_trace/trigger-error.mjs",
+    "insert": "node src/01_ingest/milvus_insert.mjs",
+    "ask": "node src/02_rag/cli.mjs",
+    "eval:dataset": "node src/03_eval/build_dataset.mjs",
+    "eval:run": "node src/03_eval/run_eval.mjs"
+  },
+  "dependencies": {
+    "@lessons/shared": "workspace:*",
+    "@langchain/community": "^0.3.28",
+    "@langchain/core": "^0.3.37",
+    "@langchain/langgraph": "^0.2.57",
+    "@langchain/openai": "^0.4.2",
+    "@langchain/textsplitters": "^0.1.0",
+    "@zilliz/milvus2-sdk-node": "^2.5.5",
+    "dotenv": "^16.4.7",
+    "langsmith": "^0.3.12",
+    "openevals": "^0.2.0"
+  }
+}

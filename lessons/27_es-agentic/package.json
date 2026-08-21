@@ -11,5 +11,8 @@
     "seed:hybrid": "node src/02_rag/00-seed-data.mjs",
     "demo:hybrid": "node src/02_rag/02-hybrid-retrieval.mjs"
   },
+  "dependencies": {
+    "@lessons/shared": "workspace:*"
+  },
   "license": "ISC"
 }
