@@ -1,6 +1,6 @@
 # Lesson 27 整理与复习记录
 
-> 外部依赖边界：本轮没有启动 Docker、Elasticsearch、Kibana、Milvus、etcd、MinIO，也没有执行索引 CRUD、向量写入或远程模型请求。已完成源码静态整理、逐文件语法检查和离线 fallback 验证；真实混合检索效果仍需用户提供外部环境后验证。
+> 外部依赖边界：当前 `agent/` 项目没有可直接使用的 Docker、数据库、Elasticsearch 或 Milvus 运行环境。本轮没有启动 Docker、Elasticsearch、Kibana、Milvus、etcd、MinIO，也没有执行索引 CRUD、向量写入或远程模型请求。已完成源码静态整理和逐文件语法检查；真实混合检索效果仍需用户提供外部环境后验证。
 
 ## 文章真正想教会什么
 
@@ -20,38 +20,46 @@
 
 | 原文知识点               | 整理后的代码                                                            | 说明                                 |
 | ------------------------ | ----------------------------------------------------------------------- | ------------------------------------ |
+| 原文创建索引入口         | `src/00_create.mjs`                                                     | 对应原文 `src/create.mjs`，补编号并修复富文本粘连后的语法 |
+| 原文 CRUD 入口           | `src/01_operate.mjs`                                                    | 对应原文 `src/operate.mjs`，补编号方便逐段对照原文       |
 | 创建 ES 索引与 Bulk 写入 | `src/00_elasticsearch/00-create-index-and-seed.mjs`                     | 保留 `travel_journal` 基础示例       |
 | ES 文档 CRUD             | `src/00_elasticsearch/01-document-crud.mjs`                             | 恢复完整安全链路，只删除本次新建文档 |
 | 自定义 DashScope Rerank  | `src/_shared/dashscope-rerank.mjs`                                      | 修复错误构造器拼写并增加配置校验     |
-| 独立 Rerank 测试         | `src/01_rerank/00-rerank-demo.mjs`                                      | 统一读取根 `.env` 的课程专用变量     |
+| 独立 Rerank 测试         | `src/01_rerank/00-test.mjs`                                      | 统一读取根 `.env` 的课程专用变量     |
 | ES 与 Milvus 同源写入    | `src/02_rag/00-seed-data.mjs`                                           | 保留用户替换后的全部 `ROWS` 数据     |
-| Query 改写               | `src/_shared/query-augment.mjs`、`src/02_rag/01-query-augment-demo.mjs` | 公共实现与可执行观察入口分离         |
+| Query 改写               | `src/_shared/query-augment.mjs`、`src/02_rag/01-query-augment.mjs` | 公共实现与可执行观察入口分离         |
 | LangGraph 混合检索       | `src/02_rag/02-hybrid-retrieval.mjs`                                    | 补回原课程缺失的完整最终示例         |
-| 外部依赖 fallback        | `src/03_fallback/00-offline-hybrid-fallback.mjs`                        | 本地模拟全链路并输出最终 Prompt      |
-
 ## 本次整理内容
+
+### 本轮复核修正
+
+- 修复 `src/02_rag/00-seed-data.mjs` 中 Milvus 创建索引字段误用未定义变量的问题，统一使用 `_shared/constants.mjs` 中的 `MILVUS_VECTOR_FIELD`。
+- 将 `src/02_rag/01-query-augment.mjs` 调整为可直接执行的 Query Augmentation 观察入口，公共 schema、prompt 和工具函数继续保留在 `_shared/query-augment.mjs`。
+- 修复 `src/02_rag/02-hybrid-retrieval.mjs` 的富文本粘连、错误 import 路径和环境变量读取方式，改为统一复用 `_shared/env.mjs`、`_shared/constants.mjs`、`_shared/dashscope-rerank.mjs` 与 `_shared/query-augment.mjs`。
+- 删除 `src/03_fallback/00-offline-hybrid-fallback.mjs` 及其 README / package 引用，因为原文没有提及这条 fallback 示例，按当前规则不再作为课程正式内容保留。
+- 保留 `src/04_infrastructure/elasticsearch/Dockerfile` 文件本身，但移出课程主学习路径引用；原文虽未直接点名该路径，`docker-compose.yml` 的 `build` 配置已对本地 Dockerfile 形成隐含依赖。
 
 ### 命名与顺序
 
 - ES 阶段：`src/00_elasticsearch/00-create-index-and-seed.mjs` → `01-document-crud.mjs`。
-- Rerank 阶段：`src/01_rerank/00-rerank-demo.mjs`。
-- RAG 阶段：`src/02_rag/00-seed-data.mjs` → `01-query-augment-demo.mjs` → `02-hybrid-retrieval.mjs`。
-- fallback 阶段：`src/03_fallback/00-offline-hybrid-fallback.mjs`。
-- 基础设施阶段：`src/04_infrastructure/elasticsearch/Dockerfile`。
-
-所有可执行 `.mjs` 都在对应阶段目录内从 `00` 连续编号。`dashscope-rerank.mjs` 和 `query-augment.mjs` 是被多个入口复用的无顶层副作用模块，因此统一移入 `_shared` 且不编号，避免编号示例之间相互 import。
+- Rerank 阶段：`src/01_rerank/00-test.mjs`。
+- RAG 阶段：`src/02_rag/00-seed-data.mjs` → `01-query-augment.mjs` → `02-hybrid-retrieval.mjs`。
+`src/00_create.mjs`、`src/01_operate.mjs` 保留为文章原文对照入口的排序版；其余可执行 `.mjs` 按阶段目录从 `00` 连续编号，方便系统复习。`dashscope-rerank.mjs` 和 `query-augment.mjs` 是被多个入口复用的无顶层副作用模块，因此统一移入 `_shared` 且不编号，避免编号示例之间相互 import。
 
 ### 结构调整
 
 - 抽出 `_shared/env.mjs`：统一从项目根 `.env` 读取 `ESAGENT_*` 变量，避免不同工作目录造成配置丢失。
 - 抽出 `_shared/constants.mjs`：统一 `life_notes`、ES/Milvus 地址和向量字段名，保证 seed 与 retrieval 一致。
 - 补齐文章后半段缺失的 Query 改写独立入口与 LangGraph 混合检索代码。
-- 补齐 `docker-compose.yml` 中的 Milvus、etcd、MinIO，并新增缺失的 ES + IK Dockerfile；均只作为外部教学配置。
-- 更新最小 `package.json`，提供静态检查、fallback、Rerank、seed 和完整混合检索脚本。
+- 补齐 `docker-compose.yml` 中的 Milvus、etcd、MinIO，并补上其 `build` 配置所需的 ES + IK Dockerfile；它是原文 compose 编排的配套文件，不作为单独复习入口。
+- 更新最小 `package.json`，提供静态检查、Rerank、seed 和完整混合检索脚本。
+- 将文章原文点名的 `src/create.mjs`、`src/operate.mjs` 整理为 `src/00_create.mjs`、`src/01_operate.mjs`，并修复富文本复制带来的 `newDate()`、格式粘连和缩进问题；编号版 ES 示例继续作为结构化复习入口。
+- 将原文 `src/rag/query-augment.mjs` 对齐为 `src/02_rag/01-query-augment.mjs`，只增加排序前缀，不再改成 `query-augment-demo.mjs` 这类非原文文件名。
 
 ### 可读性与安全性
 
 - 每个核心示例加入复习型注释，标明新增知识、适用场景和依赖边界。
+- 原文代码注释视为学习材料保留；后续只允许补充复习说明或更正说明，不应为了整理而静默删除。
 - 修复 `from"..."`、混乱缩进、缺失分号和 `thrownewError` 等格式/运行错误。
 - 移除 CRUD 示例中硬编码删除已有文档 ID 的行为，改为删除本轮创建的临时文档。
 - Rerank 封装对 API Key、URL 和响应索引做最小校验。
@@ -63,19 +71,17 @@
 
 - 环境变量读取在 Rerank、seed、hybrid 三处重复，已抽到 `_shared/env.mjs`。
 - `life_notes`、服务地址和 Milvus 字段在 seed、hybrid 两处重复，已抽到 `_shared/constants.mjs`。
+- `src/00_create.mjs`、`src/01_operate.mjs` 保留 ES Client 与 `travel_journal` 常量的局部初始化，这是为了优先对齐原文点名入口；编号版和后续 RAG 链路不再继续扩大这类重复。
 - Chat/Embeddings/Rerank 初始化只在最终示例集中出现一次；独立 Rerank 示例刻意保留最小初始化以展示 API，因此未继续封装。
 - Query schema 与 Prompt 只服务 Query Augmentation 模块，没有重复，不额外拆散。
 - `_shared/` 当前包含四个实际使用的文件，没有空目录或无意义封装。
 
-## 依赖分类与 fallback
+## 依赖分类
 
-- 无 API Key、无外部服务：`03_fallback/00-offline-hybrid-fallback.mjs`。
-- 无 API Key、需要 ES：`00_elasticsearch/00-create-index-and-seed.mjs`、`01-document-crud.mjs`。
-- 需要远程模型：`01_rerank/00-rerank-demo.mjs`、`02_rag/01-query-augment-demo.mjs`。
+- 无 API Key、需要 ES：`src/00_create.mjs`、`src/01_operate.mjs`、`00_elasticsearch/00-create-index-and-seed.mjs`、`01-document-crud.mjs`。
+- 需要远程模型：`01_rerank/00-test.mjs`、`02_rag/01-query-augment.mjs`。
 - 需要 API + ES + Milvus：`02_rag/00-seed-data.mjs`、`02-hybrid-retrieval.mjs`。
 - `_shared/*.mjs` 均为无顶层调用的公共模块。
-
-fallback 保留了“多问句 → 两路候选 → 合并去重 → 精排 → 选择文档 → 组装 Prompt”的完整观察路径，但启发式字符分数不能替代真实 IK、Embeddings 或 Rerank 的效果。
 
 ## 原文与现有项目的差异
 
@@ -102,6 +108,7 @@ fallback 保留了“多问句 → 两路候选 → 合并去重 → 精排 → 
 - 依赖：`@elastic/elasticsearch` 8.17.0 与其他依赖均位于项目根，根锁文件已更新；lesson 内没有 `node_modules`。
 - import：未发现编号示例 import 其他编号示例。
 - 格式：未发现 `from"..."`、`thrownewError`、`awaitPromise.all` 等粘连问题。
-- 语法：11 个 `.mjs` 全部通过 `node --check`。
-- fallback：已直接运行，成功输出查询扩展、两路召回、合并去重、Top 文档与最终 Prompt。
+- 原文注释：已补充规则要求；后续复查需确认原文代码注释未被静默删除，错误注释应以更正说明处理。
+- 语法：13 个 `.mjs` 全部通过 `node --check`。
 - 外部链路：未运行，仍需用户提供 ES + IK、Milvus 和远程模型环境。
+- 本次复查额外确认：当前项目未配置可用 Docker / 数据库 / ES 服务，所有 ES、Milvus、docker-compose 相关内容只作为外部前置条件和教学 TODO，不作为本地已验证运行路径。

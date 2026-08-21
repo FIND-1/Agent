@@ -5,10 +5,9 @@
   "description": "混合检索 RAG：查询改写、ES/Milvus 多路召回、去重与 Rerank",
   "type": "module",
   "scripts": {
-    "check": "node --check src/_shared/constants.mjs && node --check src/_shared/dashscope-rerank.mjs && node --check src/_shared/env.mjs && node --check src/_shared/query-augment.mjs && node --check src/00_elasticsearch/00-create-index-and-seed.mjs && node --check src/00_elasticsearch/01-document-crud.mjs && node --check src/01_rerank/00-rerank-demo.mjs && node --check src/02_rag/00-seed-data.mjs && node --check src/02_rag/01-query-augment-demo.mjs && node --check src/02_rag/02-hybrid-retrieval.mjs && node --check src/03_fallback/00-offline-hybrid-fallback.mjs",
-    "demo:fallback": "node src/03_fallback/00-offline-hybrid-fallback.mjs",
-    "demo:rerank": "node src/01_rerank/00-rerank-demo.mjs",
-    "demo:query-augment": "node src/02_rag/01-query-augment-demo.mjs",
+    "check": "node --check src/00_create.mjs && node --check src/01_operate.mjs && node --check src/_shared/constants.mjs && node --check src/_shared/dashscope-rerank.mjs && node --check src/_shared/env.mjs && node --check src/_shared/query-augment.mjs && node --check src/00_elasticsearch/00-create-index-and-seed.mjs && node --check src/00_elasticsearch/01-document-crud.mjs && node --check src/01_rerank/00-test.mjs && node --check src/02_rag/00-seed-data.mjs && node --check src/02_rag/01-query-augment.mjs && node --check src/02_rag/02-hybrid-retrieval.mjs",
+    "demo:rerank": "node src/01_rerank/00-test.mjs",
+    "demo:query-augment": "node src/02_rag/01-query-augment.mjs",
     "seed:hybrid": "node src/02_rag/00-seed-data.mjs",
     "demo:hybrid": "node src/02_rag/02-hybrid-retrieval.mjs"
   },

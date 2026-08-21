@@ -1,6 +1,6 @@
 # Lesson 27：混合检索 RAG 与 Rerank
 
-> 验证边界：Elasticsearch、IK、Kibana、Milvus、etcd、MinIO 与远程模型 API 都是外部前置条件。本仓库未提供正在运行的 Docker / ES / Milvus 环境，本次只完成源码整理、离线 fallback 运行和静态检查，不把容器、索引、向量集合或远程请求写成已验证结果。
+> 验证边界：当前 `agent/` 项目没有可直接使用的 Docker、数据库、Elasticsearch 或 Milvus 运行环境。Elasticsearch、IK、Kibana、Milvus、etcd、MinIO 与远程模型 API 都是外部前置条件；本课程只把相关配置和脚本作为教学结构 / TODO 保留。本地默认只做源码整理和静态检查，不把容器启动、索引创建、向量集合写入或远程模型请求写成已验证结果。
 
 ## 这节课要学会什么
 
@@ -21,16 +21,20 @@
 
 | 阶段        | 文件                                                | 学习目的                                | API Key | 外部服务                                    |
 | ----------- | --------------------------------------------------- | --------------------------------------- | ------- | ------------------------------------------- |
+| 原文 ES     | `src/00_create.mjs`                                 | 对应原文 `create.mjs`，创建索引并写入种子数据 | 不需要  | ES + IK                                     |
+| 原文 ES     | `src/01_operate.mjs`                                | 对应原文 `operate.mjs`，串联 ES 文档 CRUD | 不需要  | ES + IK                                     |
 | 00 ES       | `src/00_elasticsearch/00-create-index-and-seed.mjs` | 创建 ES 索引、理解 mapping 与 Bulk 写入 | 不需要  | ES + IK                                     |
 | 00 ES       | `src/00_elasticsearch/01-document-crud.mjs`         | 串联文档新增、查询、更新、搜索和删除    | 不需要  | ES + IK                                     |
-| 01 Rerank   | `src/01_rerank/00-rerank-demo.mjs`                  | 独立观察候选文档重新排序                | 需要    | Rerank API                                  |
+| 01 Rerank   | `src/01_rerank/00-test.mjs`                  | 独立观察候选文档重新排序                | 需要    | Rerank API                                  |
 | 02 RAG      | `src/02_rag/00-seed-data.mjs`                       | 将同一业务文档写入 ES 与 Milvus         | 需要    | ES + IK、Milvus、Embeddings API             |
-| 02 RAG      | `src/02_rag/01-query-augment-demo.mjs`              | 独立观察 LLM 生成 3 条多角度检索问句    | 需要    | Chat API                                    |
+| 02 RAG      | `src/02_rag/01-query-augment.mjs`              | 独立观察 LLM 生成 3 条多角度检索问句    | 需要    | Chat API                                    |
 | 02 RAG      | `src/02_rag/02-hybrid-retrieval.mjs`                | 用 LangGraph 串起完整混合检索链路       | 需要    | ES + IK、Milvus、Chat/Embeddings/Rerank API |
-| 03 fallback | `src/03_fallback/00-offline-hybrid-fallback.mjs`    | 无外部依赖复习完整数据流与 Prompt 组装  | 不需要  | 不需要                                      |
-| 04 基础设施 | `src/04_infrastructure/elasticsearch/Dockerfile`    | 理解 ES 8.17.0 与同版本 IK 插件镜像     | 不需要  | Docker + 网络                               |
 
-`src/_shared/` 放跨阶段复用的根 `.env` 读取、索引常量、Rerank 封装和 Query Augmentation 实现。它们是公共模块，不参与示例编号；所有可执行 `.mjs` 都在对应阶段目录内从 `00` 连续编号。
+`src/00_create.mjs`、`src/01_operate.mjs` 是文章原文 `src/create.mjs`、`src/operate.mjs` 的排序版，方便对照原文阅读，也避免根目录里出现未编号入口。`src/00_elasticsearch/` 下是同一知识点的阶段化复习入口，用来和后续 Rerank、RAG 阶段保持统一学习顺序。
+
+`src/_shared/` 放跨阶段复用的根 `.env` 读取、索引常量、Rerank 封装和 Query Augmentation 实现。它们是公共模块，不参与示例编号。
+
+`docker-compose.yml` 中的 `build` 配置隐含依赖一个本地 ES + IK 构建目录，因此课程里保留了 `src/04_infrastructure/elasticsearch/Dockerfile` 作为配套文件；它不是原文点名的主学习入口，不单独列入复习顺序。
 
 ## 环境变量
 
@@ -56,15 +60,7 @@
 npm run check
 ```
 
-### 2. 无需 API Key、无需外部服务
-
-```powershell
-npm run demo:fallback
-```
-
-这个 fallback 用字符重叠分数模拟两路召回和重排，仅用于观察数据流，不等价于 IK、向量嵌入或真实 Rerank。
-
-### 3. 需要模型 API
+### 2. 需要模型 API
 
 只测试 Rerank：
 
@@ -75,9 +71,9 @@ npm run demo:query-augment
 
 常见失败原因：根 `.env` 缺少课程变量、URL 无效、API Key 失效、模型名或接口地域不匹配、网络不可达。
 
-### 4. 需要外部服务
+### 3. 需要外部服务
 
-`docker-compose.yml` 保留文章中的 ES/Kibana/Milvus 教学编排，但 Docker 和端口由用户自行管理，本课程不会自动启动。外部环境需提供：
+`docker-compose.yml` 仅保留文章中的 ES/Kibana/Milvus 教学编排，不能代表当前项目已经配置或验证了 Docker 环境。Docker、端口和外部服务由用户自行管理，本课程不会自动启动、停止或接管任何本地服务。外部环境需自行提供：
 
 - Elasticsearch 8.17.0：`http://localhost:9200`
 - 同版本 IK 插件
@@ -85,28 +81,32 @@ npm run demo:query-augment
 - Milvus 2.5.25：`localhost:19530`
 - 可用的 Chat、Embeddings、Rerank API
 
-环境就绪后按顺序执行：
+环境就绪后，ES 基础阶段有两套入口，复习时二选一即可：
+
+原文对照入口：
+
+```powershell
+node .\src\00_create.mjs
+node .\src\01_operate.mjs
+```
+
+编号复习入口：
 
 ```powershell
 node .\src\00_elasticsearch\00-create-index-and-seed.mjs
 node .\src\00_elasticsearch\01-document-crud.mjs
+```
+
+进入混合检索阶段：
+
+```powershell
 npm run seed:hybrid
 npm run demo:hybrid
 ```
 
-注意：`02_rag/00-seed-data.mjs` 会先删除再重建 `life_notes` 的 ES 索引和 Milvus 集合，只适合课程数据；不要对真实业务环境运行。
+注意：`src/00_create.mjs` / `src/01_operate.mjs` 与 `src/00_elasticsearch/*` 都使用 `travel_journal` 教学索引，属于同一组 ES 基础练习。`02_rag/00-seed-data.mjs` 会先删除再重建 `life_notes` 的 ES 索引和 Milvus 集合，只适合课程数据；不要对真实业务环境运行。
 
-### 5. 外部服务不可用时
-
-先运行 `demo:fallback`，重点跟踪以下中间结果：
-
-1. 原始问题与扩展问题列表。
-2. 关键词召回与“语义召回”候选 ID。
-3. 合并去重后的候选集。
-4. 重排保留的 Top 文档。
-5. 最终交给生成模型的 Prompt。
-
-等外部环境可用后，再把这些阶段分别对应到 `02_rag/02-hybrid-retrieval.mjs` 的 LangGraph 节点。
+如果当前机器没有 ES / IK / Milvus，请不要直接运行本组命令；这类脚本会在 `http://localhost:9200` 或 `localhost:19530` 连接阶段失败。当前课程按原文对齐，不额外保留本地 fallback 示例；外部环境不可用时，建议直接阅读 `02_rag/00-seed-data.mjs`、`01-query-augment.mjs`、`02-hybrid-retrieval.mjs` 的阶段注释与 LangGraph 节点关系。
 
 ## 关键结论
 

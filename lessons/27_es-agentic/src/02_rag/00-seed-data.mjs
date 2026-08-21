@@ -252,7 +252,7 @@ async function seedMilvus(collectionName, rows, emb) {
     console.log("创建向量索引...");
     await milvusClient.createIndex({
       collection_name: collectionName,
-      field_name: EMBEDDING,
+      field_name: MILVUS_VECTOR_FIELD,
       index_type: IndexType.HNSW,
       metric_type: MetricType.L2,
       params: { M: 8, efConstruction: 64 },
