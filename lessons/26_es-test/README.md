@@ -24,13 +24,13 @@
 
 ## 推荐复习顺序
 
-| 顺序 | 文件 | 学习目的 | API Key | 外部服务 |
-| --- | --- | --- | --- | --- |
-| 1 | `src/00-inverted-index-demo.mjs` | 从正向存储推导“词语 -> 文档 ID”的倒排索引 | 不需要 | 不需要 |
-| 2 | `requests/00-basic-crud.http` | 对齐索引、mapping、文档 CRUD、`match` 与 `term` | 不需要 | Elasticsearch |
-| 3 | `requests/01-ik-analysis-and-search.http` | 对比 standard、`ik_max_word` 与 `ik_smart` | 不需要 | Elasticsearch + IK |
-| 4 | `src/01-bm25-ranking-demo.mjs` | 用教学版 BM25 观察相关性排序策略 | 不需要 | 不需要 |
-| 5 | `docker-compose.yml`、`elasticsearch/Dockerfile` | 理解 ES、Kibana 与 IK 镜像的外部部署结构 | 不需要 | Docker + 网络 |
+| 顺序 | 文件                                                                   | 学习目的                                        | API Key | 外部服务           |
+| ---- | ---------------------------------------------------------------------- | ----------------------------------------------- | ------- | ------------------ |
+| 1    | `src/00_inverted-index/00-inverted-index-demo.mjs`                     | 从正向存储推导“词语 -> 文档 ID”的倒排索引       | 不需要  | 不需要             |
+| 2    | `src/01_elasticsearch/00-basic-crud.http`                              | 对齐索引、mapping、文档 CRUD、`match` 与 `term` | 不需要  | Elasticsearch      |
+| 3    | `src/01_elasticsearch/01-ik-analysis-and-search.http`                  | 对比 standard、`ik_max_word` 与 `ik_smart`      | 不需要  | Elasticsearch + IK |
+| 4    | `src/02_bm25/00-bm25-ranking-demo.mjs`                                 | 用教学版 BM25 观察相关性排序策略                | 不需要  | 不需要             |
+| 5    | `docker-compose.yml`、`src/03_infrastructure/elasticsearch/Dockerfile` | 理解 ES、Kibana 与 IK 镜像的外部部署结构        | 不需要  | Docker + 网络      |
 
 ## 运行与验证
 
@@ -71,8 +71,8 @@ docker compose up -d --build
 
 容器可用后，再使用支持 `.http` 文件的客户端按顺序手动执行：
 
-1. `requests/00-basic-crud.http`
-2. `requests/01-ik-analysis-and-search.http`
+1. `src/01_elasticsearch/00-basic-crud.http`
+2. `src/01_elasticsearch/01-ik-analysis-and-search.http`
 
 请求文件最后包含删除操作，应只逐段执行，不要在有需保留数据的环境中整文件批量运行。
 

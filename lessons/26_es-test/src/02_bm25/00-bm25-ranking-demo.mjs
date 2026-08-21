@@ -1,4 +1,4 @@
-import { countTerms, tokenize } from './_shared/search-utils.mjs';
+import { countTerms, tokenize } from "../_shared/search-utils.mjs";
 
 /**
  * 在倒排索引找到候选文档后，还需要回答“哪个结果更相关”。
@@ -6,18 +6,20 @@ import { countTerms, tokenize } from './_shared/search-utils.mjs';
  * 相比 00，本例新增相关性排序；真实 Elasticsearch 的实现还包含 analyzer、字段统计等完整细节。
  */
 const documents = [
-  { id: 'A', text: 'RAG 检索 检索 检索' },
-  { id: 'B', text: 'Elasticsearch IK 分词 BM25 检索' },
-  { id: 'C', text: 'Elasticsearch IK 分词 是 中文 关键词 检索 的 重要 工具' },
+  { id: "A", text: "RAG 检索 检索 检索" },
+  { id: "B", text: "Elasticsearch IK 分词 BM25 检索" },
+  { id: "C", text: "Elasticsearch IK 分词 是 中文 关键词 检索 的 重要 工具" },
 ];
-const queryTerms = tokenize('IK 分词 检索');
+const queryTerms = tokenize("IK 分词 检索");
 const tokenizedDocuments = documents.map((document) => ({
   ...document,
   tokens: tokenize(document.text),
 }));
 const averageLength =
-  tokenizedDocuments.reduce((sum, document) => sum + document.tokens.length, 0) /
-  tokenizedDocuments.length;
+  tokenizedDocuments.reduce(
+    (sum, document) => sum + document.tokens.length,
+    0,
+  ) / tokenizedDocuments.length;
 
 function inverseDocumentFrequency(term) {
   const matchingDocuments = tokenizedDocuments.filter((document) =>
@@ -53,5 +55,5 @@ const ranking = tokenizedDocuments
   }))
   .sort((left, right) => Number(right.score) - Number(left.score));
 
-console.log(`查询词：${queryTerms.join(', ')}`);
+console.log(`查询词：${queryTerms.join(", ")}`);
 console.table(ranking);

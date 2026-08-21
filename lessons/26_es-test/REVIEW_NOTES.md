@@ -16,24 +16,24 @@
 
 ## 文章与文件对应关系
 
-| 文章知识点 | 整理后的文件 | 对应说明 |
-| --- | --- | --- |
-| Elasticsearch / Kibana 安装 | `docker-compose.yml` | 保留 ES 8.17.0、Kibana 8.17.0 和端口映射，标为外部前置条件 |
-| IK 插件安装 | `elasticsearch/Dockerfile` | 基于 ES 8.17.0 下载严格同版本插件 |
-| 索引与文档 CRUD | `requests/00-basic-crud.http` | 按创建索引、写入、查询、更新、删除排列 |
-| `text` 与 `keyword` | `requests/00-basic-crud.http` | 分别用 `match` 和 `term` 展示适用边界 |
-| 倒排索引 | `src/00-inverted-index-demo.mjs` | 无服务 fallback，输出词条与文档 ID 的映射 |
-| standard 与 IK 对比 | `requests/01-ik-analysis-and-search.http` | 依次观察三种 analyzer 的输出 |
-| `ik_max_word` / `ik_smart` | `requests/01-ik-analysis-and-search.http` | 在 `life_note` mapping 中区分索引与查询 analyzer |
-| BM25 | `src/01-bm25-ranking-demo.mjs` | 无服务 fallback，以教学公式输出得分排序 |
+| 文章知识点                  | 整理后的文件                                          | 对应说明                                                   |
+| --------------------------- | ----------------------------------------------------- | ---------------------------------------------------------- |
+| Elasticsearch / Kibana 安装 | `docker-compose.yml`                                  | 保留 ES 8.17.0、Kibana 8.17.0 和端口映射，标为外部前置条件 |
+| IK 插件安装                 | `src/03_infrastructure/elasticsearch/Dockerfile`      | 基于 ES 8.17.0 下载严格同版本插件                          |
+| 索引与文档 CRUD             | `src/01_elasticsearch/00-basic-crud.http`             | 按创建索引、写入、查询、更新、删除排列                     |
+| `text` 与 `keyword`         | `src/01_elasticsearch/00-basic-crud.http`             | 分别用 `match` 和 `term` 展示适用边界                      |
+| 倒排索引                    | `src/00_inverted-index/00-inverted-index-demo.mjs`    | 无服务 fallback，输出词条与文档 ID 的映射                  |
+| standard 与 IK 对比         | `src/01_elasticsearch/01-ik-analysis-and-search.http` | 依次观察三种 analyzer 的输出                               |
+| `ik_max_word` / `ik_smart`  | `src/01_elasticsearch/01-ik-analysis-and-search.http` | 在 `life_note` mapping 中区分索引与查询 analyzer           |
+| BM25                        | `src/02_bm25/00-bm25-ranking-demo.mjs`                | 无服务 fallback，以教学公式输出得分排序                    |
 
 ## 本次整理内容
 
 ### 结构调整
 
-- 新增 `src/`，放置按学习顺序编号、可直接运行的原理示例。
-- 新增 `requests/`，把文章中的 ES 操作变成可逐段执行的 `.http` 请求，避免命令散落在文档中。
-- 新增 `_shared/search-utils.mjs`，集中两个离线示例都会使用的分词与词频统计逻辑。
+- `src/` 下按阶段整理为 `00_inverted-index → 01_elasticsearch → 02_bm25 → 03_infrastructure`。
+- `01_elasticsearch/` 集中可逐段执行的 `.http` 请求，避免命令散落在文档中。
+- `src/_shared/search-utils.mjs` 集中两个离线示例都会使用的分词与词频统计逻辑。
 - 新增 `README.md` 作为快速入口，新增本文件记录完整知识主线和整理依据。
 
 ### 配置修正
@@ -56,7 +56,7 @@
 检查了模型初始化、环境变量、schema、examples、prompt block 和工具函数：
 
 - 本课程没有模型初始化、环境变量、schema、few-shot examples 或 prompt block。
-- `tokenize` 同时用于倒排索引与 BM25，`countTerms` 是搜索算法辅助逻辑，因此放入 `_shared/search-utils.mjs`。
+- `tokenize` 同时用于倒排索引与 BM25，`countTerms` 是搜索算法辅助逻辑，因此放入 `src/_shared/search-utils.mjs`。
 - 核心倒排索引构建与 BM25 公式没有抽离，避免示例文件只剩调用语句而失去教学价值。
 - `_shared/` 非空，编号示例之间互不 import，只依赖共享工具。
 
@@ -64,8 +64,8 @@
 
 ### 无需 API Key、无需外部服务
 
-- `src/00-inverted-index-demo.mjs`
-- `src/01-bm25-ranking-demo.mjs`
+- `src/00_inverted-index/00-inverted-index-demo.mjs`
+- `src/02_bm25/00-bm25-ranking-demo.mjs`
 
 ### 需要模型 API
 
@@ -73,9 +73,9 @@
 
 ### 需要外部服务
 
-- `requests/00-basic-crud.http`：需要 Elasticsearch 8.17.0。
-- `requests/01-ik-analysis-and-search.http`：需要 Elasticsearch 8.17.0 和同版本 IK 插件。
-- `docker-compose.yml`、`elasticsearch/Dockerfile`：需要 Docker；构建 IK 镜像时还需要网络。
+- `src/01_elasticsearch/00-basic-crud.http`：需要 Elasticsearch 8.17.0。
+- `src/01_elasticsearch/01-ik-analysis-and-search.http`：需要 Elasticsearch 8.17.0 和同版本 IK 插件。
+- `docker-compose.yml`、`src/03_infrastructure/elasticsearch/Dockerfile`：需要 Docker；构建 IK 镜像时还需要网络。
 
 课程代码不读取环境变量，不需要修改项目根目录 `.env`。课程没有第三方 Node 依赖，直接复用根目录 Node.js / pnpm 环境，因此没有向根 `package.json` 或锁文件新增依赖。
 
@@ -83,9 +83,9 @@
 
 外部服务不可用时：
 
-1. `00-inverted-index-demo.mjs` 保留“切词 -> 构建词条映射 -> 多词求交集”的召回链路。
-2. 阅读 `01-ik-analysis-and-search.http` 的 analyzer 配置，理解 IK 的职责；本地 fallback 不冒充 IK。
-3. `01-bm25-ranking-demo.mjs` 保留“查询词 -> 文档频率 -> 长度归一化 -> 累加得分 -> 排序”的链路。
+1. `00_inverted-index/00-inverted-index-demo.mjs` 保留“切词 -> 构建词条映射 -> 多词求交集”的召回链路。
+2. 阅读 `01_elasticsearch/01-ik-analysis-and-search.http` 的 analyzer 配置，理解 IK 的职责；本地 fallback 不冒充 IK。
+3. `02_bm25/00-bm25-ranking-demo.mjs` 保留“查询词 -> 文档频率 -> 长度归一化 -> 累加得分 -> 排序”的链路。
 
 这个 fallback 不模拟 ES HTTP API、分片、持久化、IK 词典或生产级搜索，只用于在外部服务缺失时不断开知识主线。
 

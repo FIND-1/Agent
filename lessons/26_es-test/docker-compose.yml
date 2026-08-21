@@ -1,7 +1,7 @@
 services:
   # 外部前置条件：本文件需要本机已安装并启动 Docker，未在本仓库中验证运行。
   es:
-    build: ./elasticsearch
+    build: ./src/03_infrastructure/elasticsearch
     image: elasticsearch:8.17.0
     container_name: es-dev
     ports:

@@ -5,9 +5,9 @@
   "type": "module",
   "description": "Elasticsearch 全文检索、IK 中文分词与 BM25 排序学习包",
   "scripts": {
-    "check": "node --check src/_shared/search-utils.mjs && node --check src/00-inverted-index-demo.mjs && node --check src/01-bm25-ranking-demo.mjs",
-    "demo:inverted-index": "node src/00-inverted-index-demo.mjs",
-    "demo:bm25": "node src/01-bm25-ranking-demo.mjs"
+    "check": "node --check src/_shared/search-utils.mjs && node --check src/00_inverted-index/00-inverted-index-demo.mjs && node --check src/02_bm25/00-bm25-ranking-demo.mjs",
+    "demo:inverted-index": "node src/00_inverted-index/00-inverted-index-demo.mjs",
+    "demo:bm25": "node src/02_bm25/00-bm25-ranking-demo.mjs"
   },
   "keywords": [
     "elasticsearch",
