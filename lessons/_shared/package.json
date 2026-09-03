@@ -5,7 +5,10 @@
   "type": "module",
   "exports": {
     "./env-loader": "./env-loader.mjs",
-    "./model": "./model.mjs"
+    "./model": {
+      "types": "./model.d.mts",
+      "default": "./model.mjs"
+    }
   },
   "dependencies": {
     "@langchain/openai": "^1.4.7",
