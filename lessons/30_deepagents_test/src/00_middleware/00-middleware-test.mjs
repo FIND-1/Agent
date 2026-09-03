@@ -8,6 +8,12 @@ import {
   AIMessage,
 } from "langchain";
 
+/**
+ * 复习定位：先从 LangChain 原生 middleware 理解生命周期钩子。
+ * 本例同时演示状态扩展、模型调用包装和提前结束；后续示例再进入工具包装与 DeepAgents 预置中间件。
+ * 依赖模型 API，且 middleware 的实际调用次数仍受模型行为影响。
+ */
+
 // --- 自定义 Middleware ---
 
 /** 日志 + 模型调用次数统计 */

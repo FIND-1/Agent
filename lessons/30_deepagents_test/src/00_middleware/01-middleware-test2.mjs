@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { Command } from "@langchain/langgraph";
 import "@lessons/shared/env-loader";
 import { createChatModel } from "@lessons/shared/model";
 import {
@@ -9,7 +10,13 @@ import {
   tool,
 } from "langchain";
 
-const getCurrentTime = tool(() => newDate().toISOString(), {
+/**
+ * 复习定位：承接 middleware-test.mjs，继续观察 middleware 如何注入工具并包装工具调用。
+ * wrapToolCall 既能读取调用参数，也能用 Command 同时更新消息和自定义 state。
+ * 依赖模型正确选择工具；这里的时间工具本身不依赖外部服务。
+ */
+
+const getCurrentTime = tool(() => new Date().toISOString(), {
   name: "get_current_time",
   description: "返回当前 UTC 时间的 ISO 8601 字符串",
   schema: z.object({}),
@@ -23,27 +30,27 @@ const extendedToolsMiddleware = createMiddleware({
   }),
   tools: [getCurrentTime],
   wrapToolCall: async (request, handler) => {
-    consttoolName = request.tool?.name ?? request.toolCall.name;
+    const toolName = request.tool?.name ?? request.toolCall.name;
     console.log(
-      `[Tools] 即将执行:${toolName}`,
+      `[Tools] 即将执行: ${toolName}`,
       "args:",
       request.toolCall.args ?? {},
     );
-    constresult = awaithandler(request);
-    if (!ToolMessage.isInstance(result)) returnresult;
+    const result = await handler(request);
+    if (!ToolMessage.isInstance(result)) return result;
 
-    constwrapped = newToolMessage({
+    const wrapped = new ToolMessage({
       content: `${result.content}\n[wrapToolCall] 已由 ExtendedToolsMiddleware 包装`,
       tool_call_id: result.tool_call_id,
       name: result.name,
     });
     console.log(
-      `[Tools] 执行完成:${toolName}`,
-      typeofwrapped.content === "string"
+      `[Tools] 执行完成: ${toolName}`,
+      typeof wrapped.content === "string"
         ? wrapped.content.slice(0, 120)
         : wrapped,
     );
-    return newCommand({
+    return new Command({
       update: {
         toolInvocationCount: request.state.toolInvocationCount + 1,
         messages: [wrapped],
@@ -52,12 +59,12 @@ const extendedToolsMiddleware = createMiddleware({
   },
   afterAgent: (state) => {
     console.log(
-      `[Tools] agent 结束，middleware 统计工具调用:${state.toolInvocationCount}次`,
+      `[Tools] agent 结束，middleware 统计工具调用: ${state.toolInvocationCount} 次`,
     );
   },
 });
 
-const model  = createChatModel();
+const model = createChatModel();
 const agent = createAgent({
   model,
   tools: [],

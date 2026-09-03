@@ -1,18 +1,26 @@
 {
   "name": "30_deepagents_test",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "LangChain middleware 与 DeepAgents 预置中间件学习示例",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "check": "node --check src/_shared/filesystem.mjs && node --check src/00_middleware/00-middleware-test.mjs && node --check src/00_middleware/01-middleware-test2.mjs && node --check src/01_deepagents/00-filesystem-agent.mjs && node --check src/01_deepagents/01-skills-agent.mjs && node --check src/01_deepagents/02-subagent-agent.mjs && node --check src/01_deepagents/03-memory-agent.mjs && node --check src/01_deepagents/04-summarization-agent.mjs",
+    "demo:middleware": "node src/00_middleware/00-middleware-test.mjs",
+    "demo:middleware-tools": "node src/00_middleware/01-middleware-test2.mjs",
+    "demo:filesystem": "node src/01_deepagents/00-filesystem-agent.mjs",
+    "demo:skills": "node src/01_deepagents/01-skills-agent.mjs",
+    "demo:subagent": "node src/01_deepagents/02-subagent-agent.mjs",
+    "demo:memory": "node src/01_deepagents/03-memory-agent.mjs",
+    "demo:summarization": "node src/01_deepagents/04-summarization-agent.mjs"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@langchain/langgraph": "^1.4.9",
     "@lessons/shared": "workspace:*",
     "deepagents": "^1.13.2",
-    "langchain": "^1.5.10"
+    "langchain": "^1.5.10",
+    "zod": "^4.4.3"
   }
 }

@@ -1,9 +1,14 @@
-import "dotenv/config";
 import { z } from "zod";
 import "@lessons/shared/env-loader";
-import { createChatModel } from "@lessons/shared/model";
+import { createChatModel, getChunkText } from "@lessons/shared/model";
 import { createAgent, HumanMessage, tool } from "langchain";
 import { createSubAgentMiddleware } from "deepagents";
+
+/**
+ * 复习定位：把单 Agent 的工具调用扩展为主 Agent 对多个专用子 Agent 的任务委派。
+ * 三个子 Agent 分别负责计算、讲解和出题，主 Agent 只编排顺序并汇总结果。
+ * 依赖模型 API；委派顺序和工具调用是否严格执行仍受模型遵循指令能力影响。
+ */
 
 /** 四则运算 */
 const calc = tool(
@@ -30,9 +35,11 @@ const calc = tool(
     schema: z.object({
       a: z.number().describe("左操作数"),
       b: z.number().describe("右操作数"),
-      op: z.enum(["add", "subtract", "multiply", "divide"]).describe("运算类型"),
+      op: z
+        .enum(["add", "subtract", "multiply", "divide"])
+        .describe("运算类型"),
     }),
-  }
+  },
 );
 
 /** 平均分：总数 ÷ 份数 */
@@ -60,7 +67,7 @@ const divideEvenly = tool(
       total: z.number().nonnegative().describe("总数"),
       parts: z.number().int().positive().describe("分成几份"),
     }),
-  }
+  },
 );
 
 /** 按模板生成同类练习题（只改数字） */
@@ -94,10 +101,10 @@ const makeSimilarProblem = tool(
         .describe("题目模板"),
       seed: z.number().int().describe("随机种子，用于变换数字"),
     }),
-  }
+  },
 );
 
-const model = createChatModel();
+const model = createChatModel({ streaming: true });
 
 const subagents = [
   {
@@ -160,17 +167,6 @@ const prompt = [
   "最后 practice-maker 出 2 道类似练习题，并汇总给我。",
 ].join("");
 
-function chunkText(chunk) {
-  if (!chunk?.content) return "";
-  if (typeof chunk.content === "string") return chunk.content;
-  if (Array.isArray(chunk.content)) {
-    return chunk.content
-      .map((p) => (typeof p === "string" ? p : (p?.text ?? "")))
-      .join("");
-  }
-  return "";
-}
-
 console.log("场景: 小学应用题辅导（解题 → 讲题 → 出题）");
 console.log("子 Agent:");
 console.log("  math-solver     → calc, divide_evenly");
@@ -183,13 +179,13 @@ console.log("--- 流式输出 ---\n");
 
 const stream = await agent.streamEvents(
   { messages: [new HumanMessage(prompt)] },
-  { recursionLimit: 60 }
+  { recursionLimit: 60 },
 );
 
 try {
   for await (const event of stream) {
     if (event.event === "on_chat_model_stream") {
-      const t = chunkText(event.data?.chunk);
+      const t = getChunkText(event.data?.chunk ?? {});
       if (t) process.stdout.write(t);
     }
     if (event.event === "on_tool_start") {

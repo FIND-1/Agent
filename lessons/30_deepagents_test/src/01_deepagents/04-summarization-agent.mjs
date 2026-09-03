@@ -1,14 +1,25 @@
-import "dotenv/config";
-import fs from "node:fs";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
 import "@lessons/shared/env-loader";
 import { createChatModel } from "@lessons/shared/model";
 import { createAgent, HumanMessage } from "langchain";
 import { createSummarizationMiddleware, FilesystemBackend } from "deepagents";
+import {
+  listFiles,
+  readTextFile,
+  resetDirectory,
+  resolveFromModule,
+  resolvePath,
+} from "../_shared/filesystem.mjs";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const workspaceDir = path.join(__dirname, "workspace-summarization");
+/**
+ * 复习定位：最后处理长对话上下文，超过阈值后把旧消息压缩为摘要并写入历史目录。
+ * trigger 决定何时摘要，keep 决定保留多少条近期消息；低阈值仅用于稳定触发教学现象。
+ * 依赖模型 API，且运行会清空并重建 workspace-summarization 目录。
+ */
+
+const workspaceDir = resolveFromModule(
+  import.meta.url,
+  "workspace-summarization",
+);
 const historyPathPrefix = "/conversation_history";
 
 const summaryPrompt = `你是对话摘要助手。请用中文总结以下对话，包含：
@@ -23,8 +34,7 @@ const summaryPrompt = `你是对话摘要助手。请用中文总结以下对话
 
 摘要：`;
 
-fs.rmSync(workspaceDir, { recursive: true, force: true });
-fs.mkdirSync(workspaceDir, { recursive: true });
+resetDirectory(workspaceDir);
 
 const model = createChatModel();
 
@@ -59,11 +69,13 @@ const prompts = [
   "根据我们聊过的内容，我的猫叫什么、住哪、喜欢喝什么、生日是哪天？每项一行。",
 ];
 
-const historyDir = path.join(workspaceDir, historyPathPrefix.replace(/^\//, ""));
+const historyDir = resolvePath(
+  workspaceDir,
+  historyPathPrefix.replace(/^\//, ""),
+);
 
 function listHistoryFiles() {
-  if (!fs.existsSync(historyDir)) return [];
-  return fs.readdirSync(historyDir);
+  return listFiles(historyDir);
 }
 
 let messages = [];
@@ -73,7 +85,7 @@ for (const prompt of prompts) {
   console.log("\n用户:", prompt);
   ({ messages } = await agent.invoke(
     { messages: [...messages, new HumanMessage(prompt)] },
-    { recursionLimit: 30 }
+    { recursionLimit: 30 },
   ));
 
   console.log("回复:", messages.at(-1)?.content);
@@ -90,8 +102,10 @@ for (const prompt of prompts) {
 
 if (knownHistory.size > 0) {
   for (const file of knownHistory) {
-    const filePath = path.join(historyDir, file);
-    console.log(`\n--- ${historyPathPrefix}/${file} ---\n`, fs.readFileSync(filePath, "utf8"));
+    console.log(
+      `\n--- ${historyPathPrefix}/${file} ---\n`,
+      readTextFile(historyDir, file),
+    );
   }
 } else {
   console.log("\n未生成 conversation_history（可能未触发摘要阈值）");
