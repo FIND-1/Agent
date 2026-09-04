@@ -1,0 +1,32 @@
+{
+  "todos":  [
+  {
+    "content": "制定交通方案：往返飞机为主，简要说明火车方案及取舍",
+    "status": "completed"
+  },
+  {
+    "content": "规划两天行程：按时间段拆分，游览布达拉宫、大昭寺、八廓街",
+    "status": "completed"
+  },
+  {
+    "content": "推荐住宿区域与交通方便的经济型酒店",
+    "status": "completed"
+  },
+  {
+    "content": "推荐西藏特色、价格适中的餐饮",
+    "status": "completed"
+  },
+  {
+    "content": "核算人均预算明细（1晚住宿、餐饮、门票、市内交通）并汇总",
+    "status": "completed"
+  },
+  {
+    "content": "整理首次进藏的高原适应与安全提醒",
+    "status": "completed"
+  },
+  {
+    "content": "汇总输出完整最终答复",
+    "status": "completed"
+  }
+  ]
+}

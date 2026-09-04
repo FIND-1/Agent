@@ -1,11 +1,17 @@
 {
   "name": "31_deep-research-assistant",
   "version": "1.0.0",
-  "description": "",
+  "description": "DeepAgents 多 Agent 深度调研助手学习示例",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "check": "node --check src/tools/00-search.mjs && node --check src/01-agent.mjs && node --check src/02-cli.mjs && node --check src/03-todo-middleware-test.mjs && node --check src/04-max-input-tokens-test.mjs",
+    "demo:search": "node src/tools/00-search.mjs",
+    "demo:agent": "node src/01-agent.mjs",
+    "demo:cli": "node src/02-cli.mjs",
+    "demo:todo": "node src/03-todo-middleware-test.mjs",
+    "demo:context": "node src/04-max-input-tokens-test.mjs",
+    "test": "npm run check"
   },
   "keywords": [],
   "author": "",
@@ -15,9 +21,9 @@
     "@langchain/langgraph": "^1.4.9",
     "@langchain/openai": "^1.4.7",
     "@langchain/quickjs": "^0.6.2",
+    "@lessons/shared": "workspace:*",
     "dedent": "^1.7.2",
     "deepagents": "^1.13.2",
-    "dotenv": "^17.4.2",
     "langchain": "^1.5.10",
     "zod": "^4.4.3"
   }
