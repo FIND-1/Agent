@@ -43,9 +43,10 @@
     "ai": "7.0.44",
     "chalk": "^5.6.2",
     "class-validator": "^0.15.1",
-    "deepagents": "^1.13.2",
     "dedent": "^1.7.2",
+    "deepagents": "^1.13.2",
     "dotenv": "^17.4.2",
+    "ioredis": "^5.11.1",
     "langchain": "^1.5.10",
     "mysql2": "^3.22.5",
     "nodemailer": "9.0.3",
@@ -59,7 +60,8 @@
     "tencentcloud-sdk-nodejs-tts": "^4.1.237",
     "typeorm": "^1.1.0",
     "ws": "^8.21.0",
-    "zod": "^4.4.3"
+    "zod": "^4.4.3",
+    "mem0ai": "^3.0.8"
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.3.5",

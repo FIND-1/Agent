@@ -1,0 +1,15 @@
+{
+  "name": "33_redis-test",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Redis 数据类型与 Agent 短期记忆教学示例（Redis 环境待接入）",
+  "scripts": {
+    "check": "node --check src/00-redis-test.mjs && node --check src/01-agent-with-redis-memory.mjs && node --check src/_shared/redis-options.mjs",
+    "demo:redis": "node src/00-redis-test.mjs",
+    "demo:memory": "node src/01-agent-with-redis-memory.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+

@@ -1,21 +1,17 @@
 {
   "name": "mem0-test",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "basic": "node src/00-mem0-test.mjs",
+    "scoped-memory": "node src/01-mem0-scoped-memory-test.mjs",
+    "agent": "node src/02-mem0-redis-mem0-agent.mjs",
+    "local": "node src/03-mem0-local-pai-demo.mjs",
+    "check": "node --check src/00-mem0-test.mjs && node --check src/01-mem0-scoped-memory-test.mjs && node --check src/02-mem0-redis-mem0-agent.mjs && node --check src/03-mem0-local-pai-demo.mjs && node --check ../_shared/mem0-client.mjs"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "@langchain/core": "^1.1.49",
-    "@langchain/openai": "^1.4.7",
-    "dotenv": "^17.4.2",
-    "ioredis": "^5.11.1",
-    "langchain": "^1.4.5",
-    "mem0ai": "^3.0.8",
-    "zod": "^4.4.3"
-  }
+  "description": "Mem0 分层记忆：云端 API、作用域、Redis Agent 与自托管 REST 复习示例",
+  "private": true,
+  "type": "module"
 }

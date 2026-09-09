@@ -8,10 +8,12 @@
     "./model": {
       "types": "./model.d.mts",
       "default": "./model.mjs"
-    }
+    },
+    "./mem0-client": "./mem0-client.mjs"
   },
   "dependencies": {
     "@langchain/openai": "^1.4.7",
-    "dotenv": "^17.4.2"
+    "dotenv": "^17.4.2",
+    "mem0ai": "^3.0.8"
   }
 }
