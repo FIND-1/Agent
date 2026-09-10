@@ -35,3 +35,6 @@ Thumbs.db
 
 # Large binary files
 *.epub
+
+# Lesson 35 TypeScript incremental build cache.
+/lessons/35_nest-test/**/*.tsbuildinfo
