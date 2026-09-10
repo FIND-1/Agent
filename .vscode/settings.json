@@ -1,4 +1,7 @@
 {
+  "git.ignoredRepositories": [
+    "D:/1project/agent/lessons/35_nest-test/nest-feature"
+  ],
   "eslint.workingDirectories": [
     "./lessons/35_nest-test/nest-feature"
   ]
