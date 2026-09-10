@@ -18,6 +18,7 @@
   "dependencies": {
     "@ai-sdk/langchain": "3.0.44",
     "@ai-sdk/react": "4.0.51",
+    "@aws-sdk/client-s3": "^3.1128.0",
     "@elastic/elasticsearch": "^8.17.0",
     "@langchain/community": "^1.1.29",
     "@langchain/core": "^1.2.9",
@@ -33,6 +34,7 @@
     "@nestjs/config": "^4.0.4",
     "@nestjs/core": "^11.1.28",
     "@nestjs/event-emitter": "^3.1.0",
+    "@nestjs/jwt": "^12.0.1",
     "@nestjs/mapped-types": "^2.1.1",
     "@nestjs/platform-express": "^11.1.28",
     "@nestjs/serve-static": "^5.0.5",
@@ -41,6 +43,7 @@
     "@streamdown/mermaid": "1.0.2",
     "@zilliz/milvus2-sdk-node": "^3.0.3",
     "ai": "7.0.44",
+    "ali-oss": "^6.23.0",
     "chalk": "^5.6.2",
     "class-validator": "^0.15.1",
     "dedent": "^1.7.2",
@@ -48,6 +51,8 @@
     "dotenv": "^17.4.2",
     "ioredis": "^5.11.1",
     "langchain": "^1.5.10",
+    "mem0ai": "^3.0.8",
+    "minio": "^8.0.7",
     "mysql2": "^3.22.5",
     "nodemailer": "9.0.3",
     "openai": "^6.42.0",
@@ -60,9 +65,7 @@
     "tencentcloud-sdk-nodejs-tts": "^4.1.237",
     "typeorm": "^1.1.0",
     "ws": "^8.21.0",
-    "zod": "^4.4.3",
-    "mem0ai": "^3.0.8",
-    "@nestjs/jwt": "^12.0.1"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.3.5",

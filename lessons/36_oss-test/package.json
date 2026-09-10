@@ -1,0 +1,15 @@
+{
+  "name": "oss-test",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "check": "node --check src/00-oss-upload.mjs && node --check src/01-minio-upload.mjs && node --check src/02-s3-upload.mjs",
+    "upload:oss": "node src/00-oss-upload.mjs",
+    "upload:minio": "node src/01-minio-upload.mjs",
+    "upload:s3": "node src/02-s3-upload.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "对象存储复习：阿里云 OSS、MinIO 与 S3 兼容上传；依赖由 agent 根目录管理"
+}
