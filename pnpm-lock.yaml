@@ -19,7 +19,7 @@ importers:
         version: 8.17.0
       '@langchain/community':
         specifier: ^1.1.29
-        version: 1.1.29(d11d11163a11c4a8919308f0d1ac7756)
+        version: 1.1.29(85890197887f89e9b338b97e713e81db)
       '@langchain/core':
         specifier: ^1.2.9
         version: 1.2.9(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0)
@@ -46,7 +46,7 @@ importers:
         version: link:lessons/_shared
       '@nestjs-modules/mailer':
         specifier: 2.3.7
-        version: 2.3.7(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(@nestjs/event-emitter@3.1.0(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28))(chokidar@4.0.3)(nodemailer@9.0.3)(svgo@4.0.2)(terser@5.49.0)(typescript@6.0.3)
+        version: 2.3.7(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(@nestjs/event-emitter@3.1.0(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28))(nodemailer@9.0.3)(svgo@4.0.2)(terser@5.49.0)(typescript@6.0.3)
       '@nestjs/common':
         specifier: ^11.1.28
         version: 11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -59,6 +59,9 @@ importers:
       '@nestjs/event-emitter':
         specifier: ^3.1.0
         version: 3.1.0(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)
+      '@nestjs/jwt':
+        specifier: ^12.0.1
+        version: 12.0.1(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))
       '@nestjs/mapped-types':
         specifier: ^2.1.1
         version: 2.1.1(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(class-validator@0.15.1)(reflect-metadata@0.2.2)
@@ -70,7 +73,7 @@ importers:
         version: 5.0.5(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(express@5.2.1)
       '@nestjs/typeorm':
         specifier: ^11.0.3
-        version: 11.0.3(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typeorm@1.1.0(better-sqlite3@12.11.1)(ioredis@5.11.1)(mongodb@7.2.0)(mysql2@3.22.5(@types/node@26.1.1))(pg@8.21.0)(redis@5.12.1(@opentelemetry/api@1.9.1))(ts-node@10.9.2(@types/node@26.1.1)(typescript@6.0.3)))
+        version: 11.0.3(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typeorm@1.1.0(better-sqlite3@12.11.1)(ioredis@5.11.1)(mongodb@7.2.0)(mysql2@3.22.5(@types/node@26.1.1))(pg@8.11.3)(ts-node@10.9.2(@types/node@26.1.1)(typescript@6.0.3)))
       '@streamdown/code':
         specifier: 1.1.1
         version: 1.1.1(react@19.2.8)
@@ -106,7 +109,7 @@ importers:
         version: 1.5.10(@langchain/core@1.2.9(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(ws@8.21.0)
       mem0ai:
         specifier: ^3.0.8
-        version: 3.0.8(@anthropic-ai/sdk@0.27.3)(@azure/identity@4.13.1)(@azure/search-documents@12.2.0)(@cloudflare/workers-types@4.20260616.1)(@google/genai@1.52.0(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)))(@langchain/core@1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@mistralai/mistralai@1.15.1)(@qdrant/js-client-rest@1.18.0(typescript@6.0.3))(@supabase/supabase-js@2.108.2)(@types/jest@30.0.0)(@types/pg@8.11.0)(better-sqlite3@12.11.1)(cloudflare@4.5.0)(compromise@14.15.1)(groq-sdk@0.3.0)(natural@8.1.1(@opentelemetry/api@1.9.1))(ollama@0.5.18)(pg@8.11.3)(redis@5.12.1(@opentelemetry/api@1.9.1))(ws@8.21.0)
+        version: 3.0.8(@anthropic-ai/sdk@0.27.3)(@azure/identity@4.13.1)(@azure/search-documents@12.2.0)(@cloudflare/workers-types@4.20260616.1)(@google/genai@1.52.0(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)))(@langchain/core@1.2.9(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@mistralai/mistralai@1.15.1)(@qdrant/js-client-rest@1.18.0(typescript@6.0.3))(@supabase/supabase-js@2.108.2)(@types/jest@30.0.0)(@types/pg@8.11.0)(better-sqlite3@12.11.1)(cloudflare@4.5.0)(compromise@14.15.1)(groq-sdk@0.3.0)(natural@8.1.1(@opentelemetry/api@1.9.1))(ollama@0.5.18)(pg@8.11.3)(redis@5.12.1(@opentelemetry/api@1.9.1))(ws@8.21.0)
       mysql2:
         specifier: ^3.22.5
         version: 3.22.5(@types/node@26.1.1)
@@ -139,7 +142,7 @@ importers:
         version: 4.1.237
       typeorm:
         specifier: ^1.1.0
-        version: 1.1.0(better-sqlite3@12.11.1)(ioredis@5.11.1)(mongodb@7.2.0)(mysql2@3.22.5(@types/node@26.1.1))(pg@8.21.0)(redis@5.12.1(@opentelemetry/api@1.9.1))(ts-node@10.9.2(@types/node@26.1.1)(typescript@6.0.3))
+        version: 1.1.0(better-sqlite3@12.11.1)(ioredis@5.11.1)(mongodb@7.2.0)(mysql2@3.22.5(@types/node@26.1.1))(pg@8.11.3)(ts-node@10.9.2(@types/node@26.1.1)(typescript@6.0.3))
       ws:
         specifier: ^8.21.0
         version: 8.21.0
@@ -158,7 +161,7 @@ importers:
         version: 11.0.24(@types/node@26.1.1)(cssnano@7.1.9(postcss@8.5.25))(postcss@8.5.25)(prettier@3.9.5)
       '@nestjs/schematics':
         specifier: 11.1.0
-        version: 11.1.0(chokidar@4.0.3)(prettier@3.9.5)(typescript@6.0.3)
+        version: 11.1.0(prettier@3.9.5)(typescript@6.0.3)
       '@nestjs/testing':
         specifier: 11.1.28
         version: 11.1.28(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(@nestjs/platform-express@11.1.28)
@@ -401,7 +404,7 @@ importers:
         version: 1.0.34(@langchain/core@1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@opentelemetry/api@1.9.1)(cheerio@1.2.0)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(typeorm@0.3.31(better-sqlite3@12.11.1)(ioredis@5.11.1)(mongodb@7.2.0)(mysql2@3.22.5(@types/node@26.1.1))(pg@8.21.0)(redis@5.12.1(@opentelemetry/api@1.9.1))(ts-node@10.9.2(@types/node@26.1.1)(typescript@6.0.3)))(ws@8.21.0)
       '@langchain/community':
         specifier: ^1.1.27
-        version: 1.1.29(1d48cfbef6a2e415833dedce3d1bca2b)
+        version: 1.1.29(c76d845c71b881079f5a151a55b8ba55)
       '@langchain/core':
         specifier: ^1.1.41
         version: 1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0)
@@ -422,7 +425,7 @@ importers:
     dependencies:
       '@langchain/community':
         specifier: ^1.1.4
-        version: 1.1.29(5d3202350468c19b728a3a54af6c1d26)
+        version: 1.1.29(00c1d7b6fca262bd4d2abd5bfa473da4)
       '@langchain/openai':
         specifier: ^1.2.1
         version: 1.5.1(@langchain/core@1.2.9(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(ws@8.21.0)
@@ -446,7 +449,7 @@ importers:
     dependencies:
       '@langchain/community':
         specifier: ^1.1.29
-        version: 1.1.29(1d48cfbef6a2e415833dedce3d1bca2b)
+        version: 1.1.29(c76d845c71b881079f5a151a55b8ba55)
       '@langchain/core':
         specifier: ^1.1.48
         version: 1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0)
@@ -503,7 +506,7 @@ importers:
     dependencies:
       '@langchain/community':
         specifier: ^1.1.29
-        version: 1.1.29(e126bec46d9598655df1ba3bda14f18f)
+        version: 1.1.29(76e23d43f35ad87633c130852aff6f1f)
       '@langchain/core':
         specifier: ^1.2.0
         version: 1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0)
@@ -675,7 +678,7 @@ importers:
     dependencies:
       '@nestjs-modules/mailer':
         specifier: ^2.3.7
-        version: 2.3.7(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(@nestjs/event-emitter@3.1.0(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28))(chokidar@4.0.3)(nodemailer@9.0.3)(svgo@4.0.2)(terser@5.49.0)(typescript@5.9.3)
+        version: 2.3.7(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(@nestjs/event-emitter@3.1.0(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28))(nodemailer@9.0.3)(svgo@4.0.2)(terser@5.49.0)(typescript@5.9.3)
       '@nestjs/common':
         specifier: ^11.0.1
         version: 11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -815,7 +818,7 @@ importers:
     dependencies:
       '@langchain/community':
         specifier: ^1.1.29
-        version: 1.1.29(adf47edd8769686d82125db79774d3d1)
+        version: 1.1.29(0336a7303f98268b19d0355796fc4811)
       '@langchain/langgraph':
         specifier: ^1.4.9
         version: 1.4.9(@langchain/core@1.2.9(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(zod@4.4.3)
@@ -943,7 +946,7 @@ importers:
     dependencies:
       '@langchain/community':
         specifier: ^0.3.28
-        version: 0.3.59(14df4df25156b79dd731eeb5710cb056)
+        version: 0.3.59(fe6a815a6b05197937ba6ca03dac6958)
       '@langchain/core':
         specifier: ^0.3.37
         version: 0.3.80(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))
@@ -1120,6 +1123,8 @@ importers:
 
   lessons/34_mem0-test: {}
 
+  lessons/35_nest-test/nest-feature: {}
+
   lessons/_shared:
     dependencies:
       '@langchain/openai':
@@ -1130,7 +1135,7 @@ importers:
         version: 17.4.2
       mem0ai:
         specifier: ^3.0.8
-        version: 3.0.8(@anthropic-ai/sdk@0.27.3)(@azure/identity@4.13.1)(@azure/search-documents@12.2.0)(@cloudflare/workers-types@4.20260616.1)(@google/genai@1.52.0(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)))(@langchain/core@1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@mistralai/mistralai@1.15.1)(@qdrant/js-client-rest@1.18.0(typescript@6.0.3))(@supabase/supabase-js@2.108.2)(@types/jest@30.0.0)(@types/pg@8.11.0)(better-sqlite3@12.11.1)(cloudflare@4.5.0)(compromise@14.15.1)(groq-sdk@0.3.0)(natural@8.1.1(@opentelemetry/api@1.9.1))(ollama@0.5.18)(pg@8.11.3)(redis@5.12.1(@opentelemetry/api@1.9.1))(ws@8.21.0)
+        version: 3.0.8(@anthropic-ai/sdk@0.27.3)(@azure/identity@4.13.1)(@azure/search-documents@12.2.0)(@cloudflare/workers-types@4.20260616.1)(@google/genai@1.52.0(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)))(@langchain/core@1.2.9(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@mistralai/mistralai@1.15.1)(@qdrant/js-client-rest@1.18.0(typescript@6.0.3))(@supabase/supabase-js@2.108.2)(@types/jest@30.0.0)(@types/pg@8.11.0)(better-sqlite3@12.11.1)(cloudflare@4.5.0)(compromise@14.15.1)(groq-sdk@0.3.0)(natural@8.1.1(@opentelemetry/api@1.9.1))(ollama@0.5.18)(pg@8.11.3)(redis@5.12.1(@opentelemetry/api@1.9.1))(ws@8.21.0)
 
 packages:
 
@@ -3316,6 +3321,25 @@ packages:
       '@nestjs/common': ^10.0.0 || ^11.0.0
       '@nestjs/core': ^10.0.0 || ^11.0.0
 
+  '@nestjs/jwt@12.0.1':
+    resolution: {integrity: sha512-AOvjo0JIuVMNr+6JgbEz4fP+4afclGR5ffZnHtjOFs4+HhzerUYKcIVUL06u5uQYQi/ra8WHO+NZR7OFdQeGvA==}
+    peerDependencies:
+      '@nestjs/common': ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0
+
+  '@nestjs/mapped-types@12.0.0':
+    resolution: {integrity: sha512-aX7lxZcqXldtnSr0bgT2ZPQvpTpIwBMW1GMX29o4s3q02vmq6JoTYuPW0GwYXa8BiFMRX7WbGZVDA703pNqOMQ==}
+    engines: {node: '>=20.19.0'}
+    peerDependencies:
+      '@nestjs/common': ^10.0.0 || ^11.0.0 || ^12.0.0
+      class-transformer: ^0.4.0 || ^0.5.0
+      class-validator: ^0.13.0 || ^0.14.0 || ^0.15.0
+      reflect-metadata: ^0.1.12 || ^0.2.0
+    peerDependenciesMeta:
+      class-transformer:
+        optional: true
+      class-validator:
+        optional: true
+
   '@nestjs/mapped-types@2.1.1':
     resolution: {integrity: sha512-SCCoMEJ6jdeI5h/N+KCVF1+pmg/hmEkNA5nHTS8Gvww7T/LCl4o1gFLinw2iQ60w7slFkszHcGLKGdazVI4F8A==}
     peerDependencies:
@@ -4175,6 +4199,9 @@ packages:
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
+
+  '@types/jsonwebtoken@9.0.10':
+    resolution: {integrity: sha512-asx5hIG9Qmf/1oStypjanR7iKTv0gXQ1Ov/jfrX6kS/EO0OFni8orbmGCn0672NHR3kXHwpAwR+B368ZGN/2rA==}
 
   '@types/lodash@4.17.25':
     resolution: {integrity: sha512-+K1NIO8I+F9/wNulfVvu23QYd0Pe9/OCqRrim4NoYIf1VoEDL90Ve4ClzpyqBLc7NpGGWRvYNCKZ1BE/Jpf8dQ==}
@@ -12273,7 +12300,7 @@ snapshots:
       - openai
       - ws
 
-  '@langchain/classic@1.0.34(@langchain/core@1.2.9(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@opentelemetry/api@1.9.1)(cheerio@1.2.0)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(typeorm@1.1.0(better-sqlite3@12.11.1)(ioredis@5.11.1)(mongodb@7.2.0)(mysql2@3.22.5(@types/node@26.1.1))(pg@8.21.0)(redis@5.12.1(@opentelemetry/api@1.9.1))(ts-node@10.9.2(@types/node@26.1.1)(typescript@6.0.3)))(ws@8.21.0)':
+  '@langchain/classic@1.0.34(@langchain/core@1.2.9(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@opentelemetry/api@1.9.1)(cheerio@1.2.0)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(typeorm@1.1.0(better-sqlite3@12.11.1)(ioredis@5.11.1)(mongodb@7.2.0)(mysql2@3.22.5(@types/node@26.1.1))(pg@8.11.3)(ts-node@10.9.2(@types/node@26.1.1)(typescript@6.0.3)))(ws@8.21.0)':
     dependencies:
       '@langchain/core': 1.2.9(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0)
       '@langchain/openai': 1.4.7(@langchain/core@1.2.9(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(ws@8.21.0)
@@ -12287,7 +12314,7 @@ snapshots:
     optionalDependencies:
       cheerio: 1.2.0
       langsmith: 0.7.7(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0)
-      typeorm: 1.1.0(better-sqlite3@12.11.1)(ioredis@5.11.1)(mongodb@7.2.0)(mysql2@3.22.5(@types/node@26.1.1))(pg@8.21.0)(redis@5.12.1(@opentelemetry/api@1.9.1))(ts-node@10.9.2(@types/node@26.1.1)(typescript@6.0.3))
+      typeorm: 1.1.0(better-sqlite3@12.11.1)(ioredis@5.11.1)(mongodb@7.2.0)(mysql2@3.22.5(@types/node@26.1.1))(pg@8.11.3)(ts-node@10.9.2(@types/node@26.1.1)(typescript@6.0.3))
     transitivePeerDependencies:
       - '@opentelemetry/api'
       - '@opentelemetry/exporter-trace-otlp-proto'
@@ -12295,7 +12322,7 @@ snapshots:
       - openai
       - ws
 
-  '@langchain/community@0.3.59(14df4df25156b79dd731eeb5710cb056)':
+  '@langchain/community@0.3.59(fe6a815a6b05197937ba6ca03dac6958)':
     dependencies:
       '@browserbasehq/stagehand': 1.14.0(@playwright/test@1.60.0)(deepmerge@4.3.1)(dotenv@16.6.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(zod@4.4.3)
       '@ibm-cloud/watsonx-ai': 1.7.14
@@ -12335,6 +12362,7 @@ snapshots:
       ioredis: 5.11.1
       jsonwebtoken: 9.0.3
       lodash: 4.18.1
+      mem0ai: 3.0.8(@anthropic-ai/sdk@0.27.3)(@azure/identity@4.13.1)(@azure/search-documents@12.2.0)(@cloudflare/workers-types@4.20260616.1)(@google/genai@1.52.0(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)))(@langchain/core@1.2.9(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@mistralai/mistralai@1.15.1)(@qdrant/js-client-rest@1.18.0(typescript@6.0.3))(@supabase/supabase-js@2.108.2)(@types/jest@30.0.0)(@types/pg@8.11.0)(better-sqlite3@12.11.1)(cloudflare@4.5.0)(compromise@14.15.1)(groq-sdk@0.3.0)(natural@8.1.1(@opentelemetry/api@1.9.1))(ollama@0.5.18)(pg@8.11.3)(redis@5.12.1(@opentelemetry/api@1.9.1))(ws@8.21.0)
       mongodb: 7.2.0
       mysql2: 3.22.5(@types/node@26.1.1)
       pg: 8.21.0
@@ -12364,57 +12392,7 @@ snapshots:
       - handlebars
       - peggy
 
-  '@langchain/community@1.1.29(1d48cfbef6a2e415833dedce3d1bca2b)':
-    dependencies:
-      '@browserbasehq/stagehand': 1.14.0(@playwright/test@1.60.0)(deepmerge@4.3.1)(dotenv@17.4.2)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(zod@4.4.3)
-      '@ibm-cloud/watsonx-ai': 1.7.14
-      '@langchain/classic': 1.0.34(@langchain/core@1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@opentelemetry/api@1.9.1)(cheerio@1.2.0)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(typeorm@0.3.31(better-sqlite3@12.11.1)(ioredis@5.11.1)(mongodb@7.2.0)(mysql2@3.22.5(@types/node@26.1.1))(pg@8.21.0)(redis@5.12.1(@opentelemetry/api@1.9.1))(ts-node@10.9.2(@types/node@26.1.1)(typescript@6.0.3)))(ws@8.21.0)
-      '@langchain/core': 1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0)
-      '@langchain/openai': 1.5.5(@langchain/core@1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(ws@8.21.0)
-      binary-extensions: 2.3.0
-      flat: 5.0.2
-      ibm-cloud-sdk-core: 5.4.20
-      js-yaml: 4.2.0
-      langsmith: 0.7.7(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0)
-      math-expression-evaluator: 2.0.7
-      openai: 6.42.0(ws@8.21.0)(zod@4.4.3)
-      uuid: 14.0.0
-      zod: 4.4.3
-    optionalDependencies:
-      '@aws-crypto/sha256-js': 5.2.0
-      '@aws-sdk/client-s3': 3.1069.0
-      '@aws-sdk/credential-provider-node': 3.972.56
-      '@azure/search-documents': 12.2.0
-      '@browserbasehq/sdk': 2.14.0
-      '@elastic/elasticsearch': 8.17.0
-      '@smithy/signature-v4': 5.5.0
-      '@supabase/supabase-js': 2.108.2
-      '@zilliz/milvus2-sdk-node': 3.0.3
-      better-sqlite3: 12.11.1
-      cheerio: 1.2.0
-      d3-dsv: 3.0.1
-      epub2: 3.0.2(ts-toolbelt@9.6.0)
-      fast-xml-parser: 5.7.3
-      google-auth-library: 10.7.0
-      html-to-text: 9.0.5
-      ignore: 7.0.5
-      ioredis: 5.11.1
-      jsonwebtoken: 9.0.3
-      lodash: 4.18.1
-      mongodb: 7.2.0
-      mysql2: 3.22.5(@types/node@26.1.1)
-      pg: 8.21.0
-      playwright: 1.60.0
-      redis: 5.12.1(@opentelemetry/api@1.9.1)
-      typeorm: 0.3.31(better-sqlite3@12.11.1)(ioredis@5.11.1)(mongodb@7.2.0)(mysql2@3.22.5(@types/node@26.1.1))(pg@8.21.0)(redis@5.12.1(@opentelemetry/api@1.9.1))(ts-node@10.9.2(@types/node@26.1.1)(typescript@6.0.3))
-      ws: 8.21.0
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - peggy
-
-  '@langchain/community@1.1.29(5d3202350468c19b728a3a54af6c1d26)':
+  '@langchain/community@1.1.29(00c1d7b6fca262bd4d2abd5bfa473da4)':
     dependencies:
       '@browserbasehq/stagehand': 1.14.0(@playwright/test@1.60.0)(deepmerge@4.3.1)(dotenv@17.4.2)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(zod@4.4.3)
       '@ibm-cloud/watsonx-ai': 1.7.14
@@ -12437,6 +12415,7 @@ snapshots:
       '@azure/search-documents': 12.2.0
       '@browserbasehq/sdk': 2.14.0
       '@elastic/elasticsearch': 8.17.0
+      '@qdrant/js-client-rest': 1.18.0(typescript@6.0.3)
       '@smithy/signature-v4': 5.5.0
       '@supabase/supabase-js': 2.108.2
       '@zilliz/milvus2-sdk-node': 2.6.17
@@ -12451,6 +12430,7 @@ snapshots:
       ioredis: 5.11.1
       jsonwebtoken: 9.0.3
       lodash: 4.18.1
+      mem0ai: 3.0.8(@anthropic-ai/sdk@0.27.3)(@azure/identity@4.13.1)(@azure/search-documents@12.2.0)(@cloudflare/workers-types@4.20260616.1)(@google/genai@1.52.0(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)))(@langchain/core@1.2.9(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@mistralai/mistralai@1.15.1)(@qdrant/js-client-rest@1.18.0(typescript@6.0.3))(@supabase/supabase-js@2.108.2)(@types/jest@30.0.0)(@types/pg@8.11.0)(better-sqlite3@12.11.1)(cloudflare@4.5.0)(compromise@14.15.1)(groq-sdk@0.3.0)(natural@8.1.1(@opentelemetry/api@1.9.1))(ollama@0.5.18)(pg@8.11.3)(redis@5.12.1(@opentelemetry/api@1.9.1))(ws@8.21.0)
       mongodb: 7.2.0
       mysql2: 3.22.5(@types/node@26.1.1)
       pg: 8.21.0
@@ -12464,7 +12444,7 @@ snapshots:
       - '@opentelemetry/sdk-trace-base'
       - peggy
 
-  '@langchain/community@1.1.29(adf47edd8769686d82125db79774d3d1)':
+  '@langchain/community@1.1.29(0336a7303f98268b19d0355796fc4811)':
     dependencies:
       '@browserbasehq/stagehand': 1.14.0(@playwright/test@1.60.0)(deepmerge@4.3.1)(dotenv@17.4.2)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(zod@4.4.3)
       '@ibm-cloud/watsonx-ai': 1.7.14
@@ -12487,6 +12467,7 @@ snapshots:
       '@azure/search-documents': 12.2.0
       '@browserbasehq/sdk': 2.14.0
       '@elastic/elasticsearch': 8.17.0
+      '@qdrant/js-client-rest': 1.18.0(typescript@6.0.3)
       '@smithy/signature-v4': 5.5.0
       '@supabase/supabase-js': 2.108.2
       '@zilliz/milvus2-sdk-node': 3.0.3
@@ -12501,6 +12482,7 @@ snapshots:
       ioredis: 5.11.1
       jsonwebtoken: 9.0.3
       lodash: 4.18.1
+      mem0ai: 3.0.8(@anthropic-ai/sdk@0.27.3)(@azure/identity@4.13.1)(@azure/search-documents@12.2.0)(@cloudflare/workers-types@4.20260616.1)(@google/genai@1.52.0(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)))(@langchain/core@1.2.9(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@mistralai/mistralai@1.15.1)(@qdrant/js-client-rest@1.18.0(typescript@6.0.3))(@supabase/supabase-js@2.108.2)(@types/jest@30.0.0)(@types/pg@8.11.0)(better-sqlite3@12.11.1)(cloudflare@4.5.0)(compromise@14.15.1)(groq-sdk@0.3.0)(natural@8.1.1(@opentelemetry/api@1.9.1))(ollama@0.5.18)(pg@8.11.3)(redis@5.12.1(@opentelemetry/api@1.9.1))(ws@8.21.0)
       mongodb: 7.2.0
       mysql2: 3.22.5(@types/node@26.1.1)
       pg: 8.21.0
@@ -12514,57 +12496,7 @@ snapshots:
       - '@opentelemetry/sdk-trace-base'
       - peggy
 
-  '@langchain/community@1.1.29(d11d11163a11c4a8919308f0d1ac7756)':
-    dependencies:
-      '@browserbasehq/stagehand': 1.14.0(@playwright/test@1.60.0)(deepmerge@4.3.1)(dotenv@17.4.2)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(zod@4.4.3)
-      '@ibm-cloud/watsonx-ai': 1.7.14
-      '@langchain/classic': 1.0.34(@langchain/core@1.2.9(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@opentelemetry/api@1.9.1)(cheerio@1.2.0)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(typeorm@1.1.0(better-sqlite3@12.11.1)(ioredis@5.11.1)(mongodb@7.2.0)(mysql2@3.22.5(@types/node@26.1.1))(pg@8.21.0)(redis@5.12.1(@opentelemetry/api@1.9.1))(ts-node@10.9.2(@types/node@26.1.1)(typescript@6.0.3)))(ws@8.21.0)
-      '@langchain/core': 1.2.9(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0)
-      '@langchain/openai': 1.5.5(@langchain/core@1.2.9(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(ws@8.21.0)
-      binary-extensions: 2.3.0
-      flat: 5.0.2
-      ibm-cloud-sdk-core: 5.4.20
-      js-yaml: 4.2.0
-      langsmith: 0.7.7(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0)
-      math-expression-evaluator: 2.0.7
-      openai: 6.42.0(ws@8.21.0)(zod@4.4.3)
-      uuid: 14.0.0
-      zod: 4.4.3
-    optionalDependencies:
-      '@aws-crypto/sha256-js': 5.2.0
-      '@aws-sdk/client-s3': 3.1069.0
-      '@aws-sdk/credential-provider-node': 3.972.56
-      '@azure/search-documents': 12.2.0
-      '@browserbasehq/sdk': 2.14.0
-      '@elastic/elasticsearch': 8.17.0
-      '@smithy/signature-v4': 5.5.0
-      '@supabase/supabase-js': 2.108.2
-      '@zilliz/milvus2-sdk-node': 3.0.3
-      better-sqlite3: 12.11.1
-      cheerio: 1.2.0
-      d3-dsv: 3.0.1
-      epub2: 3.0.2(ts-toolbelt@9.6.0)
-      fast-xml-parser: 5.7.3
-      google-auth-library: 10.7.0
-      html-to-text: 9.0.5
-      ignore: 7.0.5
-      ioredis: 5.11.1
-      jsonwebtoken: 9.0.3
-      lodash: 4.18.1
-      mongodb: 7.2.0
-      mysql2: 3.22.5(@types/node@26.1.1)
-      pg: 8.21.0
-      playwright: 1.60.0
-      redis: 5.12.1(@opentelemetry/api@1.9.1)
-      typeorm: 1.1.0(better-sqlite3@12.11.1)(ioredis@5.11.1)(mongodb@7.2.0)(mysql2@3.22.5(@types/node@26.1.1))(pg@8.21.0)(redis@5.12.1(@opentelemetry/api@1.9.1))(ts-node@10.9.2(@types/node@26.1.1)(typescript@6.0.3))
-      ws: 8.21.0
-    transitivePeerDependencies:
-      - '@opentelemetry/api'
-      - '@opentelemetry/exporter-trace-otlp-proto'
-      - '@opentelemetry/sdk-trace-base'
-      - peggy
-
-  '@langchain/community@1.1.29(e126bec46d9598655df1ba3bda14f18f)':
+  '@langchain/community@1.1.29(76e23d43f35ad87633c130852aff6f1f)':
     dependencies:
       '@browserbasehq/stagehand': 1.14.0(@playwright/test@1.60.0)(deepmerge@4.3.1)(dotenv@17.4.2)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(zod@4.4.3)
       '@ibm-cloud/watsonx-ai': 1.7.14
@@ -12587,6 +12519,7 @@ snapshots:
       '@azure/search-documents': 12.2.0
       '@browserbasehq/sdk': 2.14.0
       '@elastic/elasticsearch': 8.17.0
+      '@qdrant/js-client-rest': 1.18.0(typescript@6.0.3)
       '@smithy/signature-v4': 5.5.0
       '@supabase/supabase-js': 2.108.2
       '@zilliz/milvus2-sdk-node': 2.6.17
@@ -12601,6 +12534,110 @@ snapshots:
       ioredis: 5.11.1
       jsonwebtoken: 9.0.3
       lodash: 4.18.1
+      mem0ai: 3.0.8(@anthropic-ai/sdk@0.27.3)(@azure/identity@4.13.1)(@azure/search-documents@12.2.0)(@cloudflare/workers-types@4.20260616.1)(@google/genai@1.52.0(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)))(@langchain/core@1.2.9(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@mistralai/mistralai@1.15.1)(@qdrant/js-client-rest@1.18.0(typescript@6.0.3))(@supabase/supabase-js@2.108.2)(@types/jest@30.0.0)(@types/pg@8.11.0)(better-sqlite3@12.11.1)(cloudflare@4.5.0)(compromise@14.15.1)(groq-sdk@0.3.0)(natural@8.1.1(@opentelemetry/api@1.9.1))(ollama@0.5.18)(pg@8.11.3)(redis@5.12.1(@opentelemetry/api@1.9.1))(ws@8.21.0)
+      mongodb: 7.2.0
+      mysql2: 3.22.5(@types/node@26.1.1)
+      pg: 8.21.0
+      playwright: 1.60.0
+      redis: 5.12.1(@opentelemetry/api@1.9.1)
+      typeorm: 0.3.31(better-sqlite3@12.11.1)(ioredis@5.11.1)(mongodb@7.2.0)(mysql2@3.22.5(@types/node@26.1.1))(pg@8.21.0)(redis@5.12.1(@opentelemetry/api@1.9.1))(ts-node@10.9.2(@types/node@26.1.1)(typescript@6.0.3))
+      ws: 8.21.0
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+      - '@opentelemetry/exporter-trace-otlp-proto'
+      - '@opentelemetry/sdk-trace-base'
+      - peggy
+
+  '@langchain/community@1.1.29(85890197887f89e9b338b97e713e81db)':
+    dependencies:
+      '@browserbasehq/stagehand': 1.14.0(@playwright/test@1.60.0)(deepmerge@4.3.1)(dotenv@17.4.2)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(zod@4.4.3)
+      '@ibm-cloud/watsonx-ai': 1.7.14
+      '@langchain/classic': 1.0.34(@langchain/core@1.2.9(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@opentelemetry/api@1.9.1)(cheerio@1.2.0)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(typeorm@1.1.0(better-sqlite3@12.11.1)(ioredis@5.11.1)(mongodb@7.2.0)(mysql2@3.22.5(@types/node@26.1.1))(pg@8.11.3)(ts-node@10.9.2(@types/node@26.1.1)(typescript@6.0.3)))(ws@8.21.0)
+      '@langchain/core': 1.2.9(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0)
+      '@langchain/openai': 1.5.5(@langchain/core@1.2.9(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(ws@8.21.0)
+      binary-extensions: 2.3.0
+      flat: 5.0.2
+      ibm-cloud-sdk-core: 5.4.20
+      js-yaml: 4.2.0
+      langsmith: 0.7.7(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0)
+      math-expression-evaluator: 2.0.7
+      openai: 6.42.0(ws@8.21.0)(zod@4.4.3)
+      uuid: 14.0.0
+      zod: 4.4.3
+    optionalDependencies:
+      '@aws-crypto/sha256-js': 5.2.0
+      '@aws-sdk/client-s3': 3.1069.0
+      '@aws-sdk/credential-provider-node': 3.972.56
+      '@azure/search-documents': 12.2.0
+      '@browserbasehq/sdk': 2.14.0
+      '@elastic/elasticsearch': 8.17.0
+      '@qdrant/js-client-rest': 1.18.0(typescript@6.0.3)
+      '@smithy/signature-v4': 5.5.0
+      '@supabase/supabase-js': 2.108.2
+      '@zilliz/milvus2-sdk-node': 3.0.3
+      better-sqlite3: 12.11.1
+      cheerio: 1.2.0
+      d3-dsv: 3.0.1
+      epub2: 3.0.2(ts-toolbelt@9.6.0)
+      fast-xml-parser: 5.7.3
+      google-auth-library: 10.7.0
+      html-to-text: 9.0.5
+      ignore: 7.0.5
+      ioredis: 5.11.1
+      jsonwebtoken: 9.0.3
+      lodash: 4.18.1
+      mem0ai: 3.0.8(@anthropic-ai/sdk@0.27.3)(@azure/identity@4.13.1)(@azure/search-documents@12.2.0)(@cloudflare/workers-types@4.20260616.1)(@google/genai@1.52.0(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)))(@langchain/core@1.2.9(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@mistralai/mistralai@1.15.1)(@qdrant/js-client-rest@1.18.0(typescript@6.0.3))(@supabase/supabase-js@2.108.2)(@types/jest@30.0.0)(@types/pg@8.11.0)(better-sqlite3@12.11.1)(cloudflare@4.5.0)(compromise@14.15.1)(groq-sdk@0.3.0)(natural@8.1.1(@opentelemetry/api@1.9.1))(ollama@0.5.18)(pg@8.11.3)(redis@5.12.1(@opentelemetry/api@1.9.1))(ws@8.21.0)
+      mongodb: 7.2.0
+      mysql2: 3.22.5(@types/node@26.1.1)
+      pg: 8.11.3
+      playwright: 1.60.0
+      typeorm: 1.1.0(better-sqlite3@12.11.1)(ioredis@5.11.1)(mongodb@7.2.0)(mysql2@3.22.5(@types/node@26.1.1))(pg@8.11.3)(ts-node@10.9.2(@types/node@26.1.1)(typescript@6.0.3))
+      ws: 8.21.0
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+      - '@opentelemetry/exporter-trace-otlp-proto'
+      - '@opentelemetry/sdk-trace-base'
+      - peggy
+
+  '@langchain/community@1.1.29(c76d845c71b881079f5a151a55b8ba55)':
+    dependencies:
+      '@browserbasehq/stagehand': 1.14.0(@playwright/test@1.60.0)(deepmerge@4.3.1)(dotenv@17.4.2)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(zod@4.4.3)
+      '@ibm-cloud/watsonx-ai': 1.7.14
+      '@langchain/classic': 1.0.34(@langchain/core@1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@opentelemetry/api@1.9.1)(cheerio@1.2.0)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(typeorm@0.3.31(better-sqlite3@12.11.1)(ioredis@5.11.1)(mongodb@7.2.0)(mysql2@3.22.5(@types/node@26.1.1))(pg@8.21.0)(redis@5.12.1(@opentelemetry/api@1.9.1))(ts-node@10.9.2(@types/node@26.1.1)(typescript@6.0.3)))(ws@8.21.0)
+      '@langchain/core': 1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0)
+      '@langchain/openai': 1.5.5(@langchain/core@1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(ws@8.21.0)
+      binary-extensions: 2.3.0
+      flat: 5.0.2
+      ibm-cloud-sdk-core: 5.4.20
+      js-yaml: 4.2.0
+      langsmith: 0.7.7(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0)
+      math-expression-evaluator: 2.0.7
+      openai: 6.42.0(ws@8.21.0)(zod@4.4.3)
+      uuid: 14.0.0
+      zod: 4.4.3
+    optionalDependencies:
+      '@aws-crypto/sha256-js': 5.2.0
+      '@aws-sdk/client-s3': 3.1069.0
+      '@aws-sdk/credential-provider-node': 3.972.56
+      '@azure/search-documents': 12.2.0
+      '@browserbasehq/sdk': 2.14.0
+      '@elastic/elasticsearch': 8.17.0
+      '@qdrant/js-client-rest': 1.18.0(typescript@6.0.3)
+      '@smithy/signature-v4': 5.5.0
+      '@supabase/supabase-js': 2.108.2
+      '@zilliz/milvus2-sdk-node': 3.0.3
+      better-sqlite3: 12.11.1
+      cheerio: 1.2.0
+      d3-dsv: 3.0.1
+      epub2: 3.0.2(ts-toolbelt@9.6.0)
+      fast-xml-parser: 5.7.3
+      google-auth-library: 10.7.0
+      html-to-text: 9.0.5
+      ignore: 7.0.5
+      ioredis: 5.11.1
+      jsonwebtoken: 9.0.3
+      lodash: 4.18.1
+      mem0ai: 3.0.8(@anthropic-ai/sdk@0.27.3)(@azure/identity@4.13.1)(@azure/search-documents@12.2.0)(@cloudflare/workers-types@4.20260616.1)(@google/genai@1.52.0(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)))(@langchain/core@1.2.9(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@mistralai/mistralai@1.15.1)(@qdrant/js-client-rest@1.18.0(typescript@6.0.3))(@supabase/supabase-js@2.108.2)(@types/jest@30.0.0)(@types/pg@8.11.0)(better-sqlite3@12.11.1)(cloudflare@4.5.0)(compromise@14.15.1)(groq-sdk@0.3.0)(natural@8.1.1(@opentelemetry/api@1.9.1))(ollama@0.5.18)(pg@8.11.3)(redis@5.12.1(@opentelemetry/api@1.9.1))(ws@8.21.0)
       mongodb: 7.2.0
       mysql2: 3.22.5(@types/node@26.1.1)
       pg: 8.21.0
@@ -13157,7 +13194,7 @@ snapshots:
       '@tybys/wasm-util': 0.10.3
     optional: true
 
-  '@nestjs-modules/mailer@2.3.7(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(@nestjs/event-emitter@3.1.0(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28))(chokidar@4.0.3)(nodemailer@9.0.3)(svgo@4.0.2)(terser@5.49.0)(typescript@5.9.3)':
+  '@nestjs-modules/mailer@2.3.7(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(@nestjs/event-emitter@3.1.0(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28))(nodemailer@9.0.3)(svgo@4.0.2)(terser@5.49.0)(typescript@5.9.3)':
     dependencies:
       '@css-inline/css-inline': 0.20.0
       '@nestjs/common': 11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -13174,7 +13211,7 @@ snapshots:
       handlebars: 4.7.9
       liquidjs: 10.27.2
       mjml: 5.4.0(svgo@4.0.2)(terser@5.49.0)(typescript@5.9.3)
-      nunjucks: 3.2.4(chokidar@4.0.3)
+      nunjucks: 3.2.4
       preview-email: 3.2.0
       pug: 3.0.4
     transitivePeerDependencies:
@@ -13187,7 +13224,7 @@ snapshots:
       - typescript
       - uncss
 
-  '@nestjs-modules/mailer@2.3.7(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(@nestjs/event-emitter@3.1.0(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28))(chokidar@4.0.3)(nodemailer@9.0.3)(svgo@4.0.2)(terser@5.49.0)(typescript@6.0.3)':
+  '@nestjs-modules/mailer@2.3.7(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(@nestjs/event-emitter@3.1.0(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28))(nodemailer@9.0.3)(svgo@4.0.2)(terser@5.49.0)(typescript@6.0.3)':
     dependencies:
       '@css-inline/css-inline': 0.20.0
       '@nestjs/common': 11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -13204,7 +13241,7 @@ snapshots:
       handlebars: 4.7.9
       liquidjs: 10.27.2
       mjml: 5.4.0(svgo@4.0.2)(terser@5.49.0)(typescript@6.0.3)
-      nunjucks: 3.2.4(chokidar@4.0.3)
+      nunjucks: 3.2.4
       preview-email: 3.2.0
       pug: 3.0.4
     transitivePeerDependencies:
@@ -13402,6 +13439,19 @@ snapshots:
       '@nestjs/core': 11.1.28(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       eventemitter2: 6.4.9
 
+  '@nestjs/jwt@12.0.1(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))':
+    dependencies:
+      '@nestjs/common': 11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@types/jsonwebtoken': 9.0.10
+      jsonwebtoken: 9.0.3
+
+  '@nestjs/mapped-types@12.0.0(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(class-validator@0.15.1)(reflect-metadata@0.2.2)':
+    dependencies:
+      '@nestjs/common': 11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      reflect-metadata: 0.2.2
+    optionalDependencies:
+      class-validator: 0.15.1
+
   '@nestjs/mapped-types@2.1.1(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(class-validator@0.15.1)(reflect-metadata@0.2.2)':
     dependencies:
       '@nestjs/common': 11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -13440,7 +13490,7 @@ snapshots:
     transitivePeerDependencies:
       - chokidar
 
-  '@nestjs/schematics@11.1.0(chokidar@4.0.3)(prettier@3.9.5)(typescript@6.0.3)':
+  '@nestjs/schematics@11.1.0(prettier@3.9.5)(typescript@6.0.3)':
     dependencies:
       '@angular-devkit/core': 19.2.24(chokidar@4.0.3)
       '@angular-devkit/schematics': 19.2.24(chokidar@4.0.3)
@@ -13477,13 +13527,13 @@ snapshots:
       rxjs: 7.8.2
       typeorm: 0.3.31(better-sqlite3@12.11.1)(ioredis@5.11.1)(mongodb@7.2.0)(mysql2@3.22.5(@types/node@22.20.1))(pg@8.21.0)(redis@5.12.1(@opentelemetry/api@1.9.1))(ts-node@10.9.2(@types/node@22.20.1)(typescript@5.9.3))
 
-  '@nestjs/typeorm@11.0.3(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typeorm@1.1.0(better-sqlite3@12.11.1)(ioredis@5.11.1)(mongodb@7.2.0)(mysql2@3.22.5(@types/node@26.1.1))(pg@8.21.0)(redis@5.12.1(@opentelemetry/api@1.9.1))(ts-node@10.9.2(@types/node@26.1.1)(typescript@6.0.3)))':
+  '@nestjs/typeorm@11.0.3(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typeorm@1.1.0(better-sqlite3@12.11.1)(ioredis@5.11.1)(mongodb@7.2.0)(mysql2@3.22.5(@types/node@26.1.1))(pg@8.11.3)(ts-node@10.9.2(@types/node@26.1.1)(typescript@6.0.3)))':
     dependencies:
       '@nestjs/common': 11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/core': 11.1.28(@nestjs/common@11.1.28(class-validator@0.15.1)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       reflect-metadata: 0.2.2
       rxjs: 7.8.2
-      typeorm: 1.1.0(better-sqlite3@12.11.1)(ioredis@5.11.1)(mongodb@7.2.0)(mysql2@3.22.5(@types/node@26.1.1))(pg@8.21.0)(redis@5.12.1(@opentelemetry/api@1.9.1))(ts-node@10.9.2(@types/node@26.1.1)(typescript@6.0.3))
+      typeorm: 1.1.0(better-sqlite3@12.11.1)(ioredis@5.11.1)(mongodb@7.2.0)(mysql2@3.22.5(@types/node@26.1.1))(pg@8.11.3)(ts-node@10.9.2(@types/node@26.1.1)(typescript@6.0.3))
 
   '@noble/hashes@1.8.0': {}
 
@@ -14173,6 +14223,11 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
+  '@types/jsonwebtoken@9.0.10':
+    dependencies:
+      '@types/ms': 2.1.0
+      '@types/node': 24.13.3
+
   '@types/lodash@4.17.25': {}
 
   '@types/luxon@3.7.2': {}
@@ -14356,10 +14411,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/eslint-plugin@8.62.0(@typescript-eslint/parser@8.62.0(eslint@9.39.4)(typescript@6.0.3))(eslint@9.39.4)(typescript@5.9.3)':
+  '@typescript-eslint/eslint-plugin@8.62.0(@typescript-eslint/parser@8.62.0(eslint@9.39.4)(typescript@5.9.3))(eslint@9.39.4)(typescript@5.9.3)':
     dependencies:
       '@eslint-community/regexpp': 4.12.2
-      '@typescript-eslint/parser': 8.62.0(eslint@9.39.4)(typescript@6.0.3)
+      '@typescript-eslint/parser': 8.62.0(eslint@9.39.4)(typescript@5.9.3)
       '@typescript-eslint/scope-manager': 8.62.0
       '@typescript-eslint/type-utils': 8.62.0(eslint@9.39.4)(typescript@5.9.3)
       '@typescript-eslint/utils': 8.62.0(eslint@9.39.4)(typescript@5.9.3)
@@ -18616,14 +18671,14 @@ snapshots:
 
   media-typer@1.1.0: {}
 
-  mem0ai@3.0.8(@anthropic-ai/sdk@0.27.3)(@azure/identity@4.13.1)(@azure/search-documents@12.2.0)(@cloudflare/workers-types@4.20260616.1)(@google/genai@1.52.0(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)))(@langchain/core@1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@mistralai/mistralai@1.15.1)(@qdrant/js-client-rest@1.18.0(typescript@6.0.3))(@supabase/supabase-js@2.108.2)(@types/jest@30.0.0)(@types/pg@8.11.0)(better-sqlite3@12.11.1)(cloudflare@4.5.0)(compromise@14.15.1)(groq-sdk@0.3.0)(natural@8.1.1(@opentelemetry/api@1.9.1))(ollama@0.5.18)(pg@8.11.3)(redis@5.12.1(@opentelemetry/api@1.9.1))(ws@8.21.0):
+  mem0ai@3.0.8(@anthropic-ai/sdk@0.27.3)(@azure/identity@4.13.1)(@azure/search-documents@12.2.0)(@cloudflare/workers-types@4.20260616.1)(@google/genai@1.52.0(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)))(@langchain/core@1.2.9(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0))(@mistralai/mistralai@1.15.1)(@qdrant/js-client-rest@1.18.0(typescript@6.0.3))(@supabase/supabase-js@2.108.2)(@types/jest@30.0.0)(@types/pg@8.11.0)(better-sqlite3@12.11.1)(cloudflare@4.5.0)(compromise@14.15.1)(groq-sdk@0.3.0)(natural@8.1.1(@opentelemetry/api@1.9.1))(ollama@0.5.18)(pg@8.11.3)(redis@5.12.1(@opentelemetry/api@1.9.1))(ws@8.21.0):
     dependencies:
       '@anthropic-ai/sdk': 0.27.3
       '@azure/identity': 4.13.1
       '@azure/search-documents': 12.2.0
       '@cloudflare/workers-types': 4.20260616.1
       '@google/genai': 1.52.0(@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3))
-      '@langchain/core': 1.2.0(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0)
+      '@langchain/core': 1.2.9(@opentelemetry/api@1.9.1)(openai@6.42.0(ws@8.21.0)(zod@4.4.3))(ws@8.21.0)
       '@mistralai/mistralai': 1.15.1
       '@qdrant/js-client-rest': 1.18.0(typescript@6.0.3)
       '@supabase/supabase-js': 2.108.2
@@ -20072,13 +20127,11 @@ snapshots:
     dependencies:
       boolbase: 1.0.0
 
-  nunjucks@3.2.4(chokidar@4.0.3):
+  nunjucks@3.2.4:
     dependencies:
       a-sync-waterfall: 1.0.1
       asap: 2.0.6
       commander: 5.1.0
-    optionalDependencies:
-      chokidar: 4.0.3
     optional: true
 
   object-assign@4.1.1: {}
@@ -21953,7 +22006,7 @@ snapshots:
       - supports-color
     optional: true
 
-  typeorm@1.1.0(better-sqlite3@12.11.1)(ioredis@5.11.1)(mongodb@7.2.0)(mysql2@3.22.5(@types/node@26.1.1))(pg@8.21.0)(redis@5.12.1(@opentelemetry/api@1.9.1))(ts-node@10.9.2(@types/node@26.1.1)(typescript@6.0.3)):
+  typeorm@1.1.0(better-sqlite3@12.11.1)(ioredis@5.11.1)(mongodb@7.2.0)(mysql2@3.22.5(@types/node@26.1.1))(pg@8.11.3)(ts-node@10.9.2(@types/node@26.1.1)(typescript@6.0.3)):
     dependencies:
       '@sqltools/formatter': 1.2.5
       ansis: 4.3.1
@@ -21970,8 +22023,7 @@ snapshots:
       ioredis: 5.11.1
       mongodb: 7.2.0
       mysql2: 3.22.5(@types/node@26.1.1)
-      pg: 8.21.0
-      redis: 5.12.1(@opentelemetry/api@1.9.1)
+      pg: 8.11.3
       ts-node: 10.9.2(@types/node@26.1.1)(typescript@6.0.3)
     transitivePeerDependencies:
       - babel-plugin-macros
@@ -21979,7 +22031,7 @@ snapshots:
 
   typescript-eslint@8.62.0(eslint@9.39.4)(typescript@5.9.3):
     dependencies:
-      '@typescript-eslint/eslint-plugin': 8.62.0(@typescript-eslint/parser@8.62.0(eslint@9.39.4)(typescript@6.0.3))(eslint@9.39.4)(typescript@5.9.3)
+      '@typescript-eslint/eslint-plugin': 8.62.0(@typescript-eslint/parser@8.62.0(eslint@9.39.4)(typescript@5.9.3))(eslint@9.39.4)(typescript@5.9.3)
       '@typescript-eslint/parser': 8.62.0(eslint@9.39.4)(typescript@5.9.3)
       '@typescript-eslint/typescript-estree': 8.62.0(typescript@5.9.3)
       '@typescript-eslint/utils': 8.62.0(eslint@9.39.4)(typescript@5.9.3)

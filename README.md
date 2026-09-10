@@ -85,6 +85,29 @@ There is currently no root `src/`, `examples/`, or root `tests/` directory.
 pnpm install --frozen-lockfile
 ```
 
+### Manage dependencies
+
+This repository is a pnpm workspace: every `package.json` under `lessons/` is a workspace member. A plain `pnpm add -w <pkg>` (or any full `pnpm install` / `pnpm update`) at the root installs the **entire workspace** and recreates a `node_modules` directory inside every lesson that declares dependencies.
+
+To add a new dependency to the root `package.json` only — without touching lesson `node_modules` — filter on the root package:
+
+```bash
+# add a runtime dependency to the root package
+pnpm --filter agent-engineering-lab add <pkg>
+
+# add a dev dependency
+pnpm --filter agent-engineering-lab add -D <pkg>
+
+# remove one
+pnpm --filter agent-engineering-lab remove <pkg>
+```
+
+Notes:
+
+- Root dependencies are resolved by lesson scripts through normal Node upward resolution, so lessons can import packages that are only installed at the root.
+- Lesson-specific or heavyweight dependencies (for example SDKs for Milvus, Elasticsearch, or Tencent Cloud) should be declared in that lesson's `package.json` and installed with `pnpm --filter <lesson-package-name> add <pkg>` instead of being added to the root.
+- Lessons that must run standalone (such as the Dockerfile or Vercel deployment lessons) keep their own dependencies; install them individually when working on those lessons.
+
 ### Run the root demo
 
 The root demo does not call an LLM and does not need environment variables:

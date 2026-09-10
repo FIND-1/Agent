@@ -15,6 +15,20 @@ pnpm install --frozen-lockfile
 
 Copy `.env.example` to `.env` only when working on a model-backed lesson. Never commit credentials.
 
+### Adding dependencies
+
+This repository is a pnpm workspace. Do **not** run `pnpm add -w <pkg>` at the root: it performs a full-workspace install and recreates `node_modules` in every lesson. Instead, filter on the target package:
+
+```bash
+# root package (shared dependencies)
+pnpm --filter agent-engineering-lab add <pkg>
+
+# a single lesson
+pnpm --filter <lesson-package-name> add <pkg>
+```
+
+See the "Manage dependencies" section in [README.md](README.md) for details.
+
 ## Development and validation
 
 Run the root TypeScript check:

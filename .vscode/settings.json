@@ -1,0 +1,5 @@
+{
+  "eslint.workingDirectories": [
+    "./lessons/35_nest-test/nest-feature"
+  ]
+}
