@@ -3,6 +3,7 @@
     "D:/1project/agent/lessons/35_nest-test/nest-feature"
   ],
   "eslint.workingDirectories": [
-    "./lessons/35_nest-test/nest-feature"
+    "./lessons/35_nest-test/nest-feature",
+    "./lessons/37_multi-modal-agent/ai-canvas"
   ]
 }

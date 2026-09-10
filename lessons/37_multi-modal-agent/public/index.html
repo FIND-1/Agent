@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios@1.6.5/dist/axios.min.js"></script>
+</head>
+<body>
+    <input id="fileInput" type="file"/>
+    
+    <script>
+        // 原文教学占位页：先对照签名字段与 FormData；它尚未接入真实签名请求。
+        // 完整实现见 ../ai-canvas/public/index.html；接入时 key 也必须使用服务端签发值。
+        const fileInput = document.getElementById('fileInput');
+
+        async function getOSSInfo() {
+            // 注意：await 字符串不会发送请求；此处按原文保留供阅读，不是可运行 fallback。
+            await '请求应用服务器拿到临时凭证';
+            return {
+                OSSAccessKeyId: '',
+                Signature: '',
+                policy: '',
+                host: ''
+            }
+        }
+
+        fileInput.onchange = async () => {
+            const file = fileInput.files[0];
+
+            const ossInfo = await getOSSInfo();
+
+
+            const formdata = new FormData()
+ 
+            formdata.append('key', file.name);
+            formdata.append('OSSAccessKeyId', ossInfo.OSSAccessKeyId)
+            formdata.append('policy', ossInfo.policy)
+            formdata.append('signature', ossInfo.Signature)
+            formdata.append('success_action_status', '200')
+            formdata.append('file', file)
+
+            const res = await axios.post(ossInfo.host, formdata);
+            if(res.status === 200) {
+                
+                const img = document.createElement('img');
+                img.src = ossInfo.host + '/' + file.name
+                document.body.append(img);
+
+                alert('上传成功');
+            }
+        }
+    </script>
+</body>
+</html>

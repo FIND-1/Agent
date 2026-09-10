@@ -1,0 +1,19 @@
+{
+  "name": "multi-modal-agent",
+  "version": "1.0.0",
+  "description": "多模态理解、万相生成与 OSS 画布应用学习示例",
+  "scripts": {
+    "check": "node --check src/00-sts-gen.mjs && node --check src/01-image-understanding.mjs && node --check src/02-audio-understanding.mjs && node --check src/03-video-understanding.mjs && node --check src/04-text-to-image.mjs && node --check src/05-image-edit.mjs && node --check src/06-text-to-video.mjs && node --check src/07-image-to-video.mjs && node --check src/_shared/omni-model.mjs",
+    "oss:signature": "node src/00-sts-gen.mjs",
+    "understand:image": "node src/01-image-understanding.mjs",
+    "understand:audio": "node src/02-audio-understanding.mjs",
+    "understand:video": "node src/03-video-understanding.mjs",
+    "wan:text-to-image": "node src/04-text-to-image.mjs",
+    "wan:image-edit": "node src/05-image-edit.mjs",
+    "wan:text-to-video": "node src/06-text-to-video.mjs",
+    "wan:image-to-video": "node src/07-image-to-video.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

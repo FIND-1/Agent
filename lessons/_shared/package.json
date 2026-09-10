@@ -9,10 +9,12 @@
       "types": "./model.d.mts",
       "default": "./model.mjs"
     },
-    "./mem0-client": "./mem0-client.mjs"
+    "./mem0-client": "./mem0-client.mjs",
+    "./dashscope-client": "./dashscope-client.mjs"
   },
   "dependencies": {
     "@langchain/openai": "^1.4.7",
+    "dashscope-sdk-official": "1.26.0",
     "dotenv": "^17.4.2",
     "mem0ai": "^3.0.8"
   }

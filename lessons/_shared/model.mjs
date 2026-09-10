@@ -1,18 +1,22 @@
 import "@lessons/shared/env-loader";
 import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
 
-// 统一模型工厂：
-// - Chat 示例默认使用根 .env 的 MODEL_NAME / OPENAI_* 配置。
+// LangChain 模型工厂：创建聊天模型、embeddings，并提供流式文本提取。
+// DashScope 原生图片 / 视频生成的 SDK 配置由 ./dashscope-client.mjs 管理。
+// DashScope 的 OpenAI 兼容聊天接口仍可通过本模块传入配套 apiKey / baseURL 使用。
+// - Chat 示例优先使用显式 model / modelName，未传入时使用根 .env 的 MODEL_NAME。
+// - API Key / baseURL 默认使用 OPENAI_* 配置；模型名称不会自动切换服务商。
 // - Embeddings 示例优先使用 EMBEDDINGS_*，缺省时回退到 OPENAI_*。
-// - 各 lesson 如需特殊 temperature / modelName / baseURL，可通过 options 覆盖：
+// - 各 lesson 如需特殊 temperature / modelName / apiKey / baseURL，可通过 options 覆盖：
 //   - options.baseURL 直传时优先于环境变量；
 //   - options.configuration 仍可整体覆盖底层 OpenAI client 配置（其内部字段优先级最高）。
 
 export function createChatModel(options = {}, temperature = 0) {
-  const { baseURL, configuration, ...rest } = options;
+  const { baseURL, configuration, model, modelName, ...rest } = options;
+  const resolvedModel = model ?? modelName ?? process.env.MODEL_NAME;
   return new ChatOpenAI({
-    model: process.env.MODEL_NAME,
-    modelName: process.env.MODEL_NAME,
+    model: resolvedModel,
+    modelName: resolvedModel,
     apiKey: process.env.OPENAI_API_KEY,
     temperature,
     configuration: {
