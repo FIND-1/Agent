@@ -66,7 +66,7 @@
 
 ## 原文与当前代码的差异
 
-1. 用户给的 `D:/360MoveData/Users/uu/Desktop/SUMMARY_RULES.txt` 实际内容是 Neo4j / GraphRAG 文章原文，而不是整理规则本身；本轮整理规则来自项目根 `SUMMARY_RULES.md`，文章原文则作为知识主线输入。
+1. 用户给的 `SUMMARY_RULES.txt` 实际内容是 Neo4j / GraphRAG 文章原文，而不是整理规则本身；本轮整理规则来自项目根 `SUMMARY_RULES.md`，文章原文则作为知识主线输入。
 2. 原文代码里存在富文本复制常见问题，最明显的是 `awaitPromise.all`，本轮已修成可读代码。
 3. 原文把 `cypher.md`、`cypher2.md` 放在课程根目录；本轮为满足课程 Markdown 规则并补回排序，将它们整理到了 `queries/00-cypher.md`、`queries/01-cypher2.md`。
 4. 原文示例使用 `OPENAI_*` 风格变量；按当前项目和用户说明，Lesson 28 已改为和 Lesson 27 一致的 `ESAGENT_*` 变量。

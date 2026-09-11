@@ -42,7 +42,7 @@
 
 `node --check` 仅验证 JavaScript 语法，不证明依赖兼容或 Redis 行为。没有启动 Docker、Redis、本地端口或聊天示例，没有发送模型请求。
 
-未配置环境前，README 的环境接入与运行检查全部保持 TODO。已读取用户提供的桌面 `SUMMARY_RULES.txt`，确认其实际为 Redis 文章原文；此前“缺少原文”的判断有误，现按仓库 `SUMMARY_RULES.md` 完成编号及对齐。
+未配置环境前，README 的环境接入与运行检查全部保持 TODO。
 
 ## 原文路径与强制编号
 

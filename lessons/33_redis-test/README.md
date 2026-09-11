@@ -9,7 +9,7 @@
 3. 阅读 [会话记忆](./src/01-agent-with-redis-memory.mjs)：消息存取 → Agent 调用 → 摘要中间件 → TTL。
 4. 用 [复习与检查记录](./REVIEW_NOTES.md) 自测，再查看环境接入待办。
 
-原文为用户指定的桌面 `SUMMARY_RULES.txt`，正文标题是《Redis：实现 Agent 短期记忆存储的最佳方案》；整理规范来自仓库根 `SUMMARY_RULES.md`。学习顺序为：多实例共享会话问题 → Redis 类型与命令 → ioredis 基础操作（00）→ Agent 短期记忆（01）。
+学习顺序为：多实例共享会话问题 → Redis 类型与命令 → ioredis 基础操作（00）→ Agent 短期记忆（01）。
 
 ## 文件与知识点
 

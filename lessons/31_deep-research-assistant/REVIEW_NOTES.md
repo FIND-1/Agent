@@ -2,7 +2,7 @@
 
 ## 整理边界
 
-本次用户提供的 `D:/360MoveData/Users/uu/Desktop/SUMMARY_RULES.txt` 实际内容是《DeepAgents 实战：多 Agent 架构的深度调研助手》文章原文，不是整理规范本身。整理规范来自项目根目录 `SUMMARY_RULES.md`；文章原文作为本课程的知识主线输入。
+本次用户提供的 `SUMMARY_RULES.txt` 实际内容是《DeepAgents 实战：多 Agent 架构的深度调研助手》文章原文，不是整理规范本身。整理规范来自项目根目录 `SUMMARY_RULES.md`；文章原文作为本课程的知识主线输入。
 
 本课不涉及 Docker、MySQL、SQL、ORM、Milvus 或数据库。模型 API、Bocha 搜索 API 和可选的 LangSmith 追踪仍属于外部服务依赖；本次只做目录整理、源码静态检查和文档补齐，没有把真实模型调用、联网搜索或云端 trace 写成已验证结果。
 

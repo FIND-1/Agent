@@ -1,0 +1,19 @@
+# 外部前置条件 / TODO：需要用户提供可用 Docker 环境并确认端口后，才可启动。
+# 本轮仅做 YAML 静态检查，未验证容器启动、消息收发或持久化。
+services:
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    container_name: rabbitmq
+    restart: always
+    ports:
+      # 5672 是 AMQP 客户端端口；15672 是管理页面端口，不能用于 amqplib.connect。
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      # 原文教学账号，仅用于对照；客户端配置必须与实际 Broker 的账号和 vhost 一致。
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: Admin@123456
+      RABBITMQ_DEFAULT_VHOST: /
+    volumes:
+      # 数据目录挂载不等于消息可靠投递；还需理解 durable、消息持久化与确认机制。
+      - ./rabbitmq_data:/var/lib/rabbitmq
