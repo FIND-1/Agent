@@ -1,0 +1,14 @@
+{
+  "name": "39_langfuse-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "check": "node --check src/00-index.mjs && node --check src/01-evaluate.mjs && node --check src/_shared/agent.mjs && node --check src/_shared/instrumentation.mjs && node --check src/index.mjs",
+    "trace": "node src/00-index.mjs",
+    "evaluate": "node src/01-evaluate.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

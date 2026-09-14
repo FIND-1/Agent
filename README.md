@@ -119,6 +119,8 @@ pnpm agent:demo -- "Explain how skills are loaded"
 It prints a JSON result and updates the Git-ignored runtime files `output/trace.json` and `output/logs.md`.
 Set `AGENT_OUTPUT_DIR` to redirect those generated files when embedding or testing the runner.
 
+When `LANGFUSE_PUBLIC_KEY` and `LANGFUSE_SECRET_KEY` are set, the same run is also sent to Langfuse as an `agent-run` trace. The trace includes nested observations for skill loading, prompt construction, and the deterministic runtime. Set `LANGFUSE_BASE_URL` for a self-hosted or regional project; leave the keys blank to keep the demo offline. The runner flushes pending events before exiting.
+
 ### Run a LangGraph demo without an API key
 
 ```bash
@@ -166,6 +168,9 @@ A practical reading order based on code that exists today:
 9. `lessons/21_tts-stt-test` and `22_vercel-test` — speech and streamed agent UI experiments.
 10. `lessons/23_langgraph-test` — state graphs, routing, loops, checkpoints, interrupts, tool nodes, agents, and multi-agent supervision.
 11. `lessons/34_mem0-test` — Mem0 experiments requiring external configuration.
+12. `lessons/39_langfuse-test` — Langfuse tracing、Dataset 和 Experiment 评测，需要模型与 Langfuse 配置。
+13. `lessons/40_transformer-theory` — 理论课程：Transformer 架构、Token 化、自回归生成、训练与推理；无需运行环境，配图和复习笔记优先。
+14. `lessons/41_transformer-qkv` — 理论课程：Q/K/V 注意力、FFN、KV Cache、GPU 计算、训练推理和采样策略；无需运行环境，配图和复习笔记优先。
 
 Start with each lesson's README when present. A directory name indicates a study topic, not a guarantee that every script is self-contained or production-ready.
 

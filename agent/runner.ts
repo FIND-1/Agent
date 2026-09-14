@@ -9,6 +9,12 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { createPrompt } from "./prompt.ts";
+import {
+  finishTrace,
+  redactSensitiveText,
+  startSpan,
+  startTrace,
+} from "./observability.ts";
 import type {
   AgentPrompt,
   ExecutionResult,
@@ -94,25 +100,72 @@ async function writeTrace(trace: ExecutionTrace): Promise<void> {
 }
 
 export async function run(task: string): Promise<ExecutionTrace> {
-  const skills = await loadSkills();
-  const skillsContext = mergeSkillsContext(skills);
+  const traceContext = startTrace(task);
 
-  (globalThis as SkillsGlobal).__LIGHTWEIGHT_AGENT_SKILLS_CONTEXT__ =
-    skillsContext;
+  try {
+    const skillSpan = startSpan(traceContext, "load-skills", {
+      directory: "skills",
+    });
+    const skills = await loadSkills();
+    skillSpan?.end({
+      output: {
+        count: skills.length,
+        names: skills.map((skill) => skill.name),
+      },
+    });
 
-  const finalPrompt = createPrompt(task);
-  const executionResult = await executeWithNodeRuntime(finalPrompt);
-  const trace: ExecutionTrace = {
-    inputTask: task,
-    loadedSkillsList: skills.map((skill) => skill.name),
-    finalPrompt,
-    executionResult,
-  };
+    const skillsContext = mergeSkillsContext(skills);
 
-  await writeTrace(trace);
-  console.log(executionResult.output);
+    (globalThis as SkillsGlobal).__LIGHTWEIGHT_AGENT_SKILLS_CONTEXT__ =
+      skillsContext;
 
-  return trace;
+    const promptSpan = startSpan(traceContext, "build-agent-prompt", {
+      task: redactSensitiveText(task),
+      skillCount: skills.length,
+    });
+    const finalPrompt = createPrompt(task);
+    promptSpan?.end({
+      output: {
+        outputFormat: finalPrompt.outputFormat,
+        skillsContextCharacters: finalPrompt.skillsContext.length,
+      },
+    });
+
+    const execution = startSpan(traceContext, "deterministic-agent-runtime", {
+      task: redactSensitiveText(task),
+      outputFormat: finalPrompt.outputFormat,
+    });
+    const executionResult = await executeWithNodeRuntime(finalPrompt);
+    const tracedExecutionOutput = JSON.parse(executionResult.output) as {
+      task?: string;
+      [key: string]: unknown;
+    };
+    if (tracedExecutionOutput.task) {
+      tracedExecutionOutput.task = redactSensitiveText(tracedExecutionOutput.task);
+    }
+    execution?.end({ output: tracedExecutionOutput });
+    const trace: ExecutionTrace = {
+      inputTask: task,
+      loadedSkillsList: skills.map((skill) => skill.name),
+      finalPrompt,
+      executionResult,
+    };
+
+    await writeTrace(trace);
+    finishTrace(traceContext, {
+      runtime: executionResult.runtime,
+      outputFormat: executionResult.outputFormat,
+      output: tracedExecutionOutput,
+    });
+    console.log(executionResult.output);
+
+    return trace;
+  } catch (error) {
+    finishTrace(traceContext, undefined, error);
+    throw error;
+  } finally {
+    await traceContext.flush();
+  }
 }
 
 const cliTask = process.argv.slice(2).join(" ").trim();
