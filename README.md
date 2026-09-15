@@ -66,6 +66,7 @@ flowchart LR
 - `runtime/` — early runtime and state-machine experiments; the execution functions are currently placeholders.
 - `skills/` — Markdown instructions loaded by the root runner and project-specific execution guidance.
 - `lessons/` — independent, numbered experiments. Many are runnable scripts; requirements vary by lesson.
+- `interviews/` — interview-oriented knowledge index linking questions back to lessons.
 - `policies/` — repository-level experimental policy material.
 - `output/` — ignored runtime trace and log artifacts produced by the root runner.
 - `AGENTS.md` — instructions and operational boundaries for coding agents working in this repository.
@@ -171,6 +172,10 @@ A practical reading order based on code that exists today:
 12. `lessons/39_langfuse-test` — Langfuse tracing、Dataset 和 Experiment 评测，需要模型与 Langfuse 配置。
 13. `lessons/40_transformer-theory` — 理论课程：Transformer 架构、Token 化、自回归生成、训练与推理；无需运行环境，配图和复习笔记优先。
 14. `lessons/41_transformer-qkv` — 理论课程：Q/K/V 注意力、FFN、KV Cache、GPU 计算、训练推理和采样策略；无需运行环境，配图和复习笔记优先。
+
+Interview review:
+
+- [RAG 面试题](interviews/rag/README.md)
 
 Start with each lesson's README when present. A directory name indicates a study topic, not a guarantee that every script is self-contained or production-ready.
 
