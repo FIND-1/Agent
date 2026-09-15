@@ -3,6 +3,11 @@
     "D:/1project/agent/lessons/35_nest-test/nest-feature"
   ],
   "eslint.workingDirectories": [
+    "./lessons/01_tool-test/react-todo-app",
+    "./lessons/01_tool-test/vite-project",
+    "./lessons/22_vercel-test/agui-frontend",
+    "./lessons/34_mem0-test/mem0/examples/multimodal-demo",
+    "./lessons/34_mem0-test/mem0/examples/vercel-ai-sdk-chat-app",
     "./lessons/35_nest-test/nest-feature",
     "./lessons/37_multi-modal-agent/ai-canvas"
   ]
