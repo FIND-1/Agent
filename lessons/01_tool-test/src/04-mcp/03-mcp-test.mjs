@@ -1,4 +1,21 @@
-﻿// 1. 导入依赖与环境配置
+/**
+ * 示例 04-03：多源 MCP —— 本地 stdio + 远程 HTTP + 官方 filesystem
+ *
+ * 本示例演示「工具来源可以混合」，三类服务器同时挂载：
+ * 1. my-mcp-server：本地 stdio 服务器，提供业务查询能力（查询用户信息）；
+ * 2. amap-maps-streamableHTTP：远程 HTTP 服务器，接入高德地图能力；
+ * 3. filesystem：官方文件系统服务器，用 npx 拉起，操作范围由 ALLOWED_PATHS 限定。
+ *
+ * 对模型来说这些仍然是普通工具，模型不需要知道工具来自本地还是远程；
+ * 复习重点是 mcpServers 的配置形态，以及工具结果为什么要序列化成字符串再回填
+ * （MCP 返回的可能是对象或复杂结构，而 ToolMessage 的 content 必须是字符串）。
+ *
+ * 依赖：需要模型 API（.env）；高德工具需要 AMAP_MAPS_API_KEY；
+ *       filesystem 服务器需要 npx 联网拉包，并且 ALLOWED_PATHS 必须是明确的目录白名单。
+ * 运行产物：同目录 route.md 是此前运行留下的路线结果，不是示例脚本，不参与编号。
+ */
+
+// 1. 导入依赖与环境配置
 import "@lessons/shared/env-loader";
 import { createChatModel } from "@lessons/shared/model";
 import { MultiServerMCPClient } from "@langchain/mcp-adapters"; 
@@ -33,7 +50,7 @@ const mcpClient = new MultiServerMCPClient({
     // A. 本地自定义服务器：处理业务逻辑（如查询用户信息）
     "my-mcp-server": {
       command: "node",
-      args: [join(__dirname, "my-mcp-server.mjs")],
+      args: [join(__dirname, "01-my-mcp-server.mjs")],
     },
     // B. 远程 HTTP 服务器：接入高德地图能力 (流式 HTTP 传输)
     "amap-maps-streamableHTTP": {

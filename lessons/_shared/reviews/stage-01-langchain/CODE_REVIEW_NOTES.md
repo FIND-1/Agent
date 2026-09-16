@@ -297,7 +297,7 @@ async function invokeWithParserFallback() {
 
 ## 代码片段：bindTools
 
-- 来源：docx `image-027`、`image-028`，项目 `01_tool-test/src/tool-file-read.mjs`。
+- 来源：docx `image-027`、`image-028`，项目 `01_tool-test/src/01-tool-file-read.mjs`。
 - 对应 lesson：`01_tool-test`。
 - 代码目的：定义工具并绑定给模型，让模型能返回 `tool_calls`。
 - 关键 API：`tool()`、`z.object()`、`model.bindTools()`。
@@ -331,7 +331,7 @@ const modelWithTools = model.bindTools([readFileTool]);
 
 ## 代码片段：ToolMessage 循环
 
-- 来源：docx `image-029`、`image-030`、`image-031`，项目 `01_tool-test/src/tool-file-read.mjs`。
+- 来源：docx `image-029`、`image-030`、`image-031`，项目 `01_tool-test/src/01-tool-file-read.mjs`。
 - 对应 lesson：`01_tool-test`、`16_LCEL-chain`。
 - 代码目的：执行模型请求的工具，并把工具结果写回 messages。
 - 关键 API：`AIMessage.tool_calls`、`ToolMessage`、`model.invoke(messages)`。
@@ -549,7 +549,7 @@ const result = await runnableMap.invoke({ name: "张三", num: 5 });
 - 容易踩坑：state 字段要稳定，否则 branch 和后续节点对不上。
 - 是否建议重新手写：建议先理解 `01_tool-test` 的原始循环，再看 LCEL 版本。
 - 最小复现步骤：
-  1. 读 `01_tool-test/src/tool-file-read.mjs` 的 while 循环。
+  1. 读 `01_tool-test/src/01-tool-file-read.mjs` 的 while 循环。
   2. 再读 `16_LCEL-chain/src/01-case/00-mcp-test.mjs`。
   3. 标出 LLM 节点、toolExecutor 节点、branch 节点。
 

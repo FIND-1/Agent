@@ -55,7 +55,7 @@
 
 - 容易混淆点：把 MCP 当成另一种 Agent 循环。
 - 正确理解：tool_call 是模型请求调用工具的输出格式；MCP 是工具来源和通信协议。MCP 工具绑定后仍然走 tool_call/ToolMessage 循环。
-- 对应 lesson：`01_tool-test/src/mcp`、`16_LCEL-chain/src/01-case/00-mcp-test.mjs`。
+- 对应 lesson：`01_tool-test/src/04-mcp`、`16_LCEL-chain/src/01-case/00-mcp-test.mjs`。
 - 复习建议：先手写本地 tool，再看 MCP 版 `getTools()`。
 
 ### 问题：OutputParser vs withStructuredOutput
@@ -132,7 +132,7 @@
 ### bindTools + ToolMessage 工具调用循环 demo
 
 - 目标：掌握 Agent 工具调用最小闭环。
-- 对应 lesson：`01_tool-test/src/tool-file-read.mjs`。
+- 对应 lesson：`01_tool-test/src/01-tool-file-read.mjs`。
 - 涉及 API：`tool()`、`bindTools()`、`ToolMessage`、`tool_calls`。
 - 最小实现步骤：
   1. 定义一个 `get_time` 或 `read_file` 工具。

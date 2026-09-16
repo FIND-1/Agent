@@ -1,4 +1,18 @@
-﻿import "@lessons/shared/env-loader";
+/**
+ * 运行产物（不参与学习示例编号）
+ *
+ * 这个文件是 src/01-tool-file-read.mjs 的运行产物：示例 01 让模型读取文件内容后，
+ * 用 write_file 工具把内容写到这个路径，所以它当前的内容与示例 01 完全一致，
+ * 只用于证明「写文件」这条工具链路真的执行了。
+ *
+ * 复习方式：先删除本文件（或改坏其中的内容），再运行 node src/01-tool-file-read.mjs，
+ * 观察它被重新写入的过程。
+ *
+ * 它同时是示例 01 的写入目标路径，属于外部引用的兼容路径，
+ * 因此保留原文件名、不添加排序前缀；示例代码与讲解见 src/01-tool-file-read.mjs。
+ */
+
+import "@lessons/shared/env-loader";
 import { createChatModel } from "@lessons/shared/model";
 import { tool } from "@langchain/core/tools";
 import {
@@ -74,7 +88,7 @@ const messages = [ // 创建一个消息数组
 - read_file: 读取文件内容
 - write_file: 写入文件内容（参数：filePath, content）
 `),
-  new HumanMessage("请读取 src/tool-file-read.mjs 文件内容并解释代码, 然后将打印的结果写入到 src/tool-file-write.mjs 文件中"),
+  new HumanMessage("请读取 src/01-tool-file-read.mjs 文件内容并解释代码, 然后将打印的结果写入到 src/tool-file-write.mjs 文件中"),
 ];
 
 

@@ -1,4 +1,19 @@
-﻿// 1. 导入库
+/**
+ * 示例 04-02：LangChain 作为 MCP Client（单服务器 + Resource）
+ *
+ * 对比示例 01：tools 不再来自本地 tool()，而是用 MultiServerMCPClient.getTools()
+ * 从 MCP Server 拉取，再 bindTools 交给模型；ReAct 循环的写法与示例 01 保持一致。
+ *
+ * 本示例额外演示 Resource 的用法：
+ * - listResources() / readResource() 读出 MCP Server 提供的文档；
+ * - 把文档内容作为 SystemMessage 注入，相当于给模型一份「外挂参考书」。
+ *
+ * 运行方式（客户端会自动以子进程方式启动服务器，不需要单独起服务）：
+ *   node src/04-mcp/02-langchain-mcp-test.mjs
+ * 依赖：需要模型 API（.env）。
+ */
+
+// 1. 导入库
 import "@lessons/shared/env-loader";
 import { createChatModel } from "@lessons/shared/model";
 import { MultiServerMCPClient } from "@langchain/mcp-adapters"; // MCP 适配器，让 LangChain 能连接 MCP 服务器
@@ -39,26 +54,30 @@ const __dirname = dirname(__filename);
  * [最终回复] <- [AI 综合处理结果] <---------- [返回 Observation]
 
  * 【实验步骤】：
- * 1. 启动 MCP 服务器：node my-mcp-server.mjs
- * 2. 启动 LangChain MCP Adapter：node langchain-mcp-test.mjs
- * 3. 输入指令：node langchain-mcp-test.mjs "查询 002 的信息并把角色改为 admin"
+ * 1. 启动 MCP 服务器：node src/04-mcp/01-my-mcp-server.mjs
+ * 2. 启动 LangChain MCP Adapter：node src/04-mcp/02-langchain-mcp-test.mjs
+ * 3. 输入指令：node src/04-mcp/02-langchain-mcp-test.mjs "查询 002 的信息并把角色改为 admin"
  * 4. 观察输出：AI 的回复
- * 5. 观察 MCP 服务器日志：node my-mcp-server.mjs
- * 6. 观察 LangChain MCP Adapter 日志：node langchain-mcp-test.mjs
- * 7. 观察 MCP 服务器日志：node my-mcp-server.mjs
+ * 5. 观察 MCP 服务器日志：node src/04-mcp/01-my-mcp-server.mjs
+ * 6. 观察 LangChain MCP Adapter 日志：node src/04-mcp/02-langchain-mcp-test.mjs
+ * 7. 观察 MCP 服务器日志：node src/04-mcp/01-my-mcp-server.mjs
+ *
+ * 补充说明（整理时追加，不改动上面的原文步骤）：
+ * MultiServerMCPClient 会自己用子进程拉起 my-mcp-server，所以第 1/5/7 步不需要手动单独执行；
+ * 只有想单独调试服务器时才运行 node src/04-mcp/01-my-mcp-server.mjs。
  */
 
 // 2. 初始化大模型
 const model = createChatModel();
 
-// 3. 定义并连接 MCP 服务器 ("my-mcp-server.mjs" 是 MCP 服务器文件)
+// 3. 定义并连接 MCP 服务器 ("01-my-mcp-server.mjs" 是 MCP 服务器文件)
 
 const mcpClient = new MultiServerMCPClient({
   mcpServers: {
     "my-mcp-server": {
       command: "node",
       // 动态拼接出绝对路径
-      args: [join(__dirname, "my-mcp-server.mjs")],
+      args: [join(__dirname, "01-my-mcp-server.mjs")],
     },
   },
 });
@@ -127,7 +146,7 @@ async function runAgentWithTools(query, maxIterations = 10) {
 
 // await runAgentWithTools("查一下用户 002 的信息");
 
-// 终端运行 Agent 并输出指令： node langchain-mcp-test.mjs "查询 002 的信息并把角色改为 admin"
+// 终端运行 Agent 并输出指令： node src/04-mcp/02-langchain-mcp-test.mjs "查询 002 的信息并把角色改为 admin"
 // const userInput = process.argv.slice(2).join(' ') || "查一下用户 001 的信息";
 
 // console.log(chalk.cyan(`🚀 收到指令: ${userInput}`));

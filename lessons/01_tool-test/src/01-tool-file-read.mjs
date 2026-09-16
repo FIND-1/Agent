@@ -1,4 +1,28 @@
-﻿import "@lessons/shared/env-loader";
+/**
+ * 示例 01：第一个 tool —— 让大模型自己读文件（对应文章「接下来开发 tool」）
+ *
+ * 原文主线（本文件按这个顺序读完就能对上文章）：
+ * 1. 用 tool() 定义工具：函数体 + name + description + zod schema；
+ * 2. model.bindTools(tools) 把工具声明交给模型；
+ * 3. 用 SystemMessage 约定工作流程，用 HumanMessage 提出「读取文件并解释代码」的需求；
+ * 4. 先 invoke 一次，观察 AIMessage 里的 tool_calls：模型只解析出参数，不会自己执行；
+ * 5. 应用侧按 tool_calls 找到同名工具并 invoke，把结果包成 ToolMessage 回填 messages，
+ *    必须带 tool_call_id，告诉模型「你要的那次调用，结果是这个」；
+ * 6. 再次 invoke，让模型基于工具结果给出最终解释。
+ *
+ * 和原文的差异（复习时注意）：
+ * - 原文只定义了 read_file；本文件额外定义了 write_file，用来演示「读到的内容再写出去」，
+ *   所以第二个人类消息要求把结果写入 src/tool-file-write.mjs。
+ * - 原文的循环是 while + Promise.all 并发执行；本文件用 while (true) + for 顺序执行，
+ *   便于逐条观察每次工具调用的入参和返回值（复习重点是循环本身，不是并发写法）。
+ * - 原文把 ChatOpenAI 初始化写在文件里；本文件改用 @lessons/shared/model，temperature 仍为 0。
+ *
+ * 依赖：需要模型 API（.env）。
+ * 副作用：会真实读取文件，并把模型输出写入 src/tool-file-write.mjs（运行产物，不参与编号）。
+ * 原文路径映射：src/tool-file-read.mjs -> src/01-tool-file-read.mjs
+ */
+
+import "@lessons/shared/env-loader";
 import { createChatModel } from "@lessons/shared/model";
 import { tool } from "@langchain/core/tools";
 import {
@@ -74,7 +98,7 @@ const messages = [ // 创建一个消息数组
 - read_file: 读取文件内容
 - write_file: 写入文件内容（参数：filePath, content）
 `),
-  new HumanMessage("请读取 src/tool-file-read.mjs 文件内容并解释代码, 然后将打印的结果写入到 src/tool-file-write.mjs 文件中"),
+  new HumanMessage("请读取 src/01-tool-file-read.mjs 文件内容并解释代码, 然后将打印的结果写入到 src/tool-file-write.mjs 文件中"),
 ];
 
 

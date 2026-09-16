@@ -1,11 +1,18 @@
 {
   "name": "tool-test",
   "version": "1.0.0",
-  "description": "",
+  "description": "从 0 开始理解 LangChain tool：模型调用、四种消息、tool / bindTools、tool 循环，以及 MCP 工具复用",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/hello-langchain.mjs"
+    "start": "node src/00-hello-langchain.mjs",
+    "hello": "node src/00-hello-langchain.mjs",
+    "tool:read": "node src/01-tool-file-read.mjs",
+    "mini-cursor": "node src/03-mini-cursor.mjs",
+    "mcp:server": "node src/04-mcp/01-my-mcp-server.mjs",
+    "mcp:client": "node src/04-mcp/02-langchain-mcp-test.mjs",
+    "mcp:multi": "node src/04-mcp/03-mcp-test.mjs",
+    "check": "node --check src/00-hello-langchain.mjs && node --check src/01-tool-file-read.mjs && node --check src/02-node-exec.mjs && node --check src/03-mini-cursor.mjs && node --check src/_shared/all-tools.mjs && node --check src/tool-file-write.mjs && node --check src/04-mcp/01-my-mcp-server.mjs && node --check src/04-mcp/02-langchain-mcp-test.mjs && node --check src/04-mcp/03-mcp-test.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",

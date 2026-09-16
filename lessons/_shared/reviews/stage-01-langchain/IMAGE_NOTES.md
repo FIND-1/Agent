@@ -346,7 +346,7 @@
 - 图片上下文：定义 tool，加 name、description、参数 schema。
 - 图片讲了什么：定义 `read_file` tool，并通过 `model.bindTools(tools)` 绑定。
 - 对应知识点：tool、bindTools、schema。
-- 对应 lesson：`01_tool-test/src/tool-file-read.mjs`。
+- 对应 lesson：`01_tool-test/src/01-tool-file-read.mjs`。
 - 是否包含代码：是。
 - 如果包含代码，代码大意是什么：工具读取文件，schema 中描述 `filePath` 参数。
 - 对复习是否重要：是。
@@ -411,7 +411,7 @@
 - 图片上下文：MCP 是可跨进程调用的 tool。
 - 图片讲了什么：LLM 通过 tools 调用不同 MCP Client，再连接本地或远程 MCP Server。
 - 对应知识点：MCP、stdio、http。
-- 对应 lesson：`01_tool-test/src/mcp/langchain-mcp-test.mjs`、`16_LCEL-chain/src/01-case/00-mcp-test.mjs`。
+- 对应 lesson：`01_tool-test/src/04-mcp/02-langchain-mcp-test.mjs`、`16_LCEL-chain/src/01-case/00-mcp-test.mjs`。
 - 是否包含代码：否。
 - 如果包含代码，代码大意是什么：无。
 - 对复习是否重要：是。
@@ -437,7 +437,7 @@
 - 图片上下文：在 cursor 等编辑器里配置 MCP Server 后可以看到 tools。
 - 图片讲了什么：MCP 工具列表 UI，展示地图、路径、天气等工具。
 - 对应知识点：MCP tools。
-- 对应 lesson：`01_tool-test/src/mcp`、`16_LCEL-chain`。
+- 对应 lesson：`01_tool-test/src/04-mcp`、`16_LCEL-chain`。
 - 是否包含代码：否。
 - 如果包含代码，代码大意是什么：无。
 - 对复习是否重要：是。
@@ -450,7 +450,7 @@
 - 图片上下文：用 `@langchain/mcp-adapters` 和 MCP Server 通信。
 - 图片讲了什么：通过 `MultiServerMCPClient` 获取 tools，再 `model.bindTools(tools)`。
 - 对应知识点：MCP adapter、getTools、bindTools。
-- 对应 lesson：`01_tool-test/src/mcp/langchain-mcp-test.mjs`、`16_LCEL-chain/src/01-case/00-mcp-test.mjs`。
+- 对应 lesson：`01_tool-test/src/04-mcp/02-langchain-mcp-test.mjs`、`16_LCEL-chain/src/01-case/00-mcp-test.mjs`。
 - 是否包含代码：是。
 - 如果包含代码，代码大意是什么：初始化 MCP client，`getTools()`，绑定到模型。
 - 对复习是否重要：是。

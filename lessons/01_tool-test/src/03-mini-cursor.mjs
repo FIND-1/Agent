@@ -1,4 +1,29 @@
-﻿import "@lessons/shared/env-loader";
+/**
+ * 示例 03：mini cursor —— 把 tool 串成能自己干活的 agent（文章结尾预告的下一节）
+ *
+ * 原文最后一句是「实现了第一个 tool 之后，你可以想一下 cursor 怎么实现，后面我们实现一个简易版 cursor！」
+ * 本示例就是那个简易版：给模型一个「创建 React TodoList 项目」的任务，由模型自己决定
+ * 什么时候列目录、写文件、执行命令，直到任务完成。
+ *
+ * 和示例 01 相比多了什么：
+ * 1. 工具集从 2 个扩展到 4 个（读文件、写文件、执行命令、列目录），来自 src/_shared/all-tools.mjs；
+ * 2. 增加 maxIterations 上限，避免模型陷入无限循环；
+ * 3. 增加「模型偷懒」兜底：模型不返回 tool_calls 而是输出 Markdown 代码块时，
+ *    用正则提取 JSON 再执行（对应下面的第 3 分支）；
+ * 4. SystemMessage 里写死当前操作系统和命令习惯（Windows 用 rmdir / dir），
+ *    因为模型默认会按 Linux 习惯生成 rm -rf、ls。
+ *
+ * 局限与风险（复习重点）：
+ * - 没有任何权限控制：execute_command 会真实执行 shell 命令，write_file 会真实覆盖文件；
+ * - 任务文本里包含 rmdir /s /q react-todo-app 和 npm run dev -- --host，
+ *   直接运行会删除并重建 react-todo-app 目录，并启动 Vite 开发服务器占用端口；
+ * - 工具集是公共模块，放在 src/_shared/all-tools.mjs，编号示例之间不互相 import。
+ *
+ * 依赖：需要模型 API（.env）；执行任务还需要网络（create-vite / npm install）。
+ * 原文路径映射：src/mini-cursor.mjs -> src/03-mini-cursor.mjs
+ */
+
+import "@lessons/shared/env-loader";
 import { createChatModel } from "@lessons/shared/model";
 import chalk from "chalk"; // 给控制台输入添加背景色
 import {
@@ -11,7 +36,7 @@ import {
   listDirectoryTool,
   readFileTool,
   writeFileTool,
-} from "./all-tools.mjs";
+} from "./_shared/all-tools.mjs";
 
 const model = createChatModel();
 

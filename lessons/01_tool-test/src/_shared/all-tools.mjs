@@ -1,3 +1,19 @@
+/**
+ * 公共工具模块（不参与学习示例编号）
+ *
+ * 用途：给 src/03-mini-cursor.mjs 提供 4 个基础工具：
+ * read_file / write_file / execute_command / list_directory。
+ *
+ * 为什么放在 _shared：
+ * - 编号示例文件之间不允许互相 import（否则会带出对方文件顶层的演示代码）；
+ *   示例 01 里的工具定义保留原样，用于对照文章阅读，示例 03 需要复用的这组工具放在这里。
+ * - 这里只放可复用的工具定义，不放任何演示用的顶层调用。
+ *
+ * 依赖：无需模型 API，但 execute_command 会真实执行 shell 命令。
+ * 安全提示：execute_command 支持 timeout 与 detached 后台执行（用于启动服务）；
+ * 学习版本没有命令白名单，复习时不要传入来源不明的命令。
+ */
+
 import { tool } from "@langchain/core/tools";
 import fs from "node:fs/promises";
 import path from "node:path";

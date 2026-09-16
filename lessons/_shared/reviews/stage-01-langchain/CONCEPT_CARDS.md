@@ -146,7 +146,7 @@
 - 为什么需要它：模型需要知道有哪些工具、每个工具参数 schema 是什么。
 - 解决什么问题：让模型在需要时返回 `tool_calls`。
 - 常见使用场景：Agent、MCP 工具、结构化输出 fallback、mini cursor。
-- 对应 lesson：`01_tool-test/src/tool-file-read.mjs`、`16_LCEL-chain/src/01-case/00-mcp-test.mjs`。
+- 对应 lesson：`01_tool-test/src/01-tool-file-read.mjs`、`16_LCEL-chain/src/01-case/00-mcp-test.mjs`。
 - 和其他概念的关系：绑定后返回的 model 本身仍可作为 Runnable 使用。
 - 我需要记住的一句话：bindTools 只是把工具说明交给模型，真正执行工具仍在应用侧。
 

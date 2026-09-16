@@ -1,3 +1,18 @@
+/**
+ * 示例 04-01：自己写一个 MCP Server（stdio 传输）
+ *
+ * 前面的示例里，工具都是本地函数；从这一组示例开始，工具改由 MCP Server 提供，
+ * 对模型来说仍然是普通工具，只是工具来自独立进程、通过协议通信。
+ *
+ * 本文件覆盖 MCP 的三个核心要素：
+ * 1. Tool：query_user（查询用户）、update_user_role（修改角色）、log_action（记录操作日志）；
+ * 2. Resource：docs://guide（给模型看的参考文档，属于只读内容，不是工具）；
+ * 3. Transport：StdioServerTransport，通过标准输入输出与客户端进程通信。
+ *
+ * 依赖：无需模型 API；由客户端（04-02 / 04-03）以子进程方式启动。
+ * 单独运行本文件不会打印结果，只会等待 stdin 指令，属于正常现象，用 Ctrl+C 退出。
+ */
+
 // 1. 导入必要的模块
 // McpServer: 用来创建服务器的核心类
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';

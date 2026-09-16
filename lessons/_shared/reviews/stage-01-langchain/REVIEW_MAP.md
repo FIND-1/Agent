@@ -21,7 +21,7 @@ LangChain 的第一层价值是让代码面向 `BaseChatModel` / `ChatModel`，�
 
 对应 lesson：
 
-- `01_tool-test/src/hello-langchain.mjs`：早期模型调用入口。
+- `01_tool-test/src/00-hello-langchain.mjs`：早期模型调用入口。
 - `lessons/_shared/model.mjs`：当前项目级 `createChatModel()` / `createEmbeddings()` 共享入口。
 
 ## ChatModel 如何屏蔽不同模型 API 差异
@@ -87,9 +87,9 @@ MCP 只改变工具来源：工具可以来自本地函数，也可以来自 MCP
 
 对应 lesson：
 
-- `01_tool-test/src/tool-file-read.mjs`
-- `01_tool-test/src/all-tools.mjs`
-- `01_tool-test/src/mcp/langchain-mcp-test.mjs`
+- `01_tool-test/src/01-tool-file-read.mjs`
+- `01_tool-test/src/_shared/all-tools.mjs`
+- `01_tool-test/src/04-mcp/02-langchain-mcp-test.mjs`
 - `16_LCEL-chain/src/01-case/00-mcp-test.mjs`
 
 ## memory 如何管理上下文
@@ -159,9 +159,9 @@ Loader 加载来源
 
 | 知识点 | lesson | 关键文件 |
 | --- | --- | --- |
-| ChatModel 统一调用 | `01_tool-test` / `_shared` | `src/hello-langchain.mjs`、`lessons/_shared/model.mjs` |
-| tool / bindTools | `01_tool-test` | `src/tool-file-read.mjs`、`src/all-tools.mjs` |
-| MCP 工具复用 | `01_tool-test` / `16_LCEL-chain` | `src/mcp/langchain-mcp-test.mjs`、`01-case/00-mcp-test.mjs` |
+| ChatModel 统一调用 | `01_tool-test` / `_shared` | `src/00-hello-langchain.mjs`、`lessons/_shared/model.mjs` |
+| tool / bindTools | `01_tool-test` | `src/01-tool-file-read.mjs`、`src/_shared/all-tools.mjs` |
+| MCP 工具复用 | `01_tool-test` / `16_LCEL-chain` | `src/04-mcp/02-langchain-mcp-test.mjs`、`01-case/00-mcp-test.mjs` |
 | PromptTemplate | `14_prompt-template-test` | `00-basic-prompt-template.mjs` |
 | ChatPromptTemplate | `14_prompt-template-test` | `04-chat-prompt-template.mjs` |
 | MessagesPlaceholder | `14_prompt-template-test` / `15_runnable-test` / `16_LCEL-chain` | `07-messages-placeholder-history.mjs`、`09-runnable-with-message-history.mjs` |

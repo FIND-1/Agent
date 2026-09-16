@@ -1,3 +1,20 @@
+/**
+ * 示例 02：execute_command 的底层 —— child_process.spawn
+ *
+ * 文章把「执行命令」列为 tool 要提供的能力之一；示例 03 的 execute_command 工具就是
+ * 用 spawn 实现的。本文件把这套底层写法单独拆出来，集中讲清三件事：
+ * 1. 平台差异：Linux 用 ls -la，Windows 用 dir（文件里保留了两种写法）；
+ * 2. shell: true 的取舍：整条命令字符串不 split，交给 shell 解析，npx 才能正常工作；
+ * 3. 交互式命令的输入：create-vite 会询问选项，用 child.stdin.write("n\n") 模拟键盘输入。
+ *
+ * 文件里被注释掉的代码是原文的演进过程（从 Linux 写法到 Windows 写法），
+ * 保留下来用于对照「为什么最后收敛成现在的写法」。
+ *
+ * 依赖：无需模型 API；真正执行 create-vite 需要网络与 npx。
+ * 注意：命令会在当前工作目录创建 react-todo-app 目录。本课已存在同名的 react-todo-app 应用，
+ *       复习时请在临时目录运行，或先确认不会覆盖已整理好的应用。
+ */
+
 import { spawn } from "node:child_process";
 //! 注意： node 版本要在20以上
 
