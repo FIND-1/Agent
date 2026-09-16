@@ -1,8 +1,6 @@
 # 从 Tool 开始：让大模型自动调工具读文件
 
-本课对应公众号文章《从 Tool 开始：让大模型自动调工具读文件》，代码源自课程仓库里的 `tool-test` 项目。
-文章主线只有两步：**先把大模型调通**，再**用 tool 让模型能读写文件、执行命令**；文章结尾预告了「简易版 cursor」。
-本目录在原文代码基础上，保留了后续相关的延续示例（mini cursor、MCP），并按学习顺序编号。
+本课回答一个核心问题：**模型只会「说」，怎么让它真的「做」**。代码源自课程仓库的 `tool-test` 项目，在原文基础上保留了后续延续示例（mini cursor、MCP），并按学习顺序编号。
 
 ## 1. 学习目标
 
@@ -32,7 +30,6 @@
 - `src/04-mcp/route.md`：一次 MCP 任务留下的输出结果（路线规划文本），不是示例脚本。
 - `react-todo-app/`：**独立完整应用**（示例 03 生成并由 Agent 写入的 TodoList），保留框架约定目录与文件名，不参与编号。
 - `vite-project/`：`create-vite` 默认脚手架基线，用于和 `react-todo-app` 对比「脚手架原始页面 vs Agent 写入后的结果」，同样不参与编号。
-- `assets/`：文章配图，属于配套静态资源。
 
 独立应用的内部阅读顺序：
 
@@ -88,11 +85,9 @@ node src/04-mcp/03-mcp-test.mjs        # 另需 AMAP_MAPS_API_KEY / ALLOWED_PATH
 ### 4.5 外部服务不可用、或不想动环境时的复习路径
 
 1. 只读 00 → 01，理解消息角色和 tool 循环；这两步只需要模型 API。
-2. 没有模型 API 时只做 4.1 的语法检查，并对照第 6 节结论，手写一遍 tool 循环主干。
+2. 没有模型 API 时只做 4.1 的语法检查，并对照第 6 节机制清单，手写一遍 tool 循环主干。
 3. 不要为了复习运行示例 03：它会删除并重建 `react-todo-app`，最后还会启动 Vite 服务。改为阅读 `react-todo-app/src/App.tsx` 观察 Agent 写入后的产物。
 4. 暂时不运行 04-03：先跑 04-01（调试服务器）+ 04-02（单服务器客户端），多服务器部分按配置阅读。
-
-本课**不新增 fallback 示例**：原文没有提供 fallback，也不属于原文示例。
 
 ### 4.6 运行风险提示
 
@@ -113,19 +108,32 @@ AMAP_MAPS_API_KEY=高德 MCP 使用的 key
 ALLOWED_PATHS=filesystem MCP 允许访问的目录白名单，多个目录用英文逗号分隔
 ```
 
-`.env` 已被项目 `.gitignore` 忽略；原文也强调这类私密信息不提交 git。
+`.env` 已被项目 `.gitignore` 忽略，密钥不要提交到仓库。
 
-## 6. 关键结论
+## 6. 核心机制（复习主线）
 
-- 大模型本身只能「说」，不能「做」；tool 是把「做」的能力接给模型的方式，cursor 能写文件、装依赖、跑项目就是这么实现的。
-- tool 三要素：函数体 + `name` / `description` + 参数格式（zod）。`description` 写不清，模型会不调用工具或把参数写错。
-- `bindTools` 只是把工具说明交给模型；模型返回的 `tool_calls` 只有参数，执行必须由应用侧完成。
-- 四种消息各司其职：`SystemMessage` 定规则与流程、`HumanMessage` 是用户输入、`AIMessage` 是模型回复、`ToolMessage` 是工具结果回填。
-- `ToolMessage` 必须带 `tool_call_id`，模型才能把结果与某一次调用对上。
-- 循环的终止条件是没有 `tool_calls`；为避免死循环必须设置最大轮次。
-- `temperature: 0` 是原文特意强调的：让模型严格按指令执行，不要自由发挥。
+1. **它解决什么问题**：模型只能输出文本，不能读文件、写文件、执行命令。Tool 就是把这类「动作能力」交到模型手里的机制——cursor 能改代码、装依赖、跑项目就是这么实现的。
+2. **Tool 的三要素**：函数体 + `name` / `description` + 参数格式（zod schema）。`description` 写不清，模型会不调用工具或把参数写错；schema 决定模型能生成哪些字段。
+3. **`bindTools` 做了什么**：只把工具说明书（名称、描述、参数 schema）随请求一起发给模型，让模型知道有哪些工具可用。它不执行任何工具，也不改变模型本身的能力。
+4. **`tool_calls` 是什么**：模型在回复里给出的「调用意图」，结构是 `{ id, name, args, type: "tool_call" }`——只有工具名和参数，没有任何执行结果；`id` 由模型生成，标识这一次调用。原文运行输出的这一轮就长这样：`content` 为空、`finish_reason` 为 `tool_calls`，模型没有任何「自己执行过」的痕迹。
+5. **为什么工具必须由应用侧执行**：模型跑在远端，碰不到本地文件系统、shell 和网络，它只能「申请」调用；真正的执行发生在我们的进程里（`src/01-tool-file-read.mjs` 按 `name` 找到工具再 `invoke(args)`）。
+6. **`ToolMessage` 的作用**：把工具执行结果作为一条消息回填进 `messages`，模型下一轮才能看到「你要的结果在这里」。四种消息各司其职：`SystemMessage` 定规则与流程、`HumanMessage` 是用户输入、`AIMessage` 是模型回复、`ToolMessage` 是工具结果回填；工具结果的发出方是应用而不是用户，所以不能塞进 `HumanMessage`。
+7. **`tool_call_id` 为什么必要**：一轮回复可能包含多个工具调用，`ToolMessage` 靠 `tool_call_id` 与 `tool_calls[i].id` 一一对应；缺了它，模型无法判断这个结果属于哪一次调用。
+8. **循环如何结束**：终止条件是模型这一轮**没有返回 `tool_calls`**，而是直接给自然语言答复。工程上还要加最大轮次上限（`src/03-mini-cursor.mjs` 的 `maxIterations = 30`），否则模型反复调工具会死循环。
+9. **与 mini cursor / Agent 的关系**：`bindTools` + `while` 循环 + `ToolMessage` 回填就是所谓「Agent 循环」。把工具从 2 个扩到 4 个（读文件、写文件、执行命令、列目录），让模型自己决定调用顺序和停止时机，就是 `src/03-mini-cursor.mjs`——一个没有权限控制的迷你 cursor。
+10. **与 MCP 的关系**：MCP 是工具的**另一种来源**：工具实现放进独立进程或服务，通过协议暴露出来。LangChain 这边仍是 `bindTools` + 同一套 `tool_calls` / `ToolMessage` 循环，机制不变（`src/04-mcp/*`）。
+11. **工程习惯**：`temperature: 0` 让模型严格按指令执行、少自由发挥，本课所有示例都沿用它。
 
-## 7. 常见报错
+## 7. 当前代码与原文的关键差异
+
+| 方面 | 原文 | 本课代码 | 复习影响 |
+| --- | --- | --- | --- |
+| 模型初始化 | 先把 apiKey 写死在代码里，再改成 `dotenv` + `new ChatOpenAI({...})` | 统一用 `@lessons/shared/model` 的 `createChatModel()`（`temperature: 0`） | 能力等价；原文两段演进代码保留在 `src/00-hello-langchain.mjs` 顶部注释 |
+| 工具范围 | 只定义 `read_file` | 额外定义 `write_file`，把读到的内容写回 `src/tool-file-write.mjs` | 多一条写入链路，不影响 tool 循环本身 |
+| 循环写法 | `while (response.tool_calls && ...)` + `Promise.all(...)` 并发执行，用 `toolResults[index]` 回填 | `while (true)` + `for` 顺序执行，逐条打印入参和结果 | 只影响执行顺序，不影响 `tool_call_id` 关联语义；原文写法说明见 `REVIEW_NOTES.md` 第 10 节 |
+| 文件编号 | 原文示例无前缀 | 统一 `00-` ～ `04-` 编号，公共工具移到 `src/_shared/` | 见第 2 节 |
+
+## 8. 常见报错
 
 | 现象 | 原因与处理 |
 | --- | --- |
@@ -137,34 +145,11 @@ ALLOWED_PATHS=filesystem MCP 允许访问的目录白名单，多个目录用英
 | `EADDRINUSE` | 示例 03 最后的 `npm run dev` 端口被占用；先确认端口归属，不要强杀别人的进程 |
 | MCP 客户端报找不到服务器 | 服务器文件名写错；`01-my-mcp-server.mjs` 必须与 `join(__dirname, ...)` 保持一致 |
 
-## 8. 原文配图索引
-
-文章正文共 14 张配图，已按正文出现顺序保存到 `assets/`，可对照复习：
-
-| 图 | 文件 | 正文位置（相邻段落） | 对应知识点 |
-| --- | --- | --- | --- |
-| 01 | `assets/01-agent-tool-ability.png` | 「开发一些 tool 交给 agent 调用就可以了」 | 为什么要给 agent 加 tool |
-| 02 | `assets/02-qwen-bailian-login.jpeg` | 「这里我们用阿里的千问……」 | 模型与免费额度说明 |
-| 03 | `assets/03-get-api-key.png` | 「点这里获取 api key：」 | 控制台获取 api key |
-| 04 | `assets/04-create-project-terminal.png` | `mkdir tool-test` / `npm init -y` | 初始化 `tool-test` 项目 |
-| 05 | `assets/05-base-url.png` | 「base url 是这个：」 | DashScope 兼容模式 baseURL |
-| 06 | `assets/06-dotenv-env-code.png` | 「用 dotenv 来读取环境变量：」 | dotenv 版模型初始化代码 |
-| 07 | `assets/07-dotenv-note.png` | 「我们没有调用 dotenv.configure，引入了这个模块就行」 | dotenv 的加载方式 |
-| 08 | `assets/08-tool-api-code.png` | 「然后创建一个 tool，调用 tool 的 api」 | `tool()` 的定义结构 |
-| 09 | `assets/09-bindtools-code.png` | 「之后把这个 tool 传给大模型：」 | `model.bindTools(tools)` |
-| 10 | `assets/10-first-invoke-output.png` | 「调用下：」 | 第一次 invoke 的输出 |
-| 11 | `assets/11-tool-calls-output.png` | 「它返回了这个信息：」 | AIMessage 里的 `tool_calls` |
-| 12 | `assets/12-tool-loop-code.png` | 「接下来我们基于这个参数调用下工具不就行了？」 | 按 `tool_calls` 执行工具 |
-| 13 | `assets/13-toolmessage-loop-code.png` | 「把工具调用结果作为 ToolMessage 传给大模型」 | `ToolMessage` + `tool_call_id` 回填 |
-| 14 | `assets/14-final-reply-output.png` | 「跑下试试：」 | 最终回复（代码解释） |
-
-图注按正文相邻段落整理，用于把配图和知识点对齐；图片中的代码与正文代码一致，输出类截图属于运行结果记录。
-
 ## 9. 后续复习建议与待办
 
-- 建议复习顺序：先看 `src/00`、`src/01` 两个文件顶部的复习注释，再对照第 6 节结论；随后看 `src/03-mini-cursor.mjs` 理解「多轮循环 + 兜底解析」和示例 01 的差别；最后看 MCP 三件套。
+- 建议复习顺序：先看 `src/00`、`src/01` 两个文件顶部的复习注释，再对照第 6 节机制清单；随后看 `src/03-mini-cursor.mjs` 理解「多轮循环 + 兜底解析」和示例 01 的差别；最后看 MCP 三件套。
 - [ ] 把示例 03 的生成目录固定到 `_playground`，避免覆盖 `react-todo-app`
 - [ ] 给 `execute_command` 增加命令白名单，降低复习时的误操作风险
-- [ ] 补充「示例 01 顺序执行」与「原文 `while` + `Promise.all` 并发执行」的对比说明
+- [x] 补充「示例 01 顺序执行」与「原文 `while` + `Promise.all` 并发执行」的对比说明（见第 7 节差异表与 `REVIEW_NOTES.md` 第 10 节）
 - [ ] 本课与 `lessons/13_mini_cursor` 的工具集实现重复，后续按跨课共享阈值评估是否统一到 `lessons/_shared/`
 
