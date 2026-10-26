@@ -1,15 +1,9 @@
 /**
  * 运行产物（不参与学习示例编号）
  *
- * 这个文件是 src/01-tool-file-read.mjs 的运行产物：示例 01 让模型读取文件内容后，
- * 用 write_file 工具把内容写到这个路径，所以它当前的内容与示例 01 完全一致，
- * 只用于证明「写文件」这条工具链路真的执行了。
- *
- * 复习方式：先删除本文件（或改坏其中的内容），再运行 node src/01-tool-file-read.mjs，
- * 观察它被重新写入的过程。
- *
- * 它同时是示例 01 的写入目标路径，属于外部引用的兼容路径，
- * 因此保留原文件名、不添加排序前缀；示例代码与讲解见 src/01-tool-file-read.mjs。
+ * src/01-tool-file-read.mjs 的 write_file 工具写入的目标路径。
+ * 保留原名以兼容示例 01 的写入路径；不要手改，下次运行示例 01 时会被覆盖。
+ * 讲解见 src/01-tool-file-read.mjs。
  */
 
 import "@lessons/shared/env-loader";

@@ -1,28 +1,21 @@
 /**
  * 示例 04-01：自己写一个 MCP Server（stdio 传输）
  *
- * 前面的示例里，工具都是本地函数；从这一组示例开始，工具改由 MCP Server 提供，
- * 对模型来说仍然是普通工具，只是工具来自独立进程、通过协议通信。
+ * 演示 MCP 三个核心要素：
+ *   1. Tool：query_user（查用户）、update_user_role（改角色）、log_action（记日志）；
+ *   2. Resource：docs://guide（只读文档，注入给模型用，不是工具）；
+ *   3. Transport：StdioServerTransport，通过 stdin/stdout 与客户端进程通信。
  *
- * 本文件覆盖 MCP 的三个核心要素：
- * 1. Tool：query_user（查询用户）、update_user_role（修改角色）、log_action（记录操作日志）；
- * 2. Resource：docs://guide（给模型看的参考文档，属于只读内容，不是工具）；
- * 3. Transport：StdioServerTransport，通过标准输入输出与客户端进程通信。
- *
- * 依赖：无需模型 API；由客户端（04-02 / 04-03）以子进程方式启动。
- * 单独运行本文件不会打印结果，只会等待 stdin 指令，属于正常现象，用 Ctrl+C 退出。
+ * 依赖：无需模型 API；由 04-02 / 04-03 客户端以子进程方式拉起。
+ * 单独运行本文件只会等待 stdin 指令（Ctrl+C 退出），属于正常现象。
+ * 运行：node src/04-mcp/01-my-mcp-server.mjs
  */
 
-// 1. 导入必要的模块
-// McpServer: 用来创建服务器的核心类
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-// StdioServerTransport: 定义通信方式，这里是用标准输入输出（水管）来传话
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-// z (Zod): 用来做数据检查的，防止 AI 传错参数类型
 import { z } from 'zod';
 
-// 2. 模拟数据库
-// 实际开发中这里可能是连接 MySQL 或 MongoDB 的代码
+// 模拟数据库；实际开发这里换成 MySQL / MongoDB 等真实存储。
 const database = {
   users: {
     '001': { id: '001', name: '张三', email: 'zhangsan@example.com', role: '111' },
@@ -32,27 +25,21 @@ const database = {
 };
 
 // 3. 初始化服务器实例
-// 起个名字和版本号，方便识别
 const server = new McpServer({
   name: 'my-mcp-server',
   version: '1.0.0',
 });
 
-// 4. 注册工具 (Tool)：这是 AI 能干活的“技能”
+// 4. 注册工具 (Tool)：query_user
+// description 是模型决定何时调用的依据；inputSchema 用 zod 约束参数。
 server.registerTool('query_user', {
-  // description: 告诉 AI 这个工具是干嘛的（AI 会根据这个决定什么时候用它）
   description: '查询数据库中的用户信息。输入用户 ID，返回该用户的详细信息（姓名、邮箱、角色）。',
-  // inputSchema: 规定 AI 传参数必须遵守的格式（Zod 负责检查）
   inputSchema: {
     userId: z.string().describe('用户 ID，例如: 001, 002, 003'),
   },
 }, async ({ userId }) => {
-  // --- 下面是具体的执行逻辑 ---
-  
-  // 根据 ID 去数据库找人
   const user = database.users[userId];
 
-  // 如果没找到人
   if (!user) {
     return {
       content: [
@@ -64,7 +51,6 @@ server.registerTool('query_user', {
     };
   }
 
-  // 如果找到了人，返回格式化好的信息
   return {
     content: [
       {
@@ -75,8 +61,8 @@ server.registerTool('query_user', {
   };
 });
 
-// 5. 注册资源 (Resource)：这是给 AI 看的“参考书”
-// 和 Tool 不同，Resource 是静态内容，AI 可以随时读取来辅助它理解
+// 5. 注册资源 (Resource)：docs://guide
+// Resource 是只读静态内容，模型按需读取，不是工具。
 server.registerResource('使用指南', 'docs://guide', {
   description: 'MCP Server 使用文档',
   mimeType: 'text/plain',
@@ -96,16 +82,15 @@ server.registerResource('使用指南', 'docs://guide', {
   };
 });
 
-//--附加练习 注册修改用户角色的工具---
+// 6. 注册工具：update_user_role（多参数示例）
+// 这个工具有副作用：直接改写 database.users[i].role，体现「工具会改变外部状态」。
 server.registerTool('update_user_role', {
   description: '修改指定用户的角色权限。',
   inputSchema: {
-    // 知识点：复合参数。AI 需要同时提供 ID 和新角色。
     userId: z.string().describe('需要修改的用户 ID'),
     newRole: z.enum(['admin', 'user', 'guest']).describe('新的角色名称：admin, user 或 guest'),
   },
 }, async ({ userId, newRole }) => {
-  // 1. 检查用户是否存在
   const user = database.users[userId];
   if (!user) {
     return {
@@ -113,7 +98,6 @@ server.registerTool('update_user_role', {
     };
   }
 
-  // 2. 角色一致时直接返回，避免无意义更新
   if (user.role === newRole) {
     return {
       content: [
@@ -125,11 +109,9 @@ server.registerTool('update_user_role', {
     };
   }
 
-  // 3. 执行修改逻辑 (知识点：副作用 - 工具改变了外部系统的状态)
   const oldRole = user.role;
   user.role = newRole;
 
-  // 4. 返回执行结果告知 AI
   return {
     content: [
       {
@@ -141,10 +123,9 @@ server.registerTool('update_user_role', {
 });
 
 
-//--- 附加练习 模拟日志数据库 ----
+// 7. 注册工具：log_action（带时间戳的简单日志）
 const actionLogs = [];
 
-// 注册日志记录工具
 server.registerTool('log_action', {
   description: '记录系统中执行的关键操作日志。当修改用户信息或执行敏感操作后，应调用此工具存档。',
   inputSchema: {
@@ -153,21 +134,17 @@ server.registerTool('log_action', {
     timestamp: z.string().describe('操作时间'),
   },
 }, async ({ operator, action, timestamp }) => {
-  // 1. 将日志存入数组（模拟存入数据库）
   const logEntry = { operator, action, timestamp };
   actionLogs.push(logEntry);
 
-  // 2. 在控制台打印出来，方便我们观察
-  console.error(`[LOG SAVED]: ${JSON.stringify(logEntry)}`); 
+  // 写到 stderr 是为了让客户端把 stdout 留给协议通信。
+  console.error(`[LOG SAVED]: ${JSON.stringify(logEntry)}`);
 
   return {
     content: [{ type: 'text', text: `日志记录成功：${action}` }],
   };
 });
 
-// 6. 启动连接
-// 创建传输管道（Stdio 就是标准输入输出）
+// 8. 启动连接：服务器挂到 stdio 上，等待客户端发来的请求。
 const transport = new StdioServerTransport();
-// 把服务器连到管道上，开始监听 AI 的指令
-// await 表示这里会一直等着，直到有消息来
 await server.connect(transport);

@@ -2,98 +2,48 @@
  * 示例 04-02：LangChain 作为 MCP Client（单服务器 + Resource）
  *
  * 对比示例 01：tools 不再来自本地 tool()，而是用 MultiServerMCPClient.getTools()
- * 从 MCP Server 拉取，再 bindTools 交给模型；ReAct 循环的写法与示例 01 保持一致。
+ * 从 MCP Server 拉取，再 bindTools 交给模型；ReAct 循环写法与示例 01 一致。
  *
- * 本示例额外演示 Resource 的用法：
- * - listResources() / readResource() 读出 MCP Server 提供的文档；
- * - 把文档内容作为 SystemMessage 注入，相当于给模型一份「外挂参考书」。
+ * 本例额外演示 Resource：listResources() / readResource() 读出参考文档，
+ * 作为 SystemMessage 注入到对话里，相当于给模型一份「外挂参考书」。
  *
- * 运行方式（客户端会自动以子进程方式启动服务器，不需要单独起服务）：
- *   node src/04-mcp/02-langchain-mcp-test.mjs
- * 依赖：需要模型 API（.env）。
+ * 依赖：OPENAI_API_KEY / OPENAI_BASE_URL / MODEL_NAME。
+ * 客户端会自动用子进程拉起 my-mcp-server，不需要单独起服务。
+ * 运行：node src/04-mcp/02-langchain-mcp-test.mjs
  */
 
-// 1. 导入库
 import "@lessons/shared/env-loader";
 import { createChatModel } from "@lessons/shared/model";
-import { MultiServerMCPClient } from "@langchain/mcp-adapters"; // MCP 适配器，让 LangChain 能连接 MCP 服务器
+import { MultiServerMCPClient } from "@langchain/mcp-adapters";
 import chalk from "chalk";
-import { HumanMessage, ToolMessage, SystemMessage } from "@langchain/core/messages"; // 定义对话消息类型的类
+import { HumanMessage, ToolMessage, SystemMessage } from "@langchain/core/messages";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-/* * 
- * * 【实验目的】：测试 LangChain 的 MCP 适配器，验证 MCP 服务器的集成与工具/资源调用流程。
- * * 【涉及核心知识点】：
- * 1. ReAct 模式 (Reason + Act):
- *   - Reason (思考)：AI 分析用户意图（如“查用户 002”），识别出需要调用特定的 MCP 工具（如 query_user）。
- *   - Act (行动)：AI 生成 `tool_calls` 指令，由客户端（本项目）执行本地/远程代码。
- *   - Observation (观察)：程序将执行结果（如“李四，管理员”）反馈给 AI。
- *   - Final Answer (总结)：AI 整合所有观察到的信息，输出最终的自然语言回答。
- * * 2. MCP (Model Context Protocol) 核心要素：
- *   - Tools (工具)：跨语言的可执行函数。本例中通过 stdio 进程通信调用 Node.js 编写的工具。
- *   - Resources (资源)：只读的数据源。类似 AI 的“外挂文档”，代码中将其读取并注入 SystemMessage 作为上下文。
- *   - Transports (传输层)：本项目使用 Stdio（标准输入输出），也支持 HTTP/SSE 等远程通信方式。
- * * 3. LangChain MCP Adapter:
- *   - 适配器角色：将 MCP 协议定义的工具转换为 LangChain 兼容的 `StructuredTool` 对象。
- *   - 动态绑定：使用 `model.bindTools()` 实时将 MCP 服务器的能力“赋予”大模型。
- * * 【数据流向图解】：
- * [用户提问] -> [LangChain + Model] -> [发现 MCP 工具/资源请求] 
- * |
- * [MCP Client 调度]
- * |
- * ---------------------------------
- * |              |                |
- * [读取本地资源]   [调用外部工具]    [访问远程数据]
- * |              |                |
- * ---------------------------------
- * |
- * [最终回复] <- [AI 综合处理结果] <---------- [返回 Observation]
-
- * 【实验步骤】：
- * 1. 启动 MCP 服务器：node src/04-mcp/01-my-mcp-server.mjs
- * 2. 启动 LangChain MCP Adapter：node src/04-mcp/02-langchain-mcp-test.mjs
- * 3. 输入指令：node src/04-mcp/02-langchain-mcp-test.mjs "查询 002 的信息并把角色改为 admin"
- * 4. 观察输出：AI 的回复
- * 5. 观察 MCP 服务器日志：node src/04-mcp/01-my-mcp-server.mjs
- * 6. 观察 LangChain MCP Adapter 日志：node src/04-mcp/02-langchain-mcp-test.mjs
- * 7. 观察 MCP 服务器日志：node src/04-mcp/01-my-mcp-server.mjs
- *
- * 补充说明（整理时追加，不改动上面的原文步骤）：
- * MultiServerMCPClient 会自己用子进程拉起 my-mcp-server，所以第 1/5/7 步不需要手动单独执行；
- * 只有想单独调试服务器时才运行 node src/04-mcp/01-my-mcp-server.mjs。
- */
-
-// 2. 初始化大模型
 const model = createChatModel();
-
-// 3. 定义并连接 MCP 服务器 ("01-my-mcp-server.mjs" 是 MCP 服务器文件)
 
 const mcpClient = new MultiServerMCPClient({
   mcpServers: {
     "my-mcp-server": {
       command: "node",
-      // 动态拼接出绝对路径
       args: [join(__dirname, "01-my-mcp-server.mjs")],
     },
   },
 });
 
-// 4. 工具绑定：关键步骤！
-// 从 MCP 服务器中“拉取”所有可用的工具定义（比如 query_user）
+// MCP 工具来源：getTools() 把协议层的工具定义转成 LangChain 的 StructuredTool。
+// 对模型来说和示例 01 的本地 tool() 没区别，仍走 tool_calls -> ToolMessage 循环。
 const tools = await mcpClient.getTools();
-// 告诉 AI：你有这些工具可以用，请在需要时调用它们
 const modelWithTools = model.bindTools(tools);
 
-// 5. 核心：Agent 运行循环 (ReAct 模式)
 async function runAgentWithTools(query, maxIterations = 10) {
-  // --- 1. 先准备好资源内容 (Resources) ---
+  // 把 Resource 内容直接塞进 SystemMessage，让模型在第一轮就把这些背景当作规则。
   const res = await mcpClient.listResources();
-  let resourceContent = "以下是 MCP 服务器提供的参考文档：\n"; // 给 AI 一个提示前缀
-  
+  let resourceContent = "以下是 MCP 服务器提供的参考文档：\n";
+
   for (const [serverName, resources] of Object.entries(res)) {
     for (const resource of resources) {
       const content = await mcpClient.readResource(serverName, resource.uri);
@@ -101,37 +51,29 @@ async function runAgentWithTools(query, maxIterations = 10) {
     }
   }
 
-  // --- 2. 初始化对话历史 (把资源塞进 SystemMessage) ---
-  // 关键：这里创建的 messages 数组包含了背景知识
   const messages = [
-    new SystemMessage(resourceContent), 
+    new SystemMessage(resourceContent),
     new HumanMessage(query),
   ];
 
-  // --- 3. 进入 ReAct 循环 ---
   for (let i = 0; i < maxIterations; i++) {
     console.log(chalk.bgGreen(`⏳ 正在等待 AI 思考...`));
 
-    // 关键点：传入的是上面的 messages 数组，而不是单条 query
-    const response = await modelWithTools.invoke(messages); 
-    
-    // 把 AI 的回复存入历史，以便下次迭代（如果有工具调用）
-    messages.push(response); 
+    const response = await modelWithTools.invoke(messages);
+
+    messages.push(response);
 
     if (!response.tool_calls || response.tool_calls.length === 0) {
       console.log(`\n✨ AI 最终回复:\n${response.content}\n`);
       return response.content;
     }
 
-    // --- 4. 工具调用逻辑 ---
     console.log(chalk.bgBlue(`🔍 检测到工具调用: ${response.tool_calls.map((t) => t.name).join(", ")}`));
 
     for (const toolCall of response.tool_calls) {
       const foundTool = tools.find((t) => t.name === toolCall.name);
       if (foundTool) {
         const toolResult = await foundTool.invoke(toolCall.args);
-
-        // 将工具结果喂回 messages 数组
         messages.push(
           new ToolMessage({
             content: toolResult,
@@ -140,26 +82,11 @@ async function runAgentWithTools(query, maxIterations = 10) {
         );
       }
     }
-    // 循环继续，下一次 invoke 会带着更新后的 messages 重新请求 AI
   }
 }
 
-// await runAgentWithTools("查一下用户 002 的信息");
-
-// 终端运行 Agent 并输出指令： node src/04-mcp/02-langchain-mcp-test.mjs "查询 002 的信息并把角色改为 admin"
-// const userInput = process.argv.slice(2).join(' ') || "查一下用户 001 的信息";
-
-// console.log(chalk.cyan(`🚀 收到指令: ${userInput}`));
-
-//  终端直接运行 Agent
-// await runAgentWithTools(userInput);
-
-// 6. 使用
+// 演示场景：问使用指南，模型会读取 01 号 Resource 后回答。
 await runAgentWithTools("MCP Server 的使用指南是什么");
 
-
-// 7. 关闭 MCP 客户端
 await mcpClient.close();
-
-
 

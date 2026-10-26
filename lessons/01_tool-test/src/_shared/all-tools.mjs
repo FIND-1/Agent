@@ -1,17 +1,12 @@
 /**
- * 公共工具模块（不参与学习示例编号）
+ * 公共工具模块（不参与学习示例编号）。
  *
- * 用途：给 src/03-mini-cursor.mjs 提供 4 个基础工具：
+ * 给 src/03-mini-cursor.mjs 提供 4 个基础工具：
  * read_file / write_file / execute_command / list_directory。
  *
- * 为什么放在 _shared：
- * - 编号示例文件之间不允许互相 import（否则会带出对方文件顶层的演示代码）；
- *   示例 01 里的工具定义保留原样，用于对照文章阅读，示例 03 需要复用的这组工具放在这里。
- * - 这里只放可复用的工具定义，不放任何演示用的顶层调用。
- *
  * 依赖：无需模型 API，但 execute_command 会真实执行 shell 命令。
- * 安全提示：execute_command 支持 timeout 与 detached 后台执行（用于启动服务）；
- * 学习版本没有命令白名单，复习时不要传入来源不明的命令。
+ * 安全提示：execute_command 支持 timeout 和 detached（用于启动服务）；
+ * 本课没有命令白名单，复习时不要传入来源不明的命令。
  */
 
 import { tool } from "@langchain/core/tools";
@@ -74,8 +69,6 @@ const writeFileTool = tool(
 );
 
 // 3. 执行命令工具（带实时输出）
-// import { spawn } from "child_process";
-
 const executeCommandTool = tool(
   async ({ command, workingDirectory, timeout = 20000, detached = false }) => {
     const cwd = workingDirectory || process.cwd();
@@ -86,17 +79,18 @@ const executeCommandTool = tool(
       } ${detached ? "[detached]" : ""}`,
     );
 
-    // 👉 拆分命令（注意 Windows 兼容）
     const child = spawn(command, {
       cwd,
       shell: true,
       detached,
-      stdio: detached ? "ignore" : "pipe", // ⚠️ detached 必须 ignore
+      // detached 模式必须 ignore，否则子进程会持有父进程的标准流句柄，
+      // 调用 unref() 也没法让父进程先返回。
+      stdio: detached ? "ignore" : "pipe",
     });
 
-    // 👉 非阻塞模式（启动服务用）
     if (detached) {
-      child.unref(); // 🔥 关键：让主进程不等待
+      // 不再等待子进程（启动 Vite 这种长驻服务时需要）。
+      child.unref();
       return `命令已启动（detached）: ${command}`;
     }
 
@@ -105,7 +99,7 @@ const executeCommandTool = tool(
       let stderr = "";
       let finished = false;
 
-      // 👉 收集输出（可选实时打印）
+      // 实时把子进程的 stdout / stderr 转回控制台，便于观察。
       child.stdout?.on("data", (data) => {
         const text = data.toString();
         stdout += text;
@@ -118,7 +112,7 @@ const executeCommandTool = tool(
         process.stderr.write(text);
       });
 
-      // 👉 timeout 控制
+      // 这里另外起一个定时器，超时主动关掉子进程，避免 spawn 卡死。
       const timer = setTimeout(() => {
         if (!finished) {
           console.log(`\n⚠️ 命令超时，强制终止: ${command}`);

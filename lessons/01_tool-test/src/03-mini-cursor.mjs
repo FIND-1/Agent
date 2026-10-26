@@ -1,31 +1,26 @@
 /**
- * 示例 03：mini cursor —— 把 tool 串成能自己干活的 agent（文章结尾预告的下一节）
+ * 示例 03：mini cursor —— 把工具串成能自己干活的 agent
  *
- * 原文最后一句是「实现了第一个 tool 之后，你可以想一下 cursor 怎么实现，后面我们实现一个简易版 cursor！」
- * 本示例就是那个简易版：给模型一个「创建 React TodoList 项目」的任务，由模型自己决定
- * 什么时候列目录、写文件、执行命令，直到任务完成。
+ * 对应原文结尾预告「简易版 cursor」。
  *
- * 和示例 01 相比多了什么：
- * 1. 工具集从 2 个扩展到 4 个（读文件、写文件、执行命令、列目录），来自 src/_shared/all-tools.mjs；
- * 2. 增加 maxIterations 上限，避免模型陷入无限循环；
- * 3. 增加「模型偷懒」兜底：模型不返回 tool_calls 而是输出 Markdown 代码块时，
- *    用正则提取 JSON 再执行（对应下面的第 3 分支）；
- * 4. SystemMessage 里写死当前操作系统和命令习惯（Windows 用 rmdir / dir），
- *    因为模型默认会按 Linux 习惯生成 rm -rf、ls。
+ * 与示例 01 的差异：
+ *   - 工具集从 2 个扩展到 4 个（读 / 写 / 执行命令 / 列目录），来自 src/_shared/all-tools.mjs；
+ *   - 加了 maxIterations 上限，避免死循环；
+ *   - 加了「模型偷懒输出代码块」的兜底：用正则从 Markdown 代码块里抽 JSON 再执行；
+ *   - SystemMessage 里写死操作系统和命令习惯（Windows 用 rmdir / dir），
+ *     因为模型默认会按 Linux 习惯生成 rm -rf、ls。
  *
- * 局限与风险（复习重点）：
- * - 没有任何权限控制：execute_command 会真实执行 shell 命令，write_file 会真实覆盖文件；
- * - 任务文本里包含 rmdir /s /q react-todo-app 和 npm run dev -- --host，
- *   直接运行会删除并重建 react-todo-app 目录，并启动 Vite 开发服务器占用端口；
- * - 工具集是公共模块，放在 src/_shared/all-tools.mjs，编号示例之间不互相 import。
+ * 风险：execute_command 无白名单，会真实执行 shell 命令并覆盖文件；
+ * 任务里包含 rmdir /s /q react-todo-app 和 npm run dev -- --host，
+ * 直接运行会删除并重建 react-todo-app 并启动 Vite 占用端口。
  *
- * 依赖：需要模型 API（.env）；执行任务还需要网络（create-vite / npm install）。
- * 原文路径映射：src/mini-cursor.mjs -> src/03-mini-cursor.mjs
+ * 依赖：OPENAI_API_KEY / OPENAI_BASE_URL / MODEL_NAME；还需要网络（create-vite / npm install）。
+ * 运行：node src/03-mini-cursor.mjs
  */
 
 import "@lessons/shared/env-loader";
 import { createChatModel } from "@lessons/shared/model";
-import chalk from "chalk"; // 给控制台输入添加背景色
+import chalk from "chalk";
 import {
   HumanMessage,
   SystemMessage,
@@ -47,10 +42,7 @@ const tools = [
   listDirectoryTool,
 ];
 
-// 绑定工具到模型
 const modelWithTools = model.bindTools(tools);
-
-// Agent 执行函数
 
 async function runAgentWithTools(query, maxIterations = 30) {
   const systemPrompt = `你是一个自动化运维助手。
@@ -82,10 +74,6 @@ async function runAgentWithTools(query, maxIterations = 30) {
     try {
       const response = await modelWithTools.invoke(messages);
 
-      // --- 调试：打印原始响应 ---
-      // console.log(chalk.gray(`🔍 原始响应:`, JSON.stringify(response, null, 2)));
-
-      // --- 1. 处理空响应 ---
       if (
         !response.content &&
         (!response.tool_calls || response.tool_calls.length === 0)
@@ -96,7 +84,7 @@ async function runAgentWithTools(query, maxIterations = 30) {
 
       messages.push(response);
 
-      // --- 2. 标准工具调用 (最理想) ---
+      // 正常路径：模型真的产出了 tool_calls。
       if (response.tool_calls && response.tool_calls.length > 0) {
         console.log(chalk.cyan(`🛠️ 检测到原生工具调用...`));
         for (const toolCall of response.tool_calls) {
@@ -115,8 +103,8 @@ async function runAgentWithTools(query, maxIterations = 30) {
         continue;
       }
 
-      // --- 3. AI 偷懒了：输出文本/Markdown (重点修复这里) ---
-      // --- 情况 B: AI 偷懒了，返回了包含 JSON 的文本 ---
+      // 兜底分支：模型「偷懒」,没产出 tool_calls,而是直接输出 Markdown 代码块。
+      // 对一些不熟悉工具调用的模型有用,正规走 tool_calls 时不会触发。
       const content = response.content;
       if (typeof content === "string" && content.includes("```")) {
         console.log(
@@ -137,7 +125,6 @@ async function runAgentWithTools(query, maxIterations = 30) {
               `   -> 解析到操作: ${action.command || action.filePath}`,
             );
 
-            // 1. 处理命令执行
             if (action.command && !action.filePath) {
               const result = await executeCommandTool.invoke({
                 command: action.command,
@@ -145,18 +132,14 @@ async function runAgentWithTools(query, maxIterations = 30) {
               });
               messages.push(new HumanMessage(`命令执行结果: ${result}`));
               executedCount++;
-            }
-            // 2. 处理文件写入
-            else if (action.filePath && action.content !== undefined) {
+            } else if (action.filePath && action.content !== undefined) {
               const result = await writeFileTool.invoke({
                 filePath: action.filePath,
                 content: action.content,
               });
               messages.push(new HumanMessage(`文件写入结果: ${result}`));
               executedCount++;
-            }
-            // 3. 处理目录列出
-            else if (
+            } else if (
               action.command === "list_directory" ||
               (action.directoryPath && !action.content)
             ) {
@@ -176,7 +159,7 @@ async function runAgentWithTools(query, maxIterations = 30) {
         }
       }
 
-      // --- 4. 真的结束了 ---
+      // 拿到最终自然语言回复，结束。
       console.log(`\n✨ 任务结束: ${response.content}\n`);
       return response.content;
     } catch (error) {
