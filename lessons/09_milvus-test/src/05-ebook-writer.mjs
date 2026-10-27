@@ -1,4 +1,5 @@
-﻿import "@lessons/shared/env-loader";
+// 复习：加载 EPUB 并写入片段；会删除并重建整个 ebook_collection，依赖本地文件、Milvus 和 embedding API。
+import "@lessons/shared/env-loader";
 import { createEmbeddings } from "@lessons/shared/model";
 import { parse } from 'path';
 import { MilvusClient, DataType, MetricType, IndexType } from '@zilliz/milvus2-sdk-node';

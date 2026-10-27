@@ -1,4 +1,5 @@
-﻿import "@lessons/shared/env-loader";
+// 复习：按 ID 和条件删除日记；依赖 Milvus，会删除数据，运行前确认集合。
+import "@lessons/shared/env-loader";
 import { MilvusClient } from '@zilliz/milvus2-sdk-node';
 
 const COLLECTION_NAME = 'ai_diary';

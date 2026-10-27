@@ -1,4 +1,5 @@
-﻿import "@lessons/shared/env-loader";
+// 复习：按书籍 ID 过滤并搜索电子书片段；依赖已有集合、Milvus 和 embedding API。
+import "@lessons/shared/env-loader";
 import { createEmbeddings } from "@lessons/shared/model";
 import { MilvusClient, MetricType } from '@zilliz/milvus2-sdk-node';
 

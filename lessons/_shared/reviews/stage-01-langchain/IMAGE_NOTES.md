@@ -593,7 +593,7 @@
 - 图片上下文：内容存入向量数据库后。
 - 图片讲了什么：Milvus collection 中电子书片段与向量字段。
 - 对应知识点：Milvus 存储、RAG 文档片段。
-- 对应 lesson：`09_milvus-test/src/ebook-writer.mjs`、`ebook-query.mjs`。
+- 对应 lesson：`09_milvus-test/src/05-ebook-writer.mjs`、`06-ebook-query.mjs`。
 - 是否包含代码：否。
 - 如果包含代码，代码大意是什么：无。
 - 对复习是否重要：是。
@@ -606,7 +606,7 @@
 - 图片上下文：query 向量化后做相似度匹配，让大模型生成回答。
 - 图片讲了什么：用户 query 经过 embedding 检索向量库，相关片段作为 context 进入 LLM。
 - 对应知识点：RAG retrieval、context injection。
-- 对应 lesson：`06_rag-test/src/00-hello-rag.mjs`、`09_milvus-test/src/ebook-reader-rag.mjs`。
+- 对应 lesson：`06_rag-test/src/00-hello-rag.mjs`、`09_milvus-test/src/07-ebook-reader-rag.mjs`。
 - 是否包含代码：否。
 - 如果包含代码，代码大意是什么：无。
 - 对复习是否重要：是。
@@ -619,7 +619,7 @@
 - 图片上下文：电子书阅读助手。
 - 图片讲了什么：终端显示检索出的片段、相似度和片段内容。
 - 对应知识点：RAG 检索结果、Milvus search。
-- 对应 lesson：`09_milvus-test/src/ebook-reader-rag.mjs`。
+- 对应 lesson：`09_milvus-test/src/07-ebook-reader-rag.mjs`。
 - 是否包含代码：否。
 - 如果包含代码，代码大意是什么：无。
 - 对复习是否重要：是。
@@ -632,7 +632,7 @@
 - 图片上下文：基于语义相关片段生成回答。
 - 图片讲了什么：终端展示检索片段和最终 AI 回答。
 - 对应知识点：RAG generation。
-- 对应 lesson：`09_milvus-test/src/ebook-reader-rag.mjs`。
+- 对应 lesson：`09_milvus-test/src/07-ebook-reader-rag.mjs`。
 - 是否包含代码：否。
 - 如果包含代码，代码大意是什么：无。
 - 对复习是否重要：是。

@@ -1,4 +1,5 @@
-﻿import "@lessons/shared/env-loader";
+// 复习：创建日记集合、索引并写入向量；依赖 Milvus 和 embedding API，会写入数据。
+import "@lessons/shared/env-loader";
 import { createEmbeddings } from "@lessons/shared/model";
 import { MilvusClient, DataType, MetricType, IndexType } from '@zilliz/milvus2-sdk-node';
 

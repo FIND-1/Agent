@@ -1,5 +1,5 @@
 // 扩展：从网页加载并切分文本后复用 RAG 流程；依赖网页、聊天与 embedding API。
-﻿import "@lessons/shared/env-loader";
+import "@lessons/shared/env-loader";
 import { createChatModel, createEmbeddings } from "@lessons/shared/model";
 import "cheerio";
 // ChatOpenAI 负责思考，OpenAIEmbeddings 负责将文字转为数学向量

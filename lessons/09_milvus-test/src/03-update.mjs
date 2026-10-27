@@ -1,4 +1,5 @@
-﻿import "@lessons/shared/env-loader";
+// 复习：重新向量化并 upsert 日记；依赖 Milvus 和 embedding API，会修改数据。
+import "@lessons/shared/env-loader";
 import { createEmbeddings } from "@lessons/shared/model";
 import { MilvusClient } from '@zilliz/milvus2-sdk-node';
 

@@ -1,5 +1,5 @@
 // 原文 RAG 主线：内存索引、检索和生成；需要聊天与 embedding API，进程结束后索引消失。
-﻿import "@lessons/shared/env-loader";
+import "@lessons/shared/env-loader";
 import { createChatModel, createEmbeddings } from "@lessons/shared/model";
 // ChatOpenAI 负责思考，OpenAIEmbeddings 负责将文字转为数学向量
 import { Document } from "@langchain/core/documents";

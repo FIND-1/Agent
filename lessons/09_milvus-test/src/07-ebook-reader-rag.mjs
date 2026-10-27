@@ -1,4 +1,5 @@
-﻿import "@lessons/shared/env-loader";
+// 复习：检索电子书片段并生成回答；依赖已有集合、Milvus、embedding 和聊天 API。
+import "@lessons/shared/env-loader";
 import { createChatModel, createEmbeddings } from "@lessons/shared/model";
 import { MilvusClient, MetricType } from '@zilliz/milvus2-sdk-node';
 const COLLECTION_NAME = 'ebook_collection';

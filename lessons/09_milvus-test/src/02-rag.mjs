@@ -1,4 +1,5 @@
-﻿import "@lessons/shared/env-loader";
+// 复习：将日记检索结果注入 prompt 生成回答；依赖 Milvus、embedding 和聊天 API。
+import "@lessons/shared/env-loader";
 import { createChatModel, createEmbeddings } from "@lessons/shared/model";
 import { MilvusClient, MetricType } from '@zilliz/milvus2-sdk-node';
 const COLLECTION_NAME = 'ai_diary';

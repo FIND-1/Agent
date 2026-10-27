@@ -105,7 +105,7 @@ Milvus 属于用户管理的外部服务，本项目没有用于启动它的 Doc
 运行 00～03 前还需要：
 
 1. 用户自行准备可连接的 Milvus；
-2. 先运行 lesson 09 的 `src/ebook-writer.mjs`，写入《哈利波特与魔法石》；
+2. 先运行 lesson 09 的 `src/05-ebook-writer.mjs`，写入《哈利波特与魔法石》；
 3. collection 为 `ebook_collection`，向量维度为 1024；
 4. 文档 `book_id` 为 `harry_potter_and_philosophers_stone`。
 
