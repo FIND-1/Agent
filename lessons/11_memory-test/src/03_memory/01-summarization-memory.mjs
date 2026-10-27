@@ -1,5 +1,6 @@
 ﻿/**
  * Memory策略2：总结策略（超出阈值后用LLM压缩历史对话）
+ * 复习注意：摘要仅打印，未保存或作为后续上下文；清理旧消息前先生成摘要。
  */
 
 import "@lessons/shared/env-loader";
@@ -31,15 +32,15 @@ async function summarizationMemoryDemo() {
     for (const msg of messages) {
         if (msg.type === 'human') {
             // 将消息写入 memory
-    await history.addMessage(new HumanMessage(msg.content));
+            await history.addMessage(new HumanMessage(msg.content));
         } else {
             // 将消息写入 memory
-    await history.addMessage(new AIMessage(msg.content));
+            await history.addMessage(new AIMessage(msg.content));
         }
     }
 
-    let allMessages = // 读取全部历史 messages
-    await history.getMessages();
+    // 读取全部历史 messages
+    let allMessages = await history.getMessages();
 
     console.log(`原始消息数量: ${allMessages.length}`);
     console.log("原始消息:", allMessages.map(m => `${m.constructor.name}: ${m.content}`).join('\n  '));
@@ -63,7 +64,7 @@ async function summarizationMemoryDemo() {
         await history.clear();
         for (const msg of recentMessages) {
             // 将消息写入 memory
-    await history.addMessage(msg);
+            await history.addMessage(msg);
         }
 
         console.log(`\n保留消息数量: ${recentMessages.length}`);

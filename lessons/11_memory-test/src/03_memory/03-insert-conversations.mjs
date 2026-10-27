@@ -1,5 +1,6 @@
 ﻿/**
  * Memory策略3前置：将对话写入Milvus向量数据库（构建检索记忆）
+ * 复习注意：需要外部 Milvus 和 embedding API；会创建集合并写入数据。
  */
 
 import "@lessons/shared/env-loader";

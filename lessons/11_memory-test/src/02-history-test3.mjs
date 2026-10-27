@@ -1,11 +1,12 @@
 ﻿/**
  * 长时记忆恢复示例：从文件恢复历史对话并继续对话
+ * 复习注意：使用相同文件和 sessionId 恢复记录，依赖前一步已写入数据。
  */
 
 import "@lessons/shared/env-loader";
 import { createChatModel } from "@lessons/shared/model";
 import { FileSystemChatMessageHistory } from "@langchain/community/stores/message/file_system";
-import { HumanMessage, AIMessage, SystemMessage } from "@langchain/core/messages";
+import { HumanMessage, SystemMessage } from "@langchain/core/messages";
 import path from "node:path";
 
 const model = createChatModel();
@@ -21,8 +22,8 @@ async function fileHistoryDemo() {
     );
 
 
-    const restoredHistory = // 初始化文件持久化记忆
-new FileSystemChatMessageHistory({
+    // 初始化文件持久化记忆
+    const restoredHistory = new FileSystemChatMessageHistory({
         filePath: filePath,
         sessionId: sessionId,
     });

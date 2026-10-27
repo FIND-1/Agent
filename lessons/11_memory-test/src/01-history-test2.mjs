@@ -1,11 +1,12 @@
 ﻿/**
  * 长时记忆示例1：使用 FileSystemChatMessageHistory 将对话持久化到本地文件
+ * 复习注意：以当前工作目录下的文件持久化；运行会追加历史。
  */
 
 import "@lessons/shared/env-loader";
 import { createChatModel } from "@lessons/shared/model";
 import { FileSystemChatMessageHistory } from "@langchain/community/stores/message/file_system";
-import { HumanMessage, AIMessage, SystemMessage } from "@langchain/core/messages";
+import { HumanMessage, SystemMessage } from "@langchain/core/messages";
 import path from "node:path";
 
 const model = createChatModel();

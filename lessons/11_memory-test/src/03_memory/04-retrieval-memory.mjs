@@ -1,12 +1,13 @@
 ﻿/**
  * Memory策略3：RAG检索记忆（通过向量数据库召回历史对话）
+ * 复习注意：先检索再生成并写回；当前内存 history 只写入，未传入模型。
  */
 
 import "@lessons/shared/env-loader";
 import { createChatModel, createEmbeddings } from "@lessons/shared/model";
 import { InMemoryChatMessageHistory } from "@langchain/core/chat_history";
 import { MilvusClient, MetricType } from '@zilliz/milvus2-sdk-node';
-import { HumanMessage, SystemMessage } from "@langchain/core/messages";
+import { HumanMessage } from "@langchain/core/messages";
 //TODO: 这边需要结合检索向量数据库的思路，启动 milvus 
 const COLLECTION_NAME = 'conversations';
 const VECTOR_DIM = 1024;

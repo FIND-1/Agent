@@ -57,6 +57,7 @@
     "deepagents": "^1.13.2",
     "dotenv": "^17.4.2",
     "ioredis": "^5.11.1",
+    "js-tiktoken": "^1.0.21",
     "langchain": "^1.5.10",
     "langfuse": "^3.38.20",
     "mem0ai": "^3.0.8",

@@ -1,5 +1,6 @@
 ﻿/**
  * Memory策略2增强：基于token的总结策略（更贴近生产环境如Cursor/Claude）
+ * 复习注意：按内容 token 估算触发；摘要仅打印，没有注入下一轮上下文。
  */
 
 import "@lessons/shared/env-loader";
@@ -45,15 +46,15 @@ async function summarizationMemoryDemo() {
     for (const msg of messages) {
         if (msg.type === 'human') {
             // 将消息写入 memory
-    await history.addMessage(new HumanMessage(msg.content));
+            await history.addMessage(new HumanMessage(msg.content));
         } else {
             // 将消息写入 memory
-    await history.addMessage(new AIMessage(msg.content));
+            await history.addMessage(new AIMessage(msg.content));
         }
     }
 
-    let allMessages = // 读取全部历史 messages
-    await history.getMessages();
+    // 读取全部历史 messages
+    let allMessages = await history.getMessages();
 
     const totalTokens = countTokens(allMessages, enc);
 
@@ -90,7 +91,7 @@ async function summarizationMemoryDemo() {
         await history.clear();
         for (const msg of recentMessages) {
             // 将消息写入 memory
-    await history.addMessage(msg);
+            await history.addMessage(msg);
         }
 
         console.log(`\n保留消息数量: ${recentMessages.length}`);

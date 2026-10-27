@@ -1,5 +1,6 @@
 ﻿/**
  * 短期内存示例：使用 InMemoryChatMessageHistory 实现对话上下文管理（内存级 memory）
+ * 复习注意：每次调用都重新发送历史；内存记录在进程退出后丢失。
  */
 
 import "@lessons/shared/env-loader";

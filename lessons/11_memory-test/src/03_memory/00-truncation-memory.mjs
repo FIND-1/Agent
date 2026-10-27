@@ -1,5 +1,6 @@
 /**
  * Memory策略1：截断策略（按消息数量 / token数量控制上下文长度）
+ * 复习注意：仅计算消息内容的 token；模型实际请求还包含消息结构等开销。
  */
 
 import { InMemoryChatMessageHistory } from "@langchain/core/chat_history";
@@ -28,15 +29,15 @@ async function messageCountTruncation() {
     for (const msg of messages) {
         if (msg.type === 'human') {
             // 将消息写入 memory
-    await history.addMessage(new HumanMessage(msg.content));
+            await history.addMessage(new HumanMessage(msg.content));
         } else {
             // 将消息写入 memory
-    await history.addMessage(new AIMessage(msg.content));
+            await history.addMessage(new AIMessage(msg.content));
         }
     }
 
-    let allMessages = // 读取全部历史 messages
-    await history.getMessages();
+    // 读取全部历史 messages
+    let allMessages = await history.getMessages();
 
     // 按消息数量截断：保留最近 maxMessages 条消息
     const trimmedMessages = allMessages.slice(-maxMessages);
@@ -78,19 +79,19 @@ async function tokenCountTruncation() {
     for (const msg of messages) {
         if (msg.type === 'human') {
             // 将消息写入 memory
-    await history.addMessage(new HumanMessage(msg.content));
+            await history.addMessage(new HumanMessage(msg.content));
         } else {
             // 将消息写入 memory
-    await history.addMessage(new AIMessage(msg.content));
+            await history.addMessage(new AIMessage(msg.content));
         }
     }
 
-    let allMessages = // 读取全部历史 messages
-    await history.getMessages();
+    // 读取全部历史 messages
+    let allMessages = await history.getMessages();
 
     // 使用 trimMessages API：使用 js-tiktoken 计算 token 数量
-    const trimmedMessages = await // token截断策略
-  trimMessages(allMessages, {
+    // token截断策略
+    const trimmedMessages = await trimMessages(allMessages, {
         maxTokens: maxTokens,
         tokenCounter: async (msgs) => countTokens(msgs, enc),
         strategy: "last", // 保留最近的消息
