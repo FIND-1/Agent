@@ -1,3 +1,4 @@
+// 原文 RAG 主线：内存索引、检索和生成；需要聊天与 embedding API，进程结束后索引消失。
 ﻿import "@lessons/shared/env-loader";
 import { createChatModel, createEmbeddings } from "@lessons/shared/model";
 // ChatOpenAI 负责思考，OpenAIEmbeddings 负责将文字转为数学向量
@@ -121,7 +122,7 @@ const scoredResults = await vectorStore.similaritySearchWithScore(question, 3);
 // 问题是：实际上知识的来源可能有很多：一个 word 文档、一个 pdf 文件、一个 youtube 视频、一个 url、一个 x 的推文等。
 // 如何将这些不同的知识来源转换成统一的格式，然后存储到向量数据库中？
 // 答案是：要用各种 loader 来转换，对应的 loader 处理后，变成 Document，之后再由嵌入模型向量化后存入知识库。
-// 详见：./loader-and-splitter.mjs
+// 详见：./01-loader-and-spiltter.mjs
 
 // 8. 打印用到的文档和相似度评分
 console.log("\n【检索到的文档及相似度评分】");
@@ -131,7 +132,8 @@ retrievedDocs.forEach((doc, i) => {
     ([scoredDoc]) => scoredDoc.pageContent === doc.pageContent,
   );
   const score = scoredResult ? scoredResult[1] : null;
-  const similarity = score !== null ? (1 - score).toFixed(4) : "N/A";
+  // 更正原文：此 MemoryVectorStore 默认返回余弦相似度，而不是距离。
+  const similarity = score !== null ? score.toFixed(4) : "N/A";
   console.log(`\n[文档 ${i + 1}] 相似度: ${similarity}`);
   console.log(`内容: ${doc.pageContent}`);
   console.log(

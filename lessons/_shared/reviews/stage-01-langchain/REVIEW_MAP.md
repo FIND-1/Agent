@@ -120,8 +120,8 @@ Loader 加载来源
 
 对应 lesson：
 
-- `06_rag-test/src/hello-rag.mjs`：内存向量库 RAG。
-- `06_rag-test/src/loader-and-spiltter.mjs`：loader + splitter。
+- `06_rag-test/src/00-hello-rag.mjs`：内存向量库 RAG。
+- `06_rag-test/src/01-loader-and-spiltter.mjs`：loader + splitter。
 - `09_milvus-test/src/query.mjs`：Milvus similarity search。
 - `09_milvus-test/src/ebook-reader-rag.mjs`：电子书阅读助手。
 - `16_LCEL-chain/src/01-case/01-ebook-reader-rag.mjs`：LCEL 化的 RAG。
@@ -171,7 +171,7 @@ Loader 加载来源
 | withStructuredOutput | `12_output-parser-test` / `13_mini_cursor` | `05-with-structured-output-or-fallback.mjs` |
 | tool_call_chunks | `12_output-parser-test` / `13_mini_cursor` | `09-stream-tool-calls-raw.mjs`、`10-stream-tool-calls-parser.mjs` |
 | Memory | `11_memory-test` | `history-test.mjs`、`memory/*` |
-| RAG | `06_rag-test` / `16_LCEL-chain` | `hello-rag.mjs`、`loader-and-spiltter.mjs`、`01-ebook-reader-rag.mjs` |
+| RAG | `06_rag-test` / `16_LCEL-chain` | `00-hello-rag.mjs`、`01-loader-and-spiltter.mjs`、`01-ebook-reader-rag.mjs` |
 | Milvus | `09_milvus-test` / `14_prompt-template-test` | `query.mjs`、`ebook-reader-rag.mjs`、`11-semantic-example-selector-milvus.mjs` |
 | Runnable | `15_runnable-test` | `00-before.mjs` 到 `09-runnable-with-message-history.mjs` |
 | LCEL chain | `16_LCEL-chain` | `01-case/*`、`02-runnable/*` |

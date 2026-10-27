@@ -431,7 +431,7 @@ const response2 = await model.invoke(messages2);
 
 ## 代码片段：RAG 检索示例
 
-- 来源：docx `image-045` 到 `image-049`，项目 `06_rag-test/src/hello-rag.mjs`、`09_milvus-test/src/ebook-reader-rag.mjs`。
+- 来源：docx `image-045` 到 `image-049`，项目 `06_rag-test/src/00-hello-rag.mjs`、`09_milvus-test/src/ebook-reader-rag.mjs`。
 - 对应 lesson：`06_rag-test`、`09_milvus-test`。
 - 代码目的：检索相关文档片段并注入 prompt，让模型基于片段回答。
 - 关键 API：`MemoryVectorStore.fromDocuments()`、`asRetriever()`、`similaritySearchWithScore()`、Milvus `client.search()`。
@@ -441,7 +441,7 @@ const response2 = await model.invoke(messages2);
 - 容易踩坑：相似度分数含义依赖距离类型；Milvus collection 维度必须和 embedding 一致。
 - 是否建议重新手写：建议先写内存版，再写 Milvus 版。
 - 最小复现步骤：
-  1. 运行 `06_rag-test/src/hello-rag.mjs` 理解内存向量库。
+  1. 运行 `06_rag-test/src/00-hello-rag.mjs` 理解内存向量库。
   2. 准备 Milvus 后运行 `09_milvus-test/src/query.mjs`。
   3. 再看 `ebook-reader-rag.mjs` 的 context 拼接。
 

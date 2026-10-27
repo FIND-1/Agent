@@ -1,3 +1,4 @@
+// 扩展：从网页加载并切分文本后复用 RAG 流程；依赖网页、聊天与 embedding API。
 ﻿import "@lessons/shared/env-loader";
 import { createChatModel, createEmbeddings } from "@lessons/shared/model";
 import "cheerio";
@@ -84,7 +85,8 @@ for (const question of questions) {
     );
     const score = scoredResult ? scoredResult[1] : null;
     // 向量距离越小相似度越高，这里用 1-score 转换以便直观理解
-    const similarity = score !== null ? (1 - score).toFixed(4) : "N/A";
+    // 更正：此 MemoryVectorStore 默认直接返回余弦相似度，分数越大越相似。
+    const similarity = score !== null ? score.toFixed(4) : "N/A";
     
     console.log(`\n[文档 ${i + 1}] 相似度: ${similarity}`);
     console.log(`内容: ${doc.pageContent}`);
@@ -118,9 +120,11 @@ ${context}
   asRetriever 查询文档，
   model.invoke 生成答案。
 
- 检索时候调用了两次检索，vectorStore.similaritySearchWithScore 返回了 pageContent 和评分，为什么还需要 retriever.invoke(question)？
+  检索时候调用了两次检索，vectorStore.similaritySearchWithScore 返回了 pageContent 和评分，为什么还需要 retriever.invoke(question)？
 
   答案是：retriever.invoke(question) 返回了 pageContent 和评分，而 vectorStore.similaritySearchWithScore 也是一样的作用，二者选其一即可。
+  更正：retriever.invoke 只返回 Document；similaritySearchWithScore 返回 [Document, score]。
+  两次调用会重复检索和查询向量化；只需要文档或文档加分数时可分别选一种。
  */
 
 
