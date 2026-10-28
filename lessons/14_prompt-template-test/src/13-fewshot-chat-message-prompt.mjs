@@ -2,7 +2,7 @@ import {
   ChatPromptTemplate,
   FewShotChatMessagePromptTemplate,
 } from'@langchain/core/prompts';
-import { createChatModel } from '@lessons/shared/model';
+import { createChatModel, getChunkText } from '@lessons/shared/model';
 
 // 复习重点：
 // FewShotPromptTemplate 面向普通字符串 prompt；FewShotChatMessagePromptTemplate 面向 messages。
@@ -80,7 +80,7 @@ try {
     const stream = await model.stream(messages);
     console.log('\n===== 模型输出 =====\n');
     for await (const chunk of stream) {
-      process.stdout.write(chunk.content);
+      process.stdout.write(getChunkText(chunk));
     }
     console.log('\n');
   } catch (e) {

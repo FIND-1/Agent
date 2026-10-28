@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { OpenAIEmbeddings } from "@langchain/openai";
+import { createEmbeddings } from "@lessons/shared/model";
 import { query } from "./01-db.mjs";
 
 const VALID_ROLES = ["user", "assistant", "system"];
@@ -8,9 +8,10 @@ let embeddings;
 
 function getEmbeddings() {
   if (!embeddings) {
-    embeddings = new OpenAIEmbeddings({
+    embeddings = createEmbeddings({
       apiKey: process.env.OPENAI_API_KEY,
       model: process.env.EMBEDDINGS_MODEL_NAME,
+      dimensions: undefined,
       configuration: {
         baseURL: process.env.OPENAI_BASE_URL,
       },

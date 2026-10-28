@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { ChatOpenAI } from '@langchain/openai';
 import { AiController } from './ai.controller';
 import { AiService } from './ai.service';
 
@@ -10,14 +9,17 @@ import { AiService } from './ai.service';
     AiService,
     {
       provide: 'CHAT_MODEL',
-      useFactory: (configService: ConfigService) =>
-        new ChatOpenAI({
+      useFactory: async (configService: ConfigService) => {
+        const { createChatModel } = await import('@lessons/shared/model');
+        return createChatModel({
           model: configService.get('MODEL_NAME'),
           apiKey: configService.get('OPENAI_API_KEY'),
+          temperature: undefined,
           configuration: {
             baseURL: configService.get('OPENAI_BASE_URL'),
           },
-        }),
+        });
+      },
       inject: [ConfigService],
     },
   ],

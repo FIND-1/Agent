@@ -1,5 +1,5 @@
 import "@lessons/shared/env-loader";
-import { createChatModel, createEmbeddings } from "@lessons/shared/model";
+import { createChatModel, createEmbeddings, getChunkText } from "@lessons/shared/model";
 import { Milvus } from "@langchain/community/vectorstores/milvus";
 import { pathToFileURL } from "node:url";
 
@@ -126,7 +126,7 @@ export async function streamAnswer(prompt) {
   process.stdout.write("\n【AI 回答（流式）】\n");
   const stream = await llm.stream(prompt);
   for await (const chunk of stream) {
-    const text = typeof chunk.content === "string" ? chunk.content : "";
+    const text = getChunkText(chunk);
     if (!text) continue;
     answer += text;
     process.stdout.write(text);

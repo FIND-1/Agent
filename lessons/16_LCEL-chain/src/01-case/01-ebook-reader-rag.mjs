@@ -1,5 +1,4 @@
-import { createChatModel } from "@lessons/shared/model";
-import { OpenAIEmbeddings } from "@langchain/openai";
+import { createChatModel, createEmbeddings } from "@lessons/shared/model";
 import { StringOutputParser } from "@langchain/core/output_parsers";
 import { PromptTemplate } from "@langchain/core/prompts";
 import { RunnableLambda, RunnableSequence } from "@langchain/core/runnables";
@@ -31,7 +30,7 @@ const VECTOR_DIM = 1024;
 const model = createChatModel();
 
 // 初始化 Embeddings 模型。
-const embeddings = new OpenAIEmbeddings({
+const embeddings = createEmbeddings({
   apiKey: process.env.OPENAI_API_KEY,
   model: process.env.EMBEDDINGS_MODEL_NAME,
   configuration: {

@@ -1,5 +1,5 @@
 import { PromptTemplate } from'@langchain/core/prompts';
-import { createChatModel } from '@lessons/shared/model';
+import { createChatModel, getChunkText } from '@lessons/shared/model';
 
 // 复习重点：
 // 这是 Prompt Template 的起点：把硬编码字符串改成带占位符的模板。
@@ -63,5 +63,5 @@ const stream = await model.stream(prompt2);
 
 console.log('\nAI 回答:');
 for await (const chunk of stream) {
-    process.stdout.write(chunk.content);
+    process.stdout.write(getChunkText(chunk));
 }

@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { ChatOpenAI } from '@langchain/openai';
 
 /**
  * 复习重点：
@@ -17,10 +16,12 @@ export class LlmService {
   @Inject(ConfigService)
   private readonly configService: ConfigService;
 
-  getModel(): ChatOpenAI {
-    return new ChatOpenAI({
+  async getModel() {
+    const { createChatModel } = await import('@lessons/shared/model');
+    return createChatModel({
       model: this.configService.get<string>('MODEL_NAME'),
       apiKey: this.configService.get<string>('OPENAI_API_KEY'),
+      temperature: undefined,
       configuration: {
         baseURL: this.configService.get<string>('OPENAI_BASE_URL'),
       },
