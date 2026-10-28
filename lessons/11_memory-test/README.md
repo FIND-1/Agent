@@ -41,7 +41,7 @@ node lessons/11_memory-test/src/03_memory/01-summarization-memory.mjs
 node lessons/11_memory-test/src/03_memory/02-summarization-memory2.mjs
 ```
 
-文件示例使用 `process.cwd()`：以上命令写入仓库根目录的 `chat_history.json`，并非课程目录中现有的同名数据文件。两次运行须保持相同工作目录和 session ID；运行会追加数据，注意保护已有文件。
+文件示例使用 `process.cwd()`：以上命令写入仓库根目录的 `chat_history.json`；从课程目录运行时写入课程目录。聊天记录是被 Git 忽略的运行产物，不随仓库提供。先运行写入示例，再运行恢复示例；两次运行须保持相同工作目录和 session ID，运行会追加数据，注意保护已有文件。
 
 需要外部 Milvus 和 API：先自行准备可访问的 `localhost:19530` Milvus，并确认 `conversations` 集合与 1024 维 embedding 匹配。以下操作会创建集合和写入数据，已有同名集合可能导致创建失败；先确认目标环境。
 

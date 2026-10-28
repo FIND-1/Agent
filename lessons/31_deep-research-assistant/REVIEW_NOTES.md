@@ -85,7 +85,7 @@
 - 新增 `README.md`，提供按文章顺序的复习入口、运行命令、依赖分类、降级路径和常见问题。
 - 新增 `REVIEW_NOTES.md`，记录本次整理决策和自检结果。
 - 保持 5 个原文入口的扁平目录结构，不新增阶段目录；在原文件名主体前补 `00` 至 `04` 前缀完成实际排序。
-- 保留 `skills/`、`workspace/`、`conversation_history/`，因为它们分别是原文隐含的 skill、文件交接和上下文压缩配套资料。
+- 保留 `skills/` 作为课程输入；`workspace/` 和 `conversation_history/` 是运行产物，不随仓库提供且被 Git 忽略。
 
 ### 2. 相对路径和复习注释
 
@@ -111,8 +111,8 @@
 2. 原文示例路径是扁平的 `src/agent.mjs`、`src/cli.mjs` 等；本次不增加目录，只在 basename 前补 `00` 至 `04` 前缀，并在本文映射表保留原文路径。
 3. 当前代码比文章片段增加了 `agentConfig.recursionLimit`、模型参数兼容处理和 CLI 事件追踪，这些属于运行稳定性与观测增强，不改变文章的主 Agent 结构。
 4. 当前 `researcherSubAgent` 的搜索硬上限为 3 次；原 `skills/web-research/SKILL.md` 曾写着“最多 10 次搜索”，本轮已同步为 3 次，避免 skill 指令与源码约束冲突。
-5. `workspace/sources/findings_gdp_top6.md` 和报告产物来自历史调研，混用了第三方数据与媒体口径；其中“以国家统计局官方公布为准”没有被本地运行验证。复习数据流即可，不应把该历史报告当作重新核实后的官方数据结论。
-6. `conversation_history/` 是生成的历史上下文归档，不是新的 Agent 能力实现；它用于观察摘要后如何保存会话。
+5. 调研结果可能混用不同数据与媒体口径；运行产物需要重新核实来源，不应直接当作官方结论。
+6. `conversation_history/` 是运行生成的上下文归档，可用于观察摘要后如何保存会话，不随仓库提供。
 
 ## 公共代码抽离检查
 
@@ -124,7 +124,7 @@
 
 ## 外部服务不可用时的最小复习路径
 
-没有模型 API 时，先执行 `npm run check`，再按 `00 搜索工具 -> 01 主 Agent -> skills/AGENTS.md -> 02 CLI -> workspace` 阅读调用链。没有 Bocha 时，只跳过真实 `demo:search` 和 researcher 的联网步骤；`analyst` 的 QuickJS 机制可以通过源码和历史 `analysis_2023_gdp.md` 静态理解。没有 LangSmith 时，CLI 仍可作为本地事件观测代码阅读，云端 trace 只是不产生。
+没有模型 API 时，先执行 `npm run check`，再按 `00 搜索工具 -> 01 主 Agent -> skills/AGENTS.md -> 02 CLI` 阅读调用链。没有 Bocha 时，只跳过真实 `demo:search` 和 researcher 的联网步骤；`analyst` 的 QuickJS 机制可以通过源码静态理解。没有 LangSmith 时，CLI 仍可作为本地事件观测代码阅读，云端 trace 只是不产生。
 
 本次没有新增 fallback 文件，因为文章没有提供本地 fallback，且用户只要求排序整理和后续复习入口。
 

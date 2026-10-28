@@ -46,9 +46,7 @@
 │       ├── app.module.ts
 │       ├── app.service.ts
 │       └── main.ts
-├── output-wan-image-edit.png
-├── output-wan-image-to-video.mp4
-├── output-wan-text-to-image.png
+├── output-wan-*                # 运行时生成，不随仓库提供
 ├── package.json
 ├── public/index.html           # 原文占位演示
 ├── README.md

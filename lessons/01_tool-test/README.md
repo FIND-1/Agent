@@ -26,14 +26,14 @@
 
 未编号文件的例外依据：
 
-- `src/tool-file-write.mjs`：示例 01 的**运行产物**，同时是示例 01 的写入目标路径（外部引用路径），保留原文件名。
+- `src/tool-file-write.mjs`：示例 01 的运行产物和写入目标，不随仓库提供，运行后生成并被 Git 忽略。
 - `src/04-mcp/route.md`：一次 MCP 任务留下的输出结果（路线规划文本），不是示例脚本。
-- `react-todo-app/`：**独立完整应用**（示例 03 生成并由 Agent 写入的 TodoList），保留框架约定目录与文件名，不参与编号。
-- `vite-project/`：`create-vite` 默认脚手架基线，用于和 `react-todo-app` 对比「脚手架原始页面 vs Agent 写入后的结果」，同样不参与编号。
+- `react-todo-app/`：示例生成的 TodoList 项目，位于运行时工作目录，不随仓库提供并被 Git 忽略。
+- `vite-project/`：保留的 `create-vite` 默认脚手架基线，不参与编号。
 
 独立应用的内部阅读顺序：
 
-1. `react-todo-app/src/App.tsx`：TodoList 逻辑（增删改、筛选、localStorage）→ `src/App.css`（样式）→ `src/main.tsx` → `index.html`。
+1. 若本地已有生成结果，可阅读 `react-todo-app/src/App.tsx` → `src/App.css` → `src/main.tsx` → `index.html`。
 2. `vite-project/src/App.tsx`：只看这一个文件即可，它是脚手架默认页面，用于对比。
 
 ## 3. 原文路径映射
@@ -86,12 +86,12 @@ node src/04-mcp/03-mcp-test.mjs        # 另需 AMAP_MAPS_API_KEY / ALLOWED_PATH
 
 1. 只读 00 → 01，理解消息角色和 tool 循环；这两步只需要模型 API。
 2. 没有模型 API 时只做 4.1 的语法检查，并对照第 6 节机制清单，手写一遍 tool 循环主干。
-3. 不要为了复习运行示例 03：它会删除并重建 `react-todo-app`，最后还会启动 Vite 服务。改为阅读 `react-todo-app/src/App.tsx` 观察 Agent 写入后的产物。
+3. 不要为了复习运行示例 03：它会删除并重建 `react-todo-app`，最后还会启动 Vite 服务。可阅读示例提示词与工具循环；若本地已有产物，也可以查看其 `src/App.tsx`。
 4. 暂时不运行 04-03：先跑 04-01（调试服务器）+ 04-02（单服务器客户端），多服务器部分按配置阅读。
 
 ### 4.6 运行风险提示
 
-- 示例 02 会在**当前工作目录**创建 `react-todo-app`，与本课已有应用同名。复习时请在临时目录运行，或先确认不会覆盖已整理的应用。
+- 示例 02 会在**当前工作目录**创建 `react-todo-app`。复习时请在临时目录运行，或先确认不会覆盖已有文件。
 - 示例 03 的 SystemMessage 里写死了 `rmdir /s /q react-todo-app`、`npm run dev -- --host` 等 Windows 命令：直接运行会删除并重建 `react-todo-app`，并启动开发服务器占用端口。
 - `execute_command` 没有任何命令白名单或权限校验，属于学习示例，不要传入来源不明的命令。
 

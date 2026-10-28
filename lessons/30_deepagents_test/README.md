@@ -105,6 +105,8 @@ node src/01_deepagents/04-summarization-agent.mjs
 
 filesystem 和 summarization 示例会清理各自的演示 workspace；memory 示例会更新 Markdown 记忆文件。不要在这些目录存放真实资料。
 
+这些 workspace 和 `output/` 是运行产物，不随仓库提供且已由 Git 忽略。memory 示例首次运行时只为缺失的记忆文件创建初始内容，不覆盖已有记忆。
+
 ### 4. 需要额外 skill
 
 ```bash
@@ -120,7 +122,7 @@ node src/01_deepagents/01-skills-agent.mjs
 ## 外部能力不可用时怎么复习
 
 - 模型不支持工具调用：重点追踪工具注册位置和 `wrapToolCall` / `task` 数据流。
-- skill 无法执行：阅读 `sources`、backend 和 middleware 顺序，并查看已有 `.excalidraw` 产物。
+- skill 无法执行：阅读 `sources`、backend 和 middleware 顺序；本地已有 `.excalidraw` 产物时可查看结果。
 - LangSmith 不可用：不影响本地结构复习，只是看不到 trace 上报。
 - 模型没有严格委派或触发摘要：先确认这是模型行为差异，不要误判为语法错误。
 

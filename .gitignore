@@ -32,6 +32,37 @@ Thumbs.db
 /lessons/21_tts-stt-test/output.mp3
 /lessons/21_tts-stt-test/output3.mp3
 
+# 前 10 个课程的运行产物；输出目录取决于执行命令时的工作目录。
+/react-todo-app/
+/lessons/01_tool-test/react-todo-app/
+/lessons/01_tool-test/src/react-todo-app/
+/lessons/13_mini_cursor/react-todo-app/
+/lessons/13_mini_cursor/src/test/react-todo-app/
+/lessons/01_tool-test/src/tool-file-write.mjs
+/lessons/01_tool-test/src/_out.txt
+/lessons/01_tool-test/src/create.log
+/chat_history.json
+/lessons/11_memory-test/chat_history.json
+
+# 20～41 课中可确定的运行产物。
+/lessons/21_tts-stt-test/output-stream.mp3
+/lessons/23_langgraph-test/src/_shared/checkpointer-demo.sqlite*
+/lessons/30_deepagents_test/src/01_deepagents/output/
+/lessons/30_deepagents_test/src/01_deepagents/workspace/
+/lessons/30_deepagents_test/src/01_deepagents/workspace-memory/
+/lessons/30_deepagents_test/src/01_deepagents/workspace-summarization/
+/lessons/31_deep-research-assistant/workspace/
+/lessons/31_deep-research-assistant/conversation_history/
+/lessons/37_multi-modal-agent/ai-canvas/tsconfig.build.tsbuildinfo
+/lessons/37_multi-modal-agent/output-wan-text-to-image.png
+/lessons/37_multi-modal-agent/output-wan-image-edit.png
+/lessons/37_multi-modal-agent/output-wan-text-to-video.mp4
+/lessons/37_multi-modal-agent/output-wan-image-to-video.mp4
+/output-wan-text-to-image.png
+/output-wan-image-edit.png
+/output-wan-text-to-video.mp4
+/output-wan-image-to-video.mp4
+
 .pnpm-store/
 
 # Large binary files

@@ -18,7 +18,7 @@
 | 01 DeepAgents                | `src/01_deepagents/03-memory-agent.mjs`        | `src/deepagents/memory-agent.mjs`        |
 | 01 DeepAgents                | `src/01_deepagents/04-summarization-agent.mjs` | `src/deepagents/summarization-agent.mjs` |
 
-排序前缀只表达学习顺序，没有改变原文 basename 的语义主体。配套 workspace 和 output 随 DeepAgents 阶段一起移动，避免资源目录与入口分离。
+排序前缀只表达学习顺序，没有改变原文 basename 的语义主体。workspace 和 output 是不随仓库提供的运行产物；memory 示例会为缺失的初始记忆文件创建内容。
 
 ## 公共代码抽离
 

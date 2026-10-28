@@ -82,13 +82,13 @@ vite-project/
 
 | 未编号项 | 例外依据 |
 | --- | --- |
-| `src/tool-file-write.mjs` | 示例 01 的运行产物（内容与示例 01 相同），同时是示例 01 的写入目标路径，保留原名以便复现写文件链路 |
+| `src/tool-file-write.mjs` | 示例 01 的运行产物和写入目标，不随仓库提供，运行后生成并被 Git 忽略 |
 | `src/04-mcp/route.md` | 一次 MCP 任务留下的输出结果（路线规划文本），不是示例脚本 |
-| `react-todo-app/` | 独立完整应用（示例 03 生成并由 Agent 写入的 TodoList），保留框架约定目录与文件名 |
-| `vite-project/` | `create-vite` 默认脚手架基线，用于与 `react-todo-app` 对比，保留框架目录结构 |
+| `react-todo-app/` | 示例 03 的运行产物，位于运行时工作目录，不随仓库提供并被 Git 忽略 |
+| `vite-project/` | 保留的 `create-vite` 默认脚手架基线 |
 | `src/_shared/all-tools.mjs` | 公共模块，不参与示例编号 |
 
-独立应用不参与编号，因此其内部阅读顺序在 README 第 2 节明确写出（`react-todo-app`：`App.tsx` → `App.css` → `main.tsx` → `index.html`）。
+生成项目不参与编号；本地已有产物时，可按 README 中的顺序阅读。
 
 ## 7. 公共代码抽离结果
 
@@ -188,7 +188,7 @@ OK  src/04-mcp/03-mcp-test.mjs
 ## 14. 降级复习说明
 
 - 原文没有提供 fallback，用户也未要求新增，因此**本课没有新增 fallback 示例文件**。
-- 外部服务不可用时的最小复习路径（README 4.5 已写明）：只读 00 → 01 理解消息角色与 tool 循环；无模型 API 时只做语法检查并手写 tool 循环主干；不运行示例 03（改为阅读 `react-todo-app/src/App.tsx`）；先跑 04-01 + 04-02，多源 MCP 部分按配置阅读。
+- 外部服务不可用时的最小复习路径：只读 00 → 01 理解消息角色与 tool 循环；无模型 API 时只做语法检查并手写 tool 循环主干；阅读示例 03 的提示词与工具循环；先跑 04-01 + 04-02，多源 MCP 部分按配置阅读。
 
 ## 15. 图片处理结果
 
@@ -201,7 +201,7 @@ OK  src/04-mcp/03-mcp-test.mjs
 
 - [ ] `@lessons/shared` 未写进本课 `package.json` 依赖（`12_output-parser-test`、`13_mini_cursor`、`14_prompt-template-test` 同样未声明），当前依赖根 workspace 解析。如需规范声明，应同时更新根锁文件。
 - [ ] `lessons/13_mini_cursor/src/test/03-all-tools.mjs` 被同目录 `04-stream-mini-cursor.mjs` 以相对路径 import，与本课整理后的做法不一致；`13_mini_cursor` 还用未编号的 `src/test/` 作为阶段目录。本轮只报告，不修改其他课程。
-- [ ] `vite-project/` 与 `react-todo-app/` 脚手架重复，是否保留作为「基线对照」需要你确认；删除它将影响 pnpm workspace 成员与锁文件。
+- `vite-project/` 是保留的脚手架基线；`react-todo-app/` 是不跟踪的运行产物。
 - [ ] 根 `.env.example` 建议补 `AMAP_MAPS_API_KEY`、`ALLOWED_PATHS`。
 - [ ] 示例 03 的危险动作（删除目录、启动服务）建议后续加白名单与目录隔离（README 待办已记录）。
 

@@ -20,10 +20,10 @@ lessons/31_deep-research-assistant/
     02-cli.mjs                       # 流式事件和产物展示入口
     03-todo-middleware-test.mjs      # createAgent + todoListMiddleware 对照实验
     04-max-input-tokens-test.mjs     # 上下文压缩阈值配置实验
-  workspace/
+  workspace/                         # 运行生成，不随仓库提供
     sources/                          # question、research plan、findings、analysis
     reports/                          # 草稿和终稿示例
-  conversation_history/              # 历史会话归档，供上下文压缩复习
+  conversation_history/              # 运行生成的历史会话归档
 ```
 
 ## 推荐复习顺序
@@ -36,7 +36,7 @@ lessons/31_deep-research-assistant/
 | 03 | `src/03-todo-middleware-test.mjs` | 对照理解 `createAgent` + `todoListMiddleware` 如何读写 todo state | 需要模型 API | 模型 API |
 | 04 | `src/04-max-input-tokens-test.mjs` | 理解通过 `model.profile.maxInputTokens` 影响上下文压缩阈值 | 不需要调用模型 | 无 |
 
-配套阅读顺序：先读 `AGENTS.md`，再读 `skills/web-research/SKILL.md` 和 `skills/report-writer/SKILL.md`，最后查看 `workspace/sources/` 和 `workspace/reports/`，把文件传递链路串起来。
+配套阅读顺序：先读 `AGENTS.md`，再读 `skills/web-research/SKILL.md` 和 `skills/report-writer/SKILL.md`，根据源码理解 `workspace/sources/` 和 `workspace/reports/` 的文件传递链路。调研产物和会话归档由运行生成，不随仓库提供且被 Git 忽略。
 
 ## 环境变量
 
@@ -112,7 +112,7 @@ LangSmith 不是运行前置条件。只有配置 `LANGCHAIN_API_KEY`、`LANGCHA
 2. 看 `src/01-agent.mjs`，重点追踪 `createDeepAgent` 的 `backend`、`memory`、`skills` 和 `subagents` 配置。
 3. 对照 `skills/web-research/SKILL.md`、`skills/report-writer/SKILL.md` 和 `AGENTS.md`，理解 prompt 规则如何分层注入。
 4. 看 `src/02-cli.mjs`，把 `model_request -> tools -> task/eval/file tool` 事件流画出来。
-5. 最后阅读 `workspace/sources/` 与 `workspace/reports/`，理解子 Agent 通过文件交接，而不是依赖对话历史。
+5. 根据 Agent 提示词理解 `workspace/sources/` 与 `workspace/reports/` 的文件交接；本地已有产物时可对照阅读。
 6. 用 `src/03-todo-middleware-test.mjs` 和 `src/04-max-input-tokens-test.mjs` 补足 todo state 与上下文压缩两个横切能力。
 
 ## 关键结论
@@ -128,7 +128,7 @@ LangSmith 不是运行前置条件。只有配置 `LANGCHAIN_API_KEY`、`LANGCHA
 ## 常见问题
 
 - `未设置 OPENAI_API_KEY`：检查根目录 `.env`，不要把 key 写进 lesson 文件。
-- `Bocha 联网搜索的 API Key 未配置`：配置 `BOCHA_API_KEY`；没有它时可以跳过真实搜索，继续静态阅读工具和 findings 文件。
+- `Bocha 联网搜索的 API Key 未配置`：配置 `BOCHA_API_KEY`；没有它时可以跳过真实搜索，继续静态阅读工具和 Agent 提示词。
 - `Recursion limit`：提高根 `.env` 的 `RECURSION_LIMIT`，同时检查模型是否重复调用工具或反复更新 todo。
 - `ERR_MODULE_NOT_FOUND`：确认使用仓库根工作区依赖，并从仓库根完成依赖安装；不要在 lesson 内单独安装。
 - 没有生成报告：先检查模型是否完成 `research_plan.md`、findings、草稿、编辑和终稿各阶段，以及 `workspace/` 的虚拟路径是否正确。

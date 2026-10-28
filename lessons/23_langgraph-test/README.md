@@ -44,7 +44,7 @@ npm --prefix lessons/23_langgraph-test run demo:sqlite
 npm --prefix lessons/23_langgraph-test run demo:interrupt
 ```
 
-`demo:interrupt` 会等待终端输入。`demo:sqlite` 会在 `src/_shared/` 生成本地数据库文件，并在每次运行前清空旧演示状态，使输出可重复。
+`demo:interrupt` 会等待终端输入。`demo:sqlite` 会在 `src/_shared/` 生成被 Git 忽略的本地数据库文件，并在每次运行前清空旧演示状态，使输出可重复。
 
 ### 3. 需要模型 API
 

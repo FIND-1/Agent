@@ -6,7 +6,13 @@ import {
   createMemoryMiddleware,
   FilesystemBackend,
 } from "deepagents";
-import { readTextFile, resolveFromModule } from "../_shared/filesystem.mjs";
+import {
+  ensureDirectory,
+  pathExists,
+  readTextFile,
+  resolveFromModule,
+  writeTextFile,
+} from "../_shared/filesystem.mjs";
 
 const workspaceDir = resolveFromModule(import.meta.url, "workspace-memory");
 const projectMemoryPath = "/AGENTS.md";
@@ -21,6 +27,17 @@ const preferencesMemoryPath = "/memory/preferences.md";
 for (const name of ["OPENAI_API_KEY", "OPENAI_BASE_URL", "MODEL_NAME"]) {
   if (!process.env[name]) {
     throw new Error(`根目录 .env 缺少 ${name}，无法创建 ChatModel`);
+  }
+}
+
+// 仅首次创建初始记忆；已有的 Agent 记忆不覆盖。
+ensureDirectory(resolveFromModule(import.meta.url, "workspace-memory", "memory"));
+for (const [relativePath, initialContent] of [
+  ["AGENTS.md", "# 项目说明\n\n- 主入口脚本：src/01_deepagents/03-memory-agent.mjs\n"],
+  ["memory/preferences.md", "# 用户个人偏好\n"],
+]) {
+  if (!pathExists(resolveFromModule(import.meta.url, "workspace-memory", relativePath))) {
+    writeTextFile(workspaceDir, relativePath, initialContent);
   }
 }
 
