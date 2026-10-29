@@ -1,0 +1,32 @@
+{
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "amap-mcp-api-key",
+      "description": "高德地图 MCP API Key",
+      "password": true
+    }
+  ],
+  "servers": {
+    "lesson-01-my-mcp-server": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "${workspaceFolder}/lessons/01_tool-test/src/04-mcp/01-my-mcp-server.mjs"
+      ]
+    },
+    "lesson-01-amap": {
+      "type": "http",
+      "url": "https://mcp.amap.com/mcp?key=${input:amap-mcp-api-key}"
+    },
+    "lesson-01-filesystem": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "${workspaceFolder}/lessons/01_tool-test/src/04-mcp"
+      ]
+    }
+  }
+}

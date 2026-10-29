@@ -77,6 +77,12 @@ node src/04-mcp/02-langchain-mcp-test.mjs
 node src/04-mcp/03-mcp-test.mjs        # 另需 AMAP_MAPS_API_KEY / ALLOWED_PATHS
 ```
 
+#### 在 VS Code 中使用本课 MCP Server
+
+以仓库根目录作为 VS Code 工作区时，`.vscode/mcp.json` 已注册本课的 stdio MCP Server。打开该配置文件并点击服务器上方的 **Start**，或通过命令面板运行 **MCP: List Servers** 选择并启动它；随后可在支持 MCP 的聊天中选择工具，例如询问“查询 ID 为 001 的用户”。需要本机可用的 Node.js 和已安装的项目依赖，不需要为这个 Server 配置模型 API Key。工具修改的是进程内模拟数据，服务器重启后会重置。
+
+示例 04-03 是 MCP 客户端，不是新的 MCP Server。配置中还提供高德地图和 filesystem：高德启动时由 VS Code 提示输入 API Key；filesystem 默认只允许访问本课 `src/04-mcp/`，具有该目录的读写能力，首次启动可能需要联网下载。客户端的路径白名单可按需修改。该 VS Code 配置不等同于 Cline 的 MCP 配置；Cline 需要在自己的 MCP 设置中注册服务。
+
 ### 4.4 需要外部服务或网络
 
 - 示例 02 / 03：`npx create-vite`、`npm install` 需要网络。
