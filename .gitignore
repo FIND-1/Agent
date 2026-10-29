@@ -64,6 +64,7 @@ Thumbs.db
 /output-wan-image-to-video.mp4
 
 .pnpm-store/
+/.pnpm-dependency-backup/
 
 # Large binary files
 *.epub

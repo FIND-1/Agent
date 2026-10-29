@@ -4,7 +4,7 @@
 # 构建阶段：需要 devDependencies（含 @nestjs/cli、TypeScript）才能执行 nest build。
 FROM node:24.15-alpine AS builder
 WORKDIR /app
-COPY package*.json ./
+COPY package.docker.json ./package.json
 RUN npm config set registry https://registry.npmmirror.com/
 RUN npm install
 COPY . .
@@ -14,7 +14,7 @@ RUN npm run build
 FROM node:24.15-alpine
 ENV NODE_ENV=production
 WORKDIR /app
-COPY package*.json ./
+COPY package.docker.json ./package.json
 RUN npm config set registry https://registry.npmmirror.com/
 RUN npm install --production
 COPY --from=builder /app/dist ./dist

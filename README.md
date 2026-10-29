@@ -88,9 +88,7 @@ pnpm install --frozen-lockfile
 
 ### Manage dependencies
 
-This repository is a pnpm workspace: every `package.json` under `lessons/` is a workspace member. A plain `pnpm add -w <pkg>` (or any full `pnpm install` / `pnpm update`) at the root installs the **entire workspace** and recreates a `node_modules` directory inside every lesson that declares dependencies.
-
-To add a new dependency to the root `package.json` only — without touching lesson `node_modules` — filter on the root package:
+This repository is a pnpm workspace. Dependencies for the tracked lessons are declared in the root `package.json` and installed into the root `node_modules`. Lesson manifests retain their names and scripts, so `pnpm --filter <lesson> run <script>` continues to work. Add or remove dependencies at the workspace root:
 
 ```bash
 # add a runtime dependency to the root package
@@ -105,9 +103,9 @@ pnpm --filter agent-engineering-lab remove <pkg>
 
 Notes:
 
-- Root dependencies are resolved by lesson scripts through normal Node upward resolution, so lessons can import packages that are only installed at the root.
-- Lesson-specific or heavyweight dependencies (for example SDKs for Milvus, Elasticsearch, or Tencent Cloud) should be declared in that lesson's `package.json` and installed with `pnpm --filter <lesson-package-name> add <pkg>` instead of being added to the root.
-- Lessons that must run standalone (such as the Dockerfile or Vercel deployment lessons) keep their own dependencies; install them individually when working on those lessons.
+- Lesson scripts resolve dependencies through Node's normal upward resolution. Do not run dependency installation in individual lessons or add dependencies to lesson manifests; either operation can recreate a lesson `node_modules`.
+- The lesson 25 Docker example uses `package.docker.json` because its container build context cannot read the root manifest. Keep its dependency versions aligned with the root manifest.
+- A separately cloned project at `lessons/32_pgsql-test/typeorm-pg-crud`, if present, is excluded from this workspace and manages its own dependencies.
 
 ### Run the root demo
 

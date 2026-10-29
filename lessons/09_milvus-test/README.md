@@ -25,7 +25,7 @@
 
 脚本目前将 Milvus 地址固定为 `localhost:19530`；Docker、Milvus 和可用模型 API 均由外部提供。原文提到的 [Milvus releases](https://github.com/milvus-io/milvus/releases) Compose 配置和 Attu 是外部准备项；其 `docker compose -f ./milvus-standalone-docker-compose.yml up -d` 与 `http://localhost:9091/healthz` 仅作为原文参考，仓库没有提供该配置，也未验证。Attu 可用于观察集合，并非脚本依赖。MySQL 双写在文章中是架构设想，本课没有实现或验证。
 
-依赖统一由仓库根目录管理，不在子课程安装。课程 `package.json` 列出了 SDK、LangChain 和电子书依赖；当前根包已有 Milvus SDK、community 和共享模型依赖，但未直接声明 `@langchain/textsplitters`、`epub2`、`html-to-text`，当前环境也无法从根目录解析它们；电子书写入需要先在根目录补齐相关依赖并安装。根目录 SDK 为 3.x，课程包声明 2.x；以实际安装版本和兼容性验证结果为准，本次未做联调。
+依赖统一由仓库根目录管理，不在子课程安装。根包包含 Milvus SDK、LangChain、文本切分器和电子书解析依赖；SDK 统一使用 3.x。Milvus、电子书写入和模型接口需要外部环境，本次未做联调。
 
 ### 语法检查：不需要 API Key 或服务
 

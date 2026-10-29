@@ -5,7 +5,7 @@ FROM node:24.15-alpine
 WORKDIR /app
 
 # 先复制依赖清单，让源码变化时仍可复用依赖安装层。
-COPY package*.json ./
+COPY package.docker.json ./package.json
 RUN npm config set registry https://registry.npmmirror.com/
 RUN npm install
 RUN npm install -g @nestjs/cli

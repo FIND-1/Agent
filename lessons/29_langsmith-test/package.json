@@ -10,17 +10,5 @@
     "ask": "node src/02_rag/cli.mjs",
     "eval:dataset": "node src/03_eval/build_dataset.mjs",
     "eval:run": "node src/03_eval/run_eval.mjs"
-  },
-  "dependencies": {
-    "@lessons/shared": "workspace:*",
-    "@langchain/community": "^0.3.28",
-    "@langchain/core": "^0.3.37",
-    "@langchain/langgraph": "^0.2.57",
-    "@langchain/openai": "^0.4.2",
-    "@langchain/textsplitters": "^0.1.0",
-    "@zilliz/milvus2-sdk-node": "^2.5.5",
-    "dotenv": "^16.4.7",
-    "langsmith": "^0.3.12",
-    "openevals": "^0.2.0"
   }
 }

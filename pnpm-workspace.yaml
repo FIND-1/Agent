@@ -1,6 +1,13 @@
 packages:
   - 'lessons/*'
   - 'lessons/*/*'
+  # 单独克隆的第三方项目有自己的依赖和 Git 状态，不纳入本仓库安装。
+  - '!lessons/32_pgsql-test/typeorm-pg-crud'
+
+nodeLinker: hoisted
+
+overrides:
+  which-typed-array: 1.1.22
 
 allowBuilds:
   '@google/genai': true

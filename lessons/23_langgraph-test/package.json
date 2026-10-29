@@ -14,14 +14,5 @@
     "demo:tool-node": "node src/06-prebuilt-tool-node.mjs",
     "demo:agent": "node src/07-prebuilt-agent.mjs",
     "demo:supervisor": "node src/08-multi-agent-supervisor.mjs"
-  },
-  "dependencies": {
-    "@langchain/core": "^1.1.48",
-    "@langchain/langgraph": "^1.4.9",
-    "@langchain/langgraph-checkpoint-sqlite": "^1.0.3",
-    "@langchain/langgraph-supervisor": "^1.1.1",
-    "@lessons/shared": "workspace:*",
-    "langchain": "^1.4.4",
-    "zod": "^4.4.3"
   }
 }

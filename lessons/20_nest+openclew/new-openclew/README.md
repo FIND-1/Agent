@@ -83,7 +83,7 @@ pnpm start:dev
 http://localhost:3000
 ```
 
-如果在全新环境里出现 `Cannot find module`，优先核对 `package.json` 是否已经包含源码使用到的依赖，例如：
+如果在全新环境里出现 `Cannot find module`，优先核对仓库根 `package.json` 是否已经包含源码使用到的依赖，例如：
 
 - `@langchain/core`
 - `@langchain/openai`

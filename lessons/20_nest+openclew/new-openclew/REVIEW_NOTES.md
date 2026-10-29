@@ -309,4 +309,4 @@ SchedulerRegistry 到点触发
 
 如果只复习 Nest 和 tool 结构，可以先不真实调用搜索和邮件；如果要完整验证自然语言任务，需要把这些外部配置补齐。
 
-当前 `package.json` 依赖声明看起来没有完全覆盖源码 import。若 clean install 后构建失败，先核对 TypeORM、LangChain、zod、class-validator、mysql2 等依赖是否已列入并安装，再判断代码逻辑。
+依赖由仓库根 `package.json` 统一声明。若 clean install 后构建失败，先核对 TypeORM、LangChain、zod、class-validator、mysql2 等根依赖是否已安装，再判断代码逻辑。

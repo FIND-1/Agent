@@ -142,7 +142,7 @@
 
 - `_shared/` 抽离结果：未新增；模型工厂和 env loader 复用仓库级 `@lessons/shared/*`，本 lesson 不需要空置的 `_shared/`。
 - lessons 子课程复习文档：通过，根目录仅有 `README.md`、`REVIEW_NOTES.md` 两份复习文档；`AGENTS.md` 是项目指令文件，不属于讲义文档。
-- lesson 独立依赖：通过，未在 `lessons/31_deep-research-assistant` 下生成 `node_modules`；依赖规格已存在于 lesson `package.json`，实际安装由根工作区维护。
+- lesson 依赖由根 `package.json` 统一声明和安装，课程配置保留脚本。
 - 编号示例 import：保留原始调用链例外。`02-cli.mjs -> 01-agent.mjs -> tools/00-search.mjs` 均已通过 import 检查，且 `isMain` 守卫避免导入副作用；详细原因见“公共代码抽离检查”。
 - README 依赖分类：已区分语法检查、无需 API Key、需要 Bocha、需要模型 API、可选 LangSmith 和降级复习路径。
 - `package.json` / 环境变量说明：已补齐脚本和根目录 `.env` 说明。

@@ -128,7 +128,7 @@ curl.exe -H 'Authorization: Bearer invalid-token' http://localhost:3000/jwt-test
 - node --check eslint.config.mjs 通过；src 无 mjs，带装饰器的 TypeScript 已由 tsc 检查。
 - 未启动任何服务、未运行 curl/E2E，未操作已有进程或端口。
 - 课程根 Markdown 仅 README.md、REVIEW_NOTES.md。两份 curl 资料已合并，旧文件名仅留在原文映射。
-- 本课程不存在 node_modules；使用根依赖，没有安装或升级依赖。package.json 和依赖分组说明齐全，PORT 的环境来源已说明。
+- 本课程复用根目录依赖，课程 `package.json` 保留应用脚本，PORT 的环境来源已说明。
 - 无空 _shared，无编号示例互相 import。完整应用保留框架命名，无独立脚本待编号，编号连续性/宽度不适用。
 - 无新增 fallback；已有不启动服务的降级复习路径。原有源码注释保留，错误结论在笔记和相邻注释中补充说明。
 

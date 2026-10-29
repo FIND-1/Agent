@@ -15,12 +15,5 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
-  "dependencies": {
-    "@langchain/langgraph": "^1.4.9",
-    "@lessons/shared": "workspace:*",
-    "deepagents": "^1.13.2",
-    "langchain": "^1.5.10",
-    "zod": "^4.4.3"
-  }
+  "type": "module"
 }

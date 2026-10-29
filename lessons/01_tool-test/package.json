@@ -11,19 +11,10 @@
     "mcp:server": "node src/04-mcp/01-my-mcp-server.mjs",
     "mcp:client": "node src/04-mcp/02-langchain-mcp-test.mjs",
     "mcp:multi": "node src/04-mcp/03-mcp-test.mjs",
-    "check": "node --check src/00-hello-langchain.mjs && node --check src/01-tool-file-read.mjs && node --check src/02-node-exec.mjs && node --check src/03-mini-cursor.mjs && node --check src/_shared/all-tools.mjs && node --check src/tool-file-write.mjs && node --check src/04-mcp/01-my-mcp-server.mjs && node --check src/04-mcp/02-langchain-mcp-test.mjs && node --check src/04-mcp/03-mcp-test.mjs",
+    "check": "node --check src/00-hello-langchain.mjs && node --check src/01-tool-file-read.mjs && node --check src/02-node-exec.mjs && node --check src/03-mini-cursor.mjs && node --check src/_shared/all-tools.mjs && node --check src/04-mcp/01-my-mcp-server.mjs && node --check src/04-mcp/02-langchain-mcp-test.mjs && node --check src/04-mcp/03-mcp-test.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@langchain/core": "^1.1.40",
-    "@langchain/mcp-adapters": "^1.1.3",
-    "@langchain/openai": "^1.4.4",
-    "@modelcontextprotocol/sdk": "^1.29.0",
-    "chalk": "^5.6.2",
-    "dotenv": "^17.4.2",
-    "zod": "^4.3.6"
-  }
+  "license": "ISC"
 }

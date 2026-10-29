@@ -11,11 +11,5 @@
     "demo:multihop": "node src/02-multihop-rag.mjs",
     "demo:web": "node src/03-web-fallback-rag.mjs",
     "demo:fallback": "node src/04-local-fallback-rag.mjs"
-  },
-  "dependencies": {
-    "@langchain/community": "^1.1.29",
-    "@langchain/langgraph": "^1.4.9",
-    "@lessons/shared": "workspace:*",
-    "zod": "^4.4.3"
   }
 }

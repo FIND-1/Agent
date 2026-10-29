@@ -199,7 +199,7 @@ OK  src/04-mcp/03-mcp-test.mjs
 
 ## 16. Gap 与后续注意
 
-- [ ] `@lessons/shared` 未写进本课 `package.json` 依赖（`12_output-parser-test`、`13_mini_cursor`、`14_prompt-template-test` 同样未声明），当前依赖根 workspace 解析。如需规范声明，应同时更新根锁文件。
+- `@lessons/shared` 由根工作区统一声明和安装，课程脚本通过根目录依赖解析。
 - [ ] `lessons/13_mini_cursor/src/test/03-all-tools.mjs` 被同目录 `04-stream-mini-cursor.mjs` 以相对路径 import，与本课整理后的做法不一致；`13_mini_cursor` 还用未编号的 `src/test/` 作为阶段目录。本轮只报告，不修改其他课程。
 - `vite-project/` 是保留的脚手架基线；`react-todo-app/` 是不跟踪的运行产物。
 - [ ] 根 `.env.example` 建议补 `AMAP_MAPS_API_KEY`、`ALLOWED_PATHS`。
