@@ -175,7 +175,6 @@ Loader 加载来源
 | Milvus | `09_milvus-test` / `14_prompt-template-test` | `01-query.mjs`、`07-ebook-reader-rag.mjs`、`11-semantic-example-selector-milvus.mjs` |
 | Runnable | `15_runnable-test` | `00-before.mjs` 到 `09-runnable-with-message-history.mjs` |
 | LCEL chain | `16_LCEL-chain` | `01-case/*`、`02-runnable/*` |
-| React todo | `02_react-todo` | 待人工确认 |
 
 ## 知识点依赖关系
 
@@ -208,4 +207,3 @@ PromptTemplate + ChatModel + OutputParser + Tool + Retriever
 7. `09_milvus-test`：再看 Milvus 如何把 RAG 变成可扩展存储。
 8. `15_runnable-test`：复习 Runnable 基础 API。
 9. `16_LCEL-chain`：最后把 tool 和 RAG 用 LCEL 串起来。
-10. `02_react-todo`：仅作为低优先级补充，待人工确认是否纳入 LangChain 第一阶段主线。

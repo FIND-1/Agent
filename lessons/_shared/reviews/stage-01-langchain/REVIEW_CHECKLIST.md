@@ -187,7 +187,6 @@
 
 ## 四、后续 TODO
 
-- `02_react-todo` 是否纳入第一阶段 LangChain 主线，待人工确认。
 - `12_output-parser-test` 和 `13_mini_cursor` 的边界，待人工确认；当前 `13_mini_cursor/README.md` 同时覆盖 structured output 和 mini cursor。
 - docx 中部分图片代码来自截图，无法保证逐字准确；需要以 lesson 源码和当前 LangChain 文档为准核验。
 - Milvus 相关 demo 需要本地服务环境、collection、embedding 维度一致，才能完整验证。

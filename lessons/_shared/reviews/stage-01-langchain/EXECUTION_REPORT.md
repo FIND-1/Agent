@@ -68,7 +68,6 @@
 
 有。
 
-- `02_react-todo` 与 docx 的 LangChain 主线没有直接对应，只能低优先级关联，待人工确认。
 - `12_output-parser-test` 没有独立 README；`13_mini_cursor/README.md` 同时覆盖 structured output、MySQL 落地和 mini cursor，两个 lesson 的文档边界待人工确认。
 - docx 中出现 `ChatAnthropic`、`ChatGoogleGenerativeAI`、`ChatDeepSeek` 等专用模型示例，但当前项目代码主要通过 `ChatOpenAI` 和 OpenAI-compatible 配置调用，专用模型示例仅作为概念关联。
 
@@ -77,7 +76,6 @@
 本次没有修改任何 lesson 源码目录，包括：
 
 - `lessons/01_tool-test`
-- `lessons/02_react-todo`
 - `lessons/06_rag-test`
 - `lessons/09_milvus-test`
 - `lessons/11_memory-test`

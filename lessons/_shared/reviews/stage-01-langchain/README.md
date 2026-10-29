@@ -9,7 +9,6 @@
 | lesson | 对应主题 | 关联强度 | 说明 |
 | --- | --- | --- | --- |
 | `01_tool-test` | tool / tool_call / bindTools / MCP | 高 | 对应 docx 中工具定义、`bindTools`、`ToolMessage` 循环、MCP 工具复用。 |
-| `02_react-todo` | React todo 示例 | 低 | docx 主线几乎不讲 React todo，仅可作为早期前端练习背景，标记为待人工确认。 |
 | `06_rag-test` | RAG / loader / splitter / MemoryVectorStore | 高 | 对应 RAG 的 load、split、embed、store、retrieve、generate 流程。 |
 | `09_milvus-test` | Milvus / 向量数据库 / similarity search | 高 | 对应 Milvus 检索、余弦相似度、电子书阅读助手。 |
 | `11_memory-test` | memory / 对话历史 / 长时记忆 | 高 | 对应 ChatMessageHistory、截断、总结、检索三类 memory 策略。 |
@@ -49,6 +48,5 @@
 
 ## 本次不确定项
 
-- `02_react-todo` 与 docx 主线没有直接对应，低优先级关联，待人工确认。
 - `12_output-parser-test` 没有单独 README，`13_mini_cursor/README.md` 同时覆盖了 structured output 和 mini cursor，lesson 12/13 的文档边界待人工确认。
 - docx 中图片较多，部分终端截图或 UI 截图只适合识别大意；无法逐字保证截图代码完全准确。
